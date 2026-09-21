@@ -18,7 +18,13 @@ graphify-out/
 *.sqlite3
 *.db
 
-# Local audit output; the reviewed, static evidence reports remain versioned
+# Workspace-bound reports are regenerated for each checkout by the release flow
+artifacts/deployment-readiness-report.json
+artifacts/deployment-smoke-report.json
+artifacts/final-acceptance-gate.json
+artifacts/review-package.json
+
+# Local audit output
 artifacts/read-audit.jsonl*
 
 # Generated release copies and iterative package builds

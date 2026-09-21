@@ -66,6 +66,29 @@ jobs:
           Push-Location $env:RUNNER_TEMP
           try { python (Join-Path $workspace "scripts\verify_reproducibility.py") --check-installed }
           finally { Pop-Location }
+      - name: Prepare local candidate before integration tests
+        shell: pwsh
+        run: |
+          $workspace = $env:GITHUB_WORKSPACE
+          $store = Join-Path $workspace ".pmiri-sqlite"
+          $control = Join-Path $workspace ".pmiri-control\control.db"
+          $smokeReport = Join-Path $workspace "artifacts\deployment-smoke-report.json"
+          Push-Location $env:RUNNER_TEMP
+          try {
+            python -m pmiri.cli init $store --backend sqlite
+            if ($LASTEXITCODE -ne 0) { throw "SQLite candidate initialization failed: $LASTEXITCODE" }
+            python -m pmiri.cli init-control-plane $control
+            if ($LASTEXITCODE -ne 0) { throw "Control-plane candidate initialization failed: $LASTEXITCODE" }
+            python -m pmiri.cli deployment-smoke $workspace --output $smokeReport
+            if ($LASTEXITCODE -ne 0) { throw "Pre-test deployment smoke failed: $LASTEXITCODE" }
+          }
+          finally { Pop-Location }
+          $pythonPath = (Get-Command python -ErrorAction Stop).Source
+          & (Join-Path $workspace "scripts\create_release_candidate.ps1") `
+            -ProjectRoot $workspace `
+            -PythonPath $pythonPath `
+            -SkipTests
+          if ($LASTEXITCODE -ne 0) { throw "Pre-test candidate preparation failed: $LASTEXITCODE" }
       - name: Run tests
         shell: pwsh
         run: |
