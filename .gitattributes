@@ -1,3 +1,4 @@
 *.py text eol=lf
 *.md text eol=lf
 *.ps1 text eol=lf
+PMIRI_ALL_DOCUMENTATION_CHECKPOINT_17/GATE-D-R2/*.json text eol=lf
