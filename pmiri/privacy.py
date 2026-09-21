@@ -71,16 +71,47 @@ def _key_file_lock(path: Path) -> Iterator[None]:
     """Serialize per-domain key reads/creation across threads and processes."""
 
     with _thread_lock_for_key_path(path):
-        lock_path = path.with_suffix(path.suffix + ".lock")
+        # On Windows ``msvcrt.locking`` requires an existing byte range.  Do
+        # not create the shared lock file and write its sentinel through the
+        # same descriptor that other workers may already be locking: a second
+        # worker can otherwise race into ``os.write`` and receive
+        # ``PermissionError``.  Publish a fully initialized one-byte file via
+        # an atomic rename, then open the stable path for byte-range locking.
+        lock_suffix = ".lock.v2" if os.name == "nt" else ".lock"
+        lock_path = path.with_suffix(path.suffix + lock_suffix)
         lock_path.parent.mkdir(parents=True, exist_ok=True)
-        descriptor = os.open(str(lock_path), os.O_CREAT | os.O_RDWR, 0o600)
+        if os.name == "nt" and not lock_path.exists():
+            initializer = lock_path.with_name(
+                lock_path.name
+                + ".init-"
+                + str(os.getpid())
+                + "-"
+                + str(threading.get_ident())
+                + "-"
+                + secrets.token_hex(8)
+            )
+            init_descriptor = os.open(str(initializer), os.O_CREAT | os.O_EXCL | os.O_RDWR, 0o600)
+            try:
+                os.write(init_descriptor, b"0")
+                os.fsync(init_descriptor)
+            finally:
+                os.close(init_descriptor)
+            try:
+                os.rename(str(initializer), str(lock_path))
+            except FileExistsError:
+                pass
+            finally:
+                try:
+                    os.unlink(initializer)
+                except FileNotFoundError:
+                    pass
+        descriptor_flags = os.O_RDWR if os.name == "nt" else os.O_CREAT | os.O_RDWR
+        descriptor = os.open(str(lock_path), descriptor_flags, 0o600)
         locked = False
         try:
             if os.name == "nt":
                 import msvcrt
 
-                if os.fstat(descriptor).st_size == 0:
-                    os.write(descriptor, b"0")
                 os.lseek(descriptor, 0, os.SEEK_SET)
                 msvcrt.locking(descriptor, msvcrt.LK_LOCK, 1)
                 locked = True
