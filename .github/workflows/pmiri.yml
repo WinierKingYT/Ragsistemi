@@ -144,6 +144,12 @@ jobs:
             if (($finalBlocked -join ",") -ne ($finalExpected -join ",")) { throw "unexpected blocked final acceptance checks: $($finalBlocked -join ',')" }
             python -m pmiri.cli review-package $workspace --output $reviewPackage
             if ($LASTEXITCODE -ne 0) { throw "review package validation failed" }
+            $pythonPath = (Get-Command python -ErrorAction Stop).Source
+            & (Join-Path $workspace "scripts\create_release_candidate.ps1") `
+              -ProjectRoot $workspace `
+              -PythonPath $pythonPath `
+              -SkipTests
+            if ($LASTEXITCODE -ne 0) { throw "post-test candidate refresh failed" }
             python -m pmiri.cli handoff $workspace --output $handoffRoot
             if ($LASTEXITCODE -ne 0) { throw "handoff materialization failed" }
             $handoffManifest = Join-Path $handoffRoot "handoff-manifest.json"

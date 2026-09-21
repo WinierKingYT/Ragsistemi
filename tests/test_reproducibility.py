@@ -42,6 +42,8 @@ class ReproducibilityTests(unittest.TestCase):
             "$finalGateExit = $LASTEXITCODE",
             "FINAL_ACCEPTANCE_BLOCKED",
             "python -m pmiri.cli review-package $workspace --output $reviewPackage",
+            '$handoffRoot = Join-Path $workspace "artifacts\\handoff-ci"',
+            '& (Join-Path $workspace "scripts\\create_release_candidate.ps1")',
             "python -m pmiri.cli handoff $workspace --output $handoffRoot",
             "from pmiri.handoff import verify_handoff",
             "verify_handoff(r'$handoffManifest', project_root=r'$workspace')",
@@ -69,6 +71,10 @@ class ReproducibilityTests(unittest.TestCase):
         )
         self.assertLess(
             workflow.index("python -m pmiri.cli review-package $workspace"),
+            workflow.rindex('& (Join-Path $workspace "scripts\\create_release_candidate.ps1")'),
+        )
+        self.assertLess(
+            workflow.rindex('& (Join-Path $workspace "scripts\\create_release_candidate.ps1")'),
             workflow.index("python -m pmiri.cli handoff $workspace --output $handoffRoot"),
         )
 
