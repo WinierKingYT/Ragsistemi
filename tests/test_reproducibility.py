@@ -15,7 +15,8 @@ class ReproducibilityTests(unittest.TestCase):
     def test_ci_workflow_preserves_release_gates(self):
         workflow = (Path(__file__).parents[1] / ".github" / "workflows" / "pmiri.yml").read_text(encoding="utf-8")
         required_fragments = (
-            "python -m pip install --requirement requirements.lock",
+            "python scripts/verify_supply_chain.py --lock artifacts/vm-offline-requirements-hashed.lock --artifact-dir artifacts/vm-offline-packages",
+            "python -m pip install --no-index --find-links artifacts/vm-offline-packages --requirement artifacts/vm-offline-requirements-hashed.lock",
             "python -m pip wheel --no-deps --no-build-isolation .",
             "SOURCE_DATE_EPOCH: \"946684800\"",
             "pmiri-wheel-a",
