@@ -75,6 +75,14 @@ class ReproducibilityTests(unittest.TestCase):
             workflow.index("python -m pmiri.cli readiness $workspace --profile $profile"),
         )
         self.assertLess(
+            workflow.index("python -m pmiri.cli d2-runtime $workspace"),
+            workflow.index("- name: Prepare local candidate before integration tests"),
+        )
+        self.assertLess(
+            workflow.index("python -m pmiri.cli rfc-local $workspace"),
+            workflow.index("- name: Prepare local candidate before integration tests"),
+        )
+        self.assertLess(
             workflow.index("python -m pmiri.cli readiness $workspace --profile $profile"),
             workflow.index("python -m pmiri.cli final-acceptance $workspace"),
         )
