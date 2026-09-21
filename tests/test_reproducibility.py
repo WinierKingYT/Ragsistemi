@@ -33,6 +33,10 @@ class ReproducibilityTests(unittest.TestCase):
             "runpy.run_module('unittest',run_name='__main__')",
             "$smokeReport = Join-Path $workspace \"artifacts\\deployment-smoke-report.json\"",
             "python -m pmiri.cli deployment-smoke $workspace --output $smokeReport",
+            "$report = Join-Path $workspace \"artifacts\\d2-runtime-candidate-report.json\"",
+            "python -m pmiri.cli d2-runtime $workspace --output $report",
+            "$report = Join-Path $workspace \"artifacts\\r-fc-local-handler-candidate-report.json\"",
+            "python -m pmiri.cli rfc-local $workspace --output $report",
             "python -m pmiri.cli init (Join-Path $workspace \".pmiri-sqlite\") --backend sqlite",
             "python -m pmiri.cli init-control-plane (Join-Path $workspace \".pmiri-control\\control.db\")",
             "$reviewPackage = Join-Path $workspace \"artifacts\\review-package.json\"",
@@ -60,6 +64,14 @@ class ReproducibilityTests(unittest.TestCase):
         self.assertIn('finalExpected = @("FA-01", "FA-02", "FA-03", "FA-04", "FA-05", "FA-06")', workflow)
         self.assertLess(
             workflow.index("python -m pmiri.cli deployment-smoke $workspace"),
+            workflow.index("python -m pmiri.cli readiness $workspace --profile $profile"),
+        )
+        self.assertLess(
+            workflow.index("python -m pmiri.cli d2-runtime $workspace"),
+            workflow.index("python -m pmiri.cli readiness $workspace --profile $profile"),
+        )
+        self.assertLess(
+            workflow.index("python -m pmiri.cli rfc-local $workspace"),
             workflow.index("python -m pmiri.cli readiness $workspace --profile $profile"),
         )
         self.assertLess(

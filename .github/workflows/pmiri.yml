@@ -108,6 +108,22 @@ jobs:
           Push-Location $env:RUNNER_TEMP
           try { python -m pmiri.cli deployment-smoke $workspace --output $smokeReport }
           finally { Pop-Location }
+      - name: Run local D2 candidate harness
+        shell: pwsh
+        run: |
+          $workspace = $env:GITHUB_WORKSPACE
+          $report = Join-Path $workspace "artifacts\d2-runtime-candidate-report.json"
+          Push-Location $env:RUNNER_TEMP
+          try { python -m pmiri.cli d2-runtime $workspace --output $report }
+          finally { Pop-Location }
+      - name: Run local R-FC handler harness
+        shell: pwsh
+        run: |
+          $workspace = $env:GITHUB_WORKSPACE
+          $report = Join-Path $workspace "artifacts\r-fc-local-handler-candidate-report.json"
+          Push-Location $env:RUNNER_TEMP
+          try { python -m pmiri.cli rfc-local $workspace --output $report }
+          finally { Pop-Location }
       - name: Bootstrap local candidate for readiness checks
         shell: pwsh
         run: |
