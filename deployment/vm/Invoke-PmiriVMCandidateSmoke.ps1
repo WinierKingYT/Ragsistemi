@@ -18,16 +18,20 @@ foreach ($path in @($isolationScript, $stageScript)) {
     }
 }
 
-$isolationOutput = @(& $isolationScript -VmName $VmName)
-if ($LASTEXITCODE -ne 0) {
+$isolationOutput = @(
+    & PowerShell.exe -NoProfile -ExecutionPolicy Bypass -File $isolationScript -VmName $VmName
+)
+$isolationExitCode = [int]$LASTEXITCODE
+if ($isolationExitCode -ne 0) {
     $isolationOutput | Write-Output
-    throw "VM isolation preflight failed for: $VmName"
+    throw "VM isolation preflight failed for: $VmName (exit code $isolationExitCode)"
 }
 $isolationOutput | Write-Output
 
-& $stageScript -VmName $VmName
-if ($LASTEXITCODE -ne 0) {
-    throw "VM smoke staging failed for: $VmName"
+& PowerShell.exe -NoProfile -ExecutionPolicy Bypass -File $stageScript -VmName $VmName
+$stageExitCode = [int]$LASTEXITCODE
+if ($stageExitCode -ne 0) {
+    throw "VM smoke staging failed for: $VmName (exit code $stageExitCode)"
 }
 
 $expectedHash = (Get-FileHash -LiteralPath (Join-Path $PSScriptRoot 'Smoke-PmiriVMCandidate.ps1') -Algorithm SHA256).Hash
