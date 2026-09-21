@@ -1,0 +1,106 @@
+{
+  "manifest_format": "PMIRI-GC-C1-REPLAY-RUNNER-MANIFEST",
+  "manifest_version": "0.1",
+  "status": "DESIGN_ONLY",
+  "scope": {
+    "gate": "C.1",
+    "implementation_authorization": "NOT_GRANTED",
+    "tests_executed": false,
+    "evidence_schema": "PMIRI_GC-C1-02_EVIDENCE_RECORD.schema.json",
+    "fixture_catalog": "PMIRI_GC-C1-02_REPLAY_FIXTURE_CATALOG.json"
+  },
+  "runner": {
+    "runner_id": "pmiri-gc-c1-replay",
+    "runner_version": "0.1.0",
+    "source_fingerprint": "36017417e8bb94fbb5730f7b0e00a9728c572f1daf1265730dca1c8b7940d851",
+    "manifest_fingerprint": "e0946fb6c4ce07d1e64dd5ba9ff003ff609cb9ee5fc691c5056a29931c272fca",
+    "latest_alias_allowed": false,
+    "self_upgrade_allowed": false
+  },
+  "clean_room": {
+    "fresh_case_root": true,
+    "input_mount": "read_only_allowlist",
+    "output_mount": "case_scoped",
+    "network_default": "deny",
+    "ambient_credentials": "deny",
+    "home_directory_access": "deny",
+    "undeclared_files": "deny",
+    "shared_session_state": "deny",
+    "shared_cache_state": "deny",
+    "shared_connector_state": "deny",
+    "teardown_required": true
+  },
+  "determinism": {
+    "encoding": "UTF-8",
+    "line_endings": "normalized_and_declared",
+    "timezone": "UTC",
+    "locale": "pinned",
+    "clock": "injected_logical_clock",
+    "randomness": "fixed_seed_or_declared_absent",
+    "serialization": "pinned_canonical_serialization",
+    "input_hash": "SHA-256"
+  },
+  "resource_limits": {
+    "cpu": "pinned_required",
+    "memory": "pinned_required",
+    "disk": "pinned_required",
+    "process_count": "pinned_required",
+    "wall_time": "pinned_required"
+  },
+  "lifecycle": [
+    "PREFLIGHT",
+    "PROVISION_CLEAN_ROOM",
+    "VERIFY_AUTHORITY_AND_FIXTURE_FINGERPRINTS",
+    "EXECUTE_DECLARED_ACTION_TRACE",
+    "CAPTURE_RAW_AND_TYPED_RESULTS",
+    "VALIDATE_EVIDENCE_RECORD_SCHEMA",
+    "SEAL_ARTIFACT_HASHES",
+    "TEARDOWN_AND_ISOLATION_ATTESTATION",
+    "HAND_OFF_FOR_INDEPENDENT_REVIEW"
+  ],
+  "required_inputs": [
+    "exact_authority_refs_and_hashes",
+    "evidence_record_schema",
+    "fixture_catalog",
+    "runner_manifest",
+    "environment_contract"
+  ],
+  "required_outputs": [
+    "evidence_record",
+    "sealed_replay_manifest",
+    "fixture_fingerprint_set",
+    "action_trace",
+    "oracle_actual_comparison",
+    "output_artifact_fingerprint",
+    "environment_fingerprint",
+    "isolation_attestation",
+    "schema_validation_result",
+    "privacy_filtering_result",
+    "independent_review_placeholder"
+  ],
+  "runner_outcomes": [
+    "MATCHED",
+    "MISMATCHED",
+    "EXECUTION_ERROR",
+    "TIMEOUT",
+    "ISOLATION_VIOLATION",
+    "VALIDATION_ERROR",
+    "BLOCKED"
+  ],
+  "evidence_status_rules": {
+    "runner_must_not_assign_pass": true,
+    "matched_requires_independent_review": true,
+    "indeterminate_cannot_auto_pass": true,
+    "missing_preflight_is_blocked": true,
+    "tamper_after_seal_invalidates_record": true
+  },
+  "independent_review": {
+    "operator_and_reviewer_must_differ": true,
+    "sealed_artifacts_required": true,
+    "review_result_values": [
+      "accepted",
+      "rejected",
+      "blocked"
+    ]
+  }
+}

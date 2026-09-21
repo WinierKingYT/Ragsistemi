@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2",
+  "title": "PMIRI Gate D Round 2 Decision Vocabulary",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["vocabulary_id", "vocabulary_version"],
+  "properties": {
+    "vocabulary_id": {"const": "PMIRI-GATE-D-R2-DECISION-VOCABULARY"},
+    "vocabulary_version": {"const": "0.2"}
+  },
+  "$defs": {
+    "trust_state": {
+      "type": "string",
+      "enum": ["TRUSTED_FOR_BOUND_PURPOSE", "CONDITIONALLY_TRUSTED", "UNTRUSTED", "UNKNOWN", "EXPIRED", "REVOKED", "CONTRADICTED", "INVALID"]
+    },
+    "capability_state": {
+      "type": "string",
+      "enum": ["FRESH", "STALE", "MISSING", "REVOKED", "CONTRADICTED", "INVALID", "OUT_OF_SCOPE"]
+    },
+    "obligation_impact": {
+      "type": "string",
+      "enum": ["PRESERVED", "PRESERVED_WITH_CONSTRAINT", "WEAKENED", "UNSATISFIABLE", "INVALIDATED", "NOT_APPLICABLE"]
+    },
+    "action_result": {
+      "type": "string",
+      "enum": ["ALLOW", "ALLOW_WITH_CONSTRAINTS", "DENY", "REQUIRE_REVIEW", "REQUIRE_REVALIDATION", "LOCAL_ONLY"]
+    },
+    "content_lifecycle": {
+      "type": "string",
+      "enum": ["NOT_APPLICABLE", "QUARANTINED", "ADMITTED_TYPED_DATA", "REJECTED", "DISCARDED", "ABORTED"]
+    },
+    "operation": {
+      "type": "string",
+      "enum": ["provider_call", "connector_fetch", "attachment_fetch", "external_fetch"]
+    },
+    "purpose": {
+      "type": "string",
+      "enum": ["retrieval", "context_delivery", "external_fetch", "attachment_import", "provider_call"]
+    },
+    "reason_class": {
+      "type": "string",
+      "enum": ["NONE", "AUTHORITY_MISSING", "AUTHORITY_CONFLICT", "EXACT_BINDING_MISSING", "SCOPE_MISMATCH", "POLICY_UNKNOWN", "POLICY_STALE", "POLICY_CONTRADICTION", "STALE_EVIDENCE", "REVOKED_EVIDENCE", "CLASSIFICATION_MISMATCH", "MATERIAL_FINGERPRINT_MISMATCH", "CAPABILITY_MISSING", "CAPABILITY_OUT_OF_SCOPE", "DESTINATION_NOT_ALLOWLISTED", "CREDENTIAL_SCOPE_INVALID", "CREDENTIAL_VISIBILITY_RISK", "URL_INVALID", "UNSUPPORTED_SCHEME", "PRIVATE_ADDRESS", "DNS_REBINDING", "REDIRECT_UNAUTHORIZED", "TLS_IDENTITY_MISMATCH", "RESOURCE_LIMIT_EXCEEDED", "CONTENT_TYPE_DISALLOWED", "SEMANTIC_OBLIGATION_UNSATISFIABLE", "CITATION_INVALID", "HIDDEN_RETRIEVAL_ATTEMPT", "POLICY_EPOCH_CHANGED", "TEARDOWN_UNPROVEN", "UNTRUSTED_EXTERNAL_CONTROL_TEXT", "INTERNAL_CONTRACT_INVALID", "REVIEW_REQUIRED"]
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

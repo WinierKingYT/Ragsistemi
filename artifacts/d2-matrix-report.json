@@ -1,0 +1,892 @@
+{
+  "cases": [
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "trust_state",
+          "value": "TRUSTED_FOR_BOUND_PURPOSE"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "trust_assertion_set",
+          "destination_binding",
+          "purpose_binding",
+          "freshness_profile",
+          "authority_manifest",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-01-P",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "diagnostic_trigger_variant": "UNREGISTERED_SUBJECT",
+        "evidence_state": {
+          "kind": "trust_state",
+          "value": "UNKNOWN"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "AUTHORITY_MISSING",
+        "required_bindings": [
+          "trust_assertion_set",
+          "destination_binding",
+          "purpose_binding",
+          "freshness_profile",
+          "authority_manifest",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-01-A",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "capability_state",
+          "value": "FRESH"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "capability_observation_set",
+          "material_manifest",
+          "freshness_profile",
+          "authority_manifest",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-02-P",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "REQUIRE_REVALIDATION",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "diagnostic_trigger_variant": "REVOCATION_EPOCH_CHANGE",
+        "evidence_state": {
+          "kind": "capability_state",
+          "value": "STALE"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "STALE_EVIDENCE",
+        "required_bindings": [
+          "capability_decision",
+          "capability_observation_set",
+          "invalidation_epoch",
+          "freshness_profile",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-02-A",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "policy_status",
+          "value": "COVERED_BY_PRECEDENCE"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "policy_observation_set",
+          "freshness_profile",
+          "invalidation_epoch",
+          "authority_manifest",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-07-P",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "diagnostic_trigger_variant": "MISSING_REQUIRED_DIMENSION",
+        "evidence_state": {
+          "kind": "policy_status",
+          "value": "POLICY_UNKNOWN"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "POLICY_UNKNOWN",
+        "required_bindings": [
+          "policy_observation_set",
+          "freshness_profile",
+          "invalidation_epoch",
+          "authority_manifest",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-07-A",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "trust_state",
+          "value": "TRUSTED_FOR_BOUND_PURPOSE"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "destination_binding",
+          "material_manifest",
+          "trust_decision",
+          "capability_decision",
+          "freshness_profile",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-01-B",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "diagnostic_trigger_variant": "DESTINATION_CLASS_MISMATCH",
+        "evidence_state": {
+          "kind": "trust_state",
+          "value": "INVALID"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "CLASSIFICATION_MISMATCH",
+        "required_bindings": [
+          "destination_binding",
+          "material_manifest",
+          "trust_decision",
+          "capability_decision",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-01-C",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "ALLOW_WITH_CONSTRAINTS",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "obligation_impact",
+          "value": "PRESERVED_WITH_CONSTRAINT"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "context_delivery",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "authorization_lineage",
+          "source_evidence_set",
+          "semantic_obligations",
+          "transformation_set",
+          "typed_constraints",
+          "egress_artifact",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-03-P",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "diagnostic_trigger_variant": "UNSATISFIABLE_OBLIGATION",
+        "evidence_state": {
+          "kind": "obligation_impact",
+          "value": "UNSATISFIABLE"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "context_delivery",
+        "reason_class": "SEMANTIC_OBLIGATION_UNSATISFIABLE",
+        "required_bindings": [
+          "authorization_lineage",
+          "semantic_obligations",
+          "transformation_set",
+          "typed_constraints",
+          "egress_artifact",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-03-A",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "ALLOW_WITH_CONSTRAINTS",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "obligation_impact",
+          "value": "PRESERVED_WITH_CONSTRAINT"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "context_delivery",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "authorization_lineage",
+          "source_evidence_set",
+          "semantic_obligations",
+          "transformation_set",
+          "citation_map",
+          "typed_constraints",
+          "egress_artifact",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-03-B",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "diagnostic_trigger_variant": "STALE_CITATION_OFFSET",
+        "evidence_state": {
+          "kind": "citation_status",
+          "value": "INVALID"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "context_delivery",
+        "reason_class": "CITATION_INVALID",
+        "required_bindings": [
+          "source_evidence_set",
+          "citation_map",
+          "egress_artifact",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-03-C",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "retrieval_status",
+          "value": "NO_RETRIEVAL"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "context_delivery",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "source_evidence_set",
+          "authorization_lineage",
+          "egress_artifact",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-03-D",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "retrieval_status",
+          "value": "HIDDEN_RETRIEVAL_ATTEMPT"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "context_delivery",
+        "reason_class": "HIDDEN_RETRIEVAL_ATTEMPT",
+        "required_bindings": [
+          "source_evidence_set",
+          "authorization_lineage",
+          "egress_artifact",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-03-E",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "QUARANTINED",
+        "evidence_state": {
+          "kind": "credential_status",
+          "value": "EXACTLY_SCOPED"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "connector_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "credential_boundary",
+          "destination_binding",
+          "credential_epoch",
+          "freshness_profile",
+          "authority_manifest",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-01-D",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "ABORTED",
+        "evidence_state": {
+          "kind": "credential_status",
+          "value": "INVALID_SCOPE"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "connector_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "CREDENTIAL_SCOPE_INVALID",
+        "required_bindings": [
+          "credential_boundary",
+          "destination_binding",
+          "credential_epoch",
+          "fetched_content_lifecycle",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-01-E",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "ALLOWLISTED_STABLE"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "connection_binding",
+          "selected_resolution",
+          "tls_identity",
+          "limits_profile",
+          "freshness_profile",
+          "authority_manifest",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-04-P",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "ABORTED",
+        "diagnostic_trigger_variant": "UNSUPPORTED_SCHEME",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "UNSUPPORTED_SCHEME"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "UNSUPPORTED_SCHEME",
+        "required_bindings": [
+          "connection_binding",
+          "url_normalization",
+          "fetched_content_lifecycle",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-04-A",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "ALL_ADDRESSES_ALLOWLISTED_PUBLIC"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "connection_binding",
+          "resolved_address_set",
+          "selected_resolution",
+          "tls_identity",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-04-B",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "ABORTED",
+        "diagnostic_trigger_variant": "PRIVATE_ADDRESS",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "PRIVATE_ADDRESS"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "DENIED_MIXED",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "PRIVATE_ADDRESS",
+        "required_bindings": [
+          "connection_binding",
+          "resolved_address_set",
+          "denied_resolution_set",
+          "fetched_content_lifecycle",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-04-C",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "RESOLUTION_STABLE"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "connection_binding",
+          "revalidation_events",
+          "connection_epoch",
+          "tls_identity",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-04-D",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "ABORTED",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "DNS_REBINDING"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "DENIED_MIXED",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "DNS_REBINDING",
+        "required_bindings": [
+          "connection_binding",
+          "revalidation_events",
+          "fetched_content_lifecycle",
+          "invalidation_epoch",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-04-E",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "QUARANTINED",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "REDIRECTS_REVALIDATED"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "connection_binding",
+          "revalidation_events",
+          "selected_resolution",
+          "tls_identity",
+          "fetched_content_lifecycle",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-04-F",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "ABORTED",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "REDIRECT_UNAUTHORIZED"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "REDIRECT_UNAUTHORIZED",
+        "required_bindings": [
+          "connection_binding",
+          "revalidation_events",
+          "fetched_content_lifecycle",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-04-G",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "QUARANTINED",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "WITHIN_RESOURCE_LIMITS"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "connection_binding",
+          "limits_profile",
+          "fetched_content_lifecycle",
+          "freshness_profile",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-04-H",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "ABORTED",
+        "diagnostic_trigger_variant": "RESOURCE_LIMIT_EXCEEDED",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "RESOURCE_LIMIT_EXCEEDED"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "RESOURCE_LIMIT_EXCEEDED",
+        "required_bindings": [
+          "connection_binding",
+          "limits_profile",
+          "fetched_content_lifecycle",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-04-I",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "LOCAL_ONLY",
+        "content_lifecycle": "ADMITTED_TYPED_DATA",
+        "evidence_state": {
+          "kind": "content_state",
+          "value": "ADMITTED_TYPED_DATA"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "attachment_fetch",
+        "purpose": "attachment_import",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "origin_binding",
+          "destination_binding",
+          "admission_predicate",
+          "typed_data_schema",
+          "lifecycle_fingerprint"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-04-J",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "LOCAL_ONLY",
+        "content_lifecycle": "QUARANTINED",
+        "diagnostic_trigger_variant": "UNTRUSTED_EXTERNAL_CONTROL_TEXT",
+        "evidence_state": {
+          "kind": "content_state",
+          "value": "QUARANTINED"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "attachment_fetch",
+        "purpose": "attachment_import",
+        "reason_class": "UNTRUSTED_EXTERNAL_CONTROL_TEXT",
+        "required_bindings": [
+          "origin_binding",
+          "destination_binding",
+          "admission_predicate",
+          "lifecycle_fingerprint"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-04-K",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "race_status",
+          "value": "EPOCHS_UNCHANGED"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "integrated_envelope",
+          "authorization_lineage",
+          "trust_decision",
+          "capability_decision",
+          "network_binding",
+          "invalidation_epoch",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-05-P",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "race_status",
+          "value": "POLICY_EPOCH_CHANGED"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "POLICY_EPOCH_CHANGED",
+        "required_bindings": [
+          "integrated_envelope",
+          "trust_decision",
+          "capability_decision",
+          "network_binding",
+          "invalidation_epoch",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-05-A",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "cache_status",
+          "value": "CURRENT_AND_EXACT"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "cached_decision",
+          "material_manifest",
+          "policy_version",
+          "freshness_profile",
+          "authority_manifest",
+          "invalidation_epoch",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-05-B",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "REQUIRE_REVALIDATION",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "diagnostic_trigger_variant": "MATERIAL_FINGERPRINT_MISMATCH",
+        "evidence_state": {
+          "kind": "cache_status",
+          "value": "FINGERPRINT_MISMATCH"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "MATERIAL_FINGERPRINT_MISMATCH",
+        "required_bindings": [
+          "cached_decision",
+          "material_manifest_fingerprint",
+          "policy_version",
+          "authority_manifest",
+          "invalidation_epoch",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-05-C",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "ABORTED",
+        "evidence_state": {
+          "kind": "teardown_status",
+          "value": "PROVEN_COMPLETE"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "connection_binding",
+          "fetched_content_lifecycle",
+          "teardown_evidence",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-04-L",
+      "status": "DOCUMENTARY_VALIDATED"
+    },
+    {
+      "errors": [],
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "ABORTED",
+        "evidence_state": {
+          "kind": "teardown_status",
+          "value": "UNPROVEN"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "TEARDOWN_UNPROVEN",
+        "required_bindings": [
+          "connection_binding",
+          "fetched_content_lifecycle",
+          "teardown_evidence",
+          "invalidation_epoch",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "scenario_id": "D2-04-M",
+      "status": "DOCUMENTARY_VALIDATED"
+    }
+  ],
+  "coverage_class_count": 17,
+  "runtime_execution": "NOT_PERFORMED",
+  "scenario_count": 34,
+  "status": "D2_DOCUMENTARY_VALIDATED_RUNTIME_BLOCKED"
+}

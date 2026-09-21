@@ -1,0 +1,26 @@
+{
+  "profile_version": "0.1",
+  "profile_id": "windows-vm-controlled",
+  "storage": {
+    "backend": "sqlite",
+    "root": "D:/PMIRI/content",
+    "content_encryption": "AES_GCM_BLOB_ADAPTER",
+    "metadata_protection": "EXTERNAL_VOLUME_ENCRYPTION",
+    "key_escrow": "EXTERNAL_KMS"
+  },
+  "control_plane": {
+    "backend": "UNCONFIGURED",
+    "path": null
+  },
+  "network": {
+    "mode": "DENY_BY_DEFAULT",
+    "external_execution": "DISABLED"
+  },
+  "api": {
+    "transport": "HTTP_LOOPBACK",
+    "bind_host": "127.0.0.1",
+    "port": 8765,
+    "max_request_bytes": 1048576,
+    "audit_path": "D:/PMIRI/audit/read-audit.jsonl"
+  }
+}

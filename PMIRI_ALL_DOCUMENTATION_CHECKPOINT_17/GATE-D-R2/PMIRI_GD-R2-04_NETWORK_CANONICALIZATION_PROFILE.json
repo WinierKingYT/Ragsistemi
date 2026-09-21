@@ -1,0 +1,56 @@
+{
+  "profile_format": "PMIRI_D2_NETWORK_CANONICALIZATION_PROFILE",
+  "profile_version": "0.1",
+  "canonicalization_profile_id": "D2-NETWORK-CANONICALIZATION-001",
+  "algorithm": "PMIRI-HTTPS-AUTHORITY-CANONICALIZER",
+  "algorithm_version": "1.0",
+  "input_encoding": "UTF-8",
+  "accepted_scheme": "https",
+  "host_processing": {
+    "unicode_profile": "IDNA2008-UTS46-NONTRANSITIONAL-15.1",
+    "lowercase": true,
+    "trailing_dot_removed": true,
+    "a_label_output_required": true,
+    "invalid_idna_rejected": true,
+    "empty_host_rejected": true
+  },
+  "port_processing": {
+    "default_https_port": 443,
+    "explicit_default_port_omitted": true,
+    "non_default_port": "REJECT"
+  },
+  "ipv6_processing": {
+    "textual_form": "RFC5952",
+    "lowercase": true,
+    "brackets_required_in_authority": true
+  },
+  "authority_output": "lowercase_a_label_host_with_optional_bracketed_rfc5952_ipv6;default_port_omitted",
+  "sni_output": "lowercase_a_label_dns_host_without_trailing_dot",
+  "scheme_output": "HTTPS",
+  "destination_identity_scope": "scheme_and_authority_only",
+  "path_processing": {
+    "authority_comparison_excludes_path": true,
+    "request_path_query_binding": "separate_exact_request_target",
+    "path_output": "RFC3986-normalized-origin-form",
+    "empty_path_output": "/",
+    "dot_segment_processing": "REMOVE_RFC3986_DOT_SEGMENTS",
+    "percent_encoding": "preserve_reserved_semantics;decode_unreserved;uppercase_hex",
+    "query_output": "preserve_parameter_order_and_valid_percent_encoding",
+    "query_absent_output": null,
+    "path_query_not_part_of_destination_identity": true,
+    "encoded_delimiter_rejected": true,
+    "fragment_rejected": true
+  },
+  "rejections": [
+    "userinfo",
+    "control_character",
+    "unsupported_scheme",
+    "malformed_percent_encoding",
+    "ambiguous_authority",
+    "non_default_port",
+    "invalid_idna",
+    "encoded_delimiter",
+    "fragment"
+  ],
+  "profile_fingerprint": "04a8c5d312d2c17967cd90c874e8bcf779324349c043d0c53a6c828a260e3bbd"
+}

@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pmiri://schema/gate-d-r2/integrated-decision-envelope/0.3",
+  "title": "PMIRI Gate D Round 2 Integrated Decision Envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["record_type", "schema_version", "decision_id", "request_authorization_fingerprint", "authorization_lineage_ref", "authorization_lineage_fingerprint", "source_evidence_set_ref", "source_evidence_set_fingerprint", "context_intent_ref", "context_intent_fingerprint", "inherited_epistemic_ceiling_ref", "inherited_epistemic_ceiling_fingerprint", "semantic_obligations_ref", "semantic_obligations_fingerprint", "subject_chain_fingerprint", "purpose_fingerprint", "operation", "purpose", "material_manifest_fingerprint", "destination_binding_ref", "destination_binding_fingerprint", "trust_assertion_set_fingerprint", "capability_observation_set_fingerprint", "policy_version", "freshness_profile_id", "freshness_profile_fingerprint", "invalidation_epoch", "emission_mode", "authority_manifest_fingerprint", "validity_ref", "trust_state", "capability_state", "action_result", "content_lifecycle", "outbound_network_decision_ref", "outbound_network_decision_fingerprint", "fetched_content_lifecycle_ref", "fetched_content_lifecycle_fingerprint", "fetched_content_origin_binding_ref", "fetched_content_destination_binding_ref", "fetched_content_admission_state", "fetched_content_retrieval_visibility", "fetched_content_history_terminal_state", "fetched_content_terminal_response_fingerprint", "reason_class", "decision_fingerprint"],
+  "properties": {
+    "record_type": {"const": "PMIRI_D2_INTEGRATED_DECISION_ENVELOPE"},
+    "schema_version": {"const": "0.3"},
+    "decision_id": {"type": "string", "minLength": 1},
+    "request_authorization_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "authorization_lineage_ref": {"type": "string", "minLength": 1},
+    "authorization_lineage_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "source_evidence_set_ref": {"type": "string", "minLength": 1},
+    "source_evidence_set_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "context_intent_ref": {"type": "string", "minLength": 1},
+    "context_intent_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "inherited_epistemic_ceiling_ref": {"type": "string", "minLength": 1},
+    "inherited_epistemic_ceiling_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "semantic_obligations_ref": {"type": "string", "minLength": 1},
+    "semantic_obligations_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "subject_chain_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "purpose_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "operation": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/operation"},
+    "purpose": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/purpose"},
+    "material_manifest_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "destination_binding_ref": {"type": "string", "minLength": 1},
+    "destination_binding_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "trust_assertion_set_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "capability_observation_set_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "constrained_artifact_fingerprint": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+    "network_binding_fingerprint": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+    "outbound_network_decision_ref": {"type": ["string", "null"], "minLength": 1},
+    "outbound_network_decision_fingerprint": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+    "fetched_content_lifecycle_ref": {"type": ["string", "null"], "minLength": 1},
+    "fetched_content_lifecycle_fingerprint": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+    "fetched_content_origin_binding_ref": {"type": ["string", "null"], "minLength": 1},
+    "fetched_content_destination_binding_ref": {"type": ["string", "null"], "minLength": 1},
+    "fetched_content_admission_state": {"oneOf": [{"type": "null"}, {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/content_lifecycle"}]},
+    "fetched_content_retrieval_visibility": {"oneOf": [{"type": "null"}, {"enum": ["NONE", "QUARANTINE_ONLY", "TYPED_DATA_ONLY"]}]},
+    "fetched_content_history_terminal_state": {"oneOf": [{"type": "null"}, {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/content_lifecycle"}]},
+    "fetched_content_terminal_response_fingerprint": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+    "policy_version": {"type": "string", "minLength": 1},
+    "freshness_profile_id": {"type": "string", "minLength": 1},
+    "freshness_profile_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "invalidation_epoch": {"type": "integer", "minimum": 0},
+    "emission_mode": {"enum": ["EXTERNAL", "LOCAL_ONLY"]},
+    "authority_manifest_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "validity_ref": {"type": "string", "minLength": 1},
+    "trust_state": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/trust_state"},
+    "capability_state": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/capability_state"},
+    "action_result": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/action_result"},
+    "content_lifecycle": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/content_lifecycle"},
+    "reason_class": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/reason_class"},
+    "constraint_refs": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "decision_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"emission_mode": {"const": "EXTERNAL"}}},
+      "then": {
+        "required": ["constrained_artifact_fingerprint", "network_binding_fingerprint", "outbound_network_decision_ref", "outbound_network_decision_fingerprint"],
+        "properties": {
+          "constrained_artifact_fingerprint": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "network_binding_fingerprint": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "outbound_network_decision_ref": {"type": "string", "minLength": 1},
+          "outbound_network_decision_fingerprint": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "action_result": {"enum": ["ALLOW", "ALLOW_WITH_CONSTRAINTS", "DENY", "REQUIRE_REVIEW", "REQUIRE_REVALIDATION"]}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"emission_mode": {"const": "LOCAL_ONLY"}}},
+      "then": {"properties": {"action_result": {"const": "LOCAL_ONLY"}}}
+    },
+    {
+      "if": {"properties": {"operation": {"const": "provider_call"}}},
+      "then": {
+        "properties": {
+          "content_lifecycle": {"const": "NOT_APPLICABLE"},
+          "fetched_content_lifecycle_ref": {"type": "null"},
+          "fetched_content_lifecycle_fingerprint": {"type": "null"},
+          "fetched_content_origin_binding_ref": {"type": "null"},
+          "fetched_content_destination_binding_ref": {"type": "null"},
+          "fetched_content_admission_state": {"type": "null"},
+          "fetched_content_retrieval_visibility": {"type": "null"},
+          "fetched_content_history_terminal_state": {"type": "null"},
+          "fetched_content_terminal_response_fingerprint": {"type": "null"}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"operation": {"enum": ["connector_fetch", "attachment_fetch", "external_fetch"]}}},
+      "then": {
+        "required": ["fetched_content_lifecycle_ref", "fetched_content_lifecycle_fingerprint", "fetched_content_origin_binding_ref", "fetched_content_destination_binding_ref", "fetched_content_admission_state", "fetched_content_retrieval_visibility", "fetched_content_history_terminal_state", "fetched_content_terminal_response_fingerprint"],
+        "properties": {
+          "fetched_content_lifecycle_ref": {"type": "string", "minLength": 1},
+          "fetched_content_lifecycle_fingerprint": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "fetched_content_origin_binding_ref": {"type": "string", "minLength": 1},
+          "fetched_content_destination_binding_ref": {"type": "string", "minLength": 1},
+          "fetched_content_admission_state": {"not": {"type": "null"}},
+          "fetched_content_retrieval_visibility": {"not": {"type": "null"}},
+          "fetched_content_history_terminal_state": {"not": {"type": "null"}},
+          "fetched_content_terminal_response_fingerprint": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "content_lifecycle": {"not": {"const": "NOT_APPLICABLE"}}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"trust_state": {"enum": ["UNKNOWN", "UNTRUSTED", "EXPIRED", "REVOKED", "CONTRADICTED", "INVALID"]}}},
+      "then": {"properties": {"action_result": {"enum": ["DENY", "REQUIRE_REVIEW", "REQUIRE_REVALIDATION", "LOCAL_ONLY"]}}}
+    },
+    {
+      "if": {"properties": {"trust_state": {"const": "CONDITIONALLY_TRUSTED"}}},
+      "then": {"properties": {"action_result": {"enum": ["ALLOW_WITH_CONSTRAINTS", "DENY", "REQUIRE_REVIEW", "REQUIRE_REVALIDATION", "LOCAL_ONLY"]}}}
+    },
+    {
+      "if": {"properties": {"capability_state": {"enum": ["STALE", "MISSING", "REVOKED", "CONTRADICTED", "INVALID", "OUT_OF_SCOPE"]}}},
+      "then": {"properties": {"action_result": {"enum": ["DENY", "REQUIRE_REVIEW", "REQUIRE_REVALIDATION", "LOCAL_ONLY"]}}}
+    }
+  ]
+}

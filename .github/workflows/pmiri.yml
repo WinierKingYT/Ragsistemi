@@ -1,0 +1,138 @@
+name: PMIRI verification
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: windows-latest
+    env:
+      SOURCE_DATE_EPOCH: "946684800"
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install locked dependencies
+        shell: pwsh
+        run: python -m pip install --requirement requirements.lock
+      - name: Compile source
+        shell: pwsh
+        run: python -m compileall -q pmiri tests scripts
+      - name: Generate and verify deterministic SBOM
+        shell: pwsh
+        run: |
+          python scripts/generate_sbom.py
+          python scripts/generate_sbom.py --check
+      - name: Build package without network resolution
+        shell: pwsh
+        run: |
+          $firstDir = Join-Path $env:RUNNER_TEMP "pmiri-wheel-a"
+          $secondDir = Join-Path $env:RUNNER_TEMP "pmiri-wheel-b"
+          $releaseDir = Join-Path $env:RUNNER_TEMP "pmiri-wheel"
+          python -m pip wheel --no-deps --no-build-isolation . --wheel-dir $firstDir
+          python -m pip wheel --no-deps --no-build-isolation . --wheel-dir $secondDir
+          $firstWheel = Get-ChildItem -LiteralPath $firstDir -Filter "pmiri-*.whl" | Select-Object -First 1
+          $secondWheel = Get-ChildItem -LiteralPath $secondDir -Filter "pmiri-*.whl" | Select-Object -First 1
+          if ($null -eq $firstWheel -or $null -eq $secondWheel) { throw "PMIRI reproducibility wheels were not produced" }
+          $firstHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $firstWheel.FullName).Hash
+          $secondHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $secondWheel.FullName).Hash
+          if ($firstHash -ne $secondHash) { throw "PMIRI wheel reproducibility mismatch: $firstHash != $secondHash" }
+          New-Item -ItemType Directory -Force -Path $releaseDir | Out-Null
+          Copy-Item -LiteralPath $firstWheel.FullName -Destination (Join-Path $releaseDir $firstWheel.Name)
+      - name: Install built wheel in an isolated target
+        shell: pwsh
+        run: |
+          $wheel = Get-ChildItem -LiteralPath "$env:RUNNER_TEMP\pmiri-wheel" -Filter "pmiri-*.whl" | Select-Object -First 1
+          if ($null -eq $wheel) { throw "PMIRI wheel was not produced" }
+          $installTarget = Join-Path $env:RUNNER_TEMP "pmiri-install"
+          $sourceRoot = $env:GITHUB_WORKSPACE
+          python -m pip install --no-deps --no-index --target $installTarget $wheel.FullName
+          $env:PYTHONPATH = "$installTarget;$sourceRoot"
+          "PYTHONPATH=$installTarget;$sourceRoot" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          Push-Location $env:RUNNER_TEMP
+          try { python -c "import pmiri; print(pmiri.__file__)" }
+          finally { Pop-Location }
+      - name: Verify reproducibility contract
+        shell: pwsh
+        run: |
+          $workspace = $env:GITHUB_WORKSPACE
+          Push-Location $env:RUNNER_TEMP
+          try { python (Join-Path $workspace "scripts\verify_reproducibility.py") --check-installed }
+          finally { Pop-Location }
+      - name: Run tests
+        shell: pwsh
+        run: |
+          $workspace = $env:GITHUB_WORKSPACE
+          Push-Location $workspace
+          $testRunner = "import os,runpy,sys; sys.path.remove(''); sys.argv=['unittest','discover','-s',os.path.join(os.environ['GITHUB_WORKSPACE'],'tests')]; runpy.run_module('unittest',run_name='__main__')"
+          try { python -c $testRunner }
+          finally { Pop-Location }
+      - name: Run local deployment smoke
+        shell: pwsh
+        run: |
+          $workspace = $env:GITHUB_WORKSPACE
+          $smokeReport = Join-Path $workspace "artifacts\deployment-smoke-report.json"
+          Push-Location $env:RUNNER_TEMP
+          try { python -m pmiri.cli deployment-smoke $workspace --output $smokeReport }
+          finally { Pop-Location }
+      - name: Bootstrap local candidate for readiness checks
+        shell: pwsh
+        run: |
+          $workspace = $env:GITHUB_WORKSPACE
+          Push-Location $env:RUNNER_TEMP
+          try {
+            python -m pmiri.cli init (Join-Path $workspace ".pmiri-sqlite") --backend sqlite
+            python -m pmiri.cli init-control-plane (Join-Path $workspace ".pmiri-control\control.db")
+          }
+          finally { Pop-Location }
+      - name: Verify fail-closed readiness and review handoff
+        shell: pwsh
+        run: |
+          $workspace = $env:GITHUB_WORKSPACE
+          $profile = Join-Path $workspace "deployment-profile.example.json"
+          $readinessReport = Join-Path $workspace "artifacts\deployment-readiness-report.json"
+          $finalGateReport = Join-Path $workspace "artifacts\final-acceptance-gate.json"
+          $reviewPackage = Join-Path $workspace "artifacts\review-package.json"
+          $handoffRoot = Join-Path $workspace "artifacts\ci-handoff"
+          Push-Location $env:RUNNER_TEMP
+          try {
+            python -m pmiri.cli readiness $workspace --profile $profile --output $readinessReport
+            $readinessExit = $LASTEXITCODE
+            if ($readinessExit -ne 1) { throw "readiness must return exit code 1 while external prerequisites are absent; got $readinessExit" }
+            $readiness = Get-Content -Raw -LiteralPath $readinessReport | ConvertFrom-Json
+            if ($readiness.overall_result -ne "DEPLOYMENT_READINESS_BLOCKED") { throw "readiness did not remain fail-closed" }
+            $blocked = @($readiness.checks | Where-Object { $_.result -eq "BLOCKED" } | Select-Object -ExpandProperty check_id)
+            $expected = @("EXT-01", "EXT-02", "EXT-03", "EXT-04", "EXT-05", "EXT-06")
+            if (($blocked -join ",") -ne ($expected -join ",")) { throw "unexpected blocked readiness checks: $($blocked -join ',')" }
+            python -m pmiri.cli final-acceptance $workspace --readiness $readinessReport --output $finalGateReport
+            $finalGateExit = $LASTEXITCODE
+            if ($finalGateExit -ne 1) { throw "final acceptance gate must return exit code 1 while external evidence is absent; got $finalGateExit" }
+            $finalGate = Get-Content -Raw -LiteralPath $finalGateReport | ConvertFrom-Json
+            if ($finalGate.overall_result -ne "FINAL_ACCEPTANCE_BLOCKED") { throw "final acceptance gate did not remain fail-closed" }
+            $finalBlocked = @($finalGate.checks | Where-Object { $_.result -eq "BLOCKED" } | Select-Object -ExpandProperty check_id)
+            $finalExpected = @("FA-01", "FA-02", "FA-03", "FA-04", "FA-05", "FA-06")
+            if (($finalBlocked -join ",") -ne ($finalExpected -join ",")) { throw "unexpected blocked final acceptance checks: $($finalBlocked -join ',')" }
+            python -m pmiri.cli review-package $workspace --output $reviewPackage
+            if ($LASTEXITCODE -ne 0) { throw "review package validation failed" }
+            python -m pmiri.cli handoff $workspace --output $handoffRoot
+            if ($LASTEXITCODE -ne 0) { throw "handoff materialization failed" }
+            $handoffManifest = Join-Path $handoffRoot "handoff-manifest.json"
+            python -c "from pmiri.handoff import verify_handoff; import sys; ok, reason = verify_handoff(r'$handoffManifest', project_root=r'$workspace'); print((ok, reason)); sys.exit(0 if ok else 1)"
+            python (Join-Path $workspace "scripts\verify_candidate.py") --root $workspace --profile $profile --handoff-manifest $handoffManifest
+            if ($LASTEXITCODE -ne 0) { throw "local release-candidate audit failed" }
+          }
+          finally { Pop-Location }
+      - name: Verify structural integrity
+        shell: pwsh
+        run: |
+          $workspace = $env:GITHUB_WORKSPACE
+          Push-Location $env:RUNNER_TEMP
+          try { python -m pmiri.cli integrity $workspace }
+          finally { Pop-Location }

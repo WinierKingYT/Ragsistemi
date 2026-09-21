@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pmiri://schema/gate-d-r2/trust-decision/0.3",
+  "title": "PMIRI Gate D Round 2 Trust Decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_type",
+    "schema_version",
+    "decision_id",
+    "destination_binding_ref",
+    "purpose_binding_ref",
+    "material_manifest_ref",
+    "trust_assertion_refs",
+    "capability_decision_ref",
+    "authority_manifest_fingerprint",
+    "freshness_profile_id",
+    "freshness_profile_fingerprint",
+    "validity_ref",
+    "trust_state",
+    "action_result",
+    "content_lifecycle",
+    "reason_class",
+    "decision_fingerprint"
+  ],
+  "properties": {
+    "record_type": {"const": "PMIRI_D2_TRUST_DECISION"},
+    "schema_version": {"const": "0.3"},
+    "decision_id": {"type": "string", "minLength": 1},
+    "destination_binding_ref": {"type": "string", "minLength": 1},
+    "purpose_binding_ref": {"type": "string", "minLength": 1},
+    "material_manifest_ref": {"type": "string", "minLength": 1},
+    "trust_assertion_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "capability_decision_ref": {"type": "string", "minLength": 1},
+    "authority_manifest_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "freshness_profile_id": {"type": "string", "minLength": 1},
+    "freshness_profile_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "validity_ref": {"type": "string", "minLength": 1},
+    "trust_state": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/trust_state"},
+    "action_result": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/action_result"},
+    "content_lifecycle": {"const": "NOT_APPLICABLE"},
+    "reason_class": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/reason_class"},
+    "constraint_artifact_ref": {"type": "string", "minLength": 1},
+    "allowed_feature_refs": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "redaction_profile_ref": {"type": "string", "minLength": 1},
+    "decision_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"action_result": {"const": "ALLOW_WITH_CONSTRAINTS"}}},
+      "then": {"required": ["constraint_artifact_ref", "redaction_profile_ref"]}
+    },
+    {
+      "if": {"properties": {"trust_state": {"enum": ["UNKNOWN", "UNTRUSTED", "EXPIRED", "REVOKED", "CONTRADICTED", "INVALID"]}}},
+      "then": {"properties": {"action_result": {"enum": ["DENY", "REQUIRE_REVIEW", "REQUIRE_REVALIDATION", "LOCAL_ONLY"]}}}
+    },
+    {
+      "if": {"properties": {"trust_state": {"const": "CONDITIONALLY_TRUSTED"}}},
+      "then": {"properties": {"action_result": {"enum": ["ALLOW_WITH_CONSTRAINTS", "DENY", "REQUIRE_REVIEW", "REQUIRE_REVALIDATION", "LOCAL_ONLY"]}}}
+    }
+  ]
+}

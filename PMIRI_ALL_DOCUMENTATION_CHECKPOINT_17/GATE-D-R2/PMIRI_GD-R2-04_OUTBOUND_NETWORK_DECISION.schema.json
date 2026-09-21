@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pmiri://schema/gate-d-r2/outbound-network-decision/0.3",
+  "title": "PMIRI Gate D Round 2 Outbound Network Decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["record_type", "schema_version", "decision_id", "operation", "purpose", "destination_binding_ref", "destination_identity_ref", "canonicalization_profile_id", "canonicalization_profile_fingerprint", "normalized_target", "connection_binding_ref", "connection_binding_fingerprint", "selected_target_resolution_ref", "selected_target_ip", "selected_target_family", "resolution_set_status", "connection_binding_status", "final_revalidation_event_sequence", "final_revalidation_result", "tls_identity_status", "tls_identity_fingerprint", "connection_epoch", "invalidation_epoch", "freshness_profile_id", "freshness_profile_fingerprint", "purpose_binding_ref", "trust_decision_ref", "capability_decision_ref", "limits_profile_ref", "authority_manifest_fingerprint", "action_result", "content_lifecycle", "fetched_content_lifecycle_ref", "fetched_content_lifecycle_fingerprint", "fetched_content_origin_binding_ref", "fetched_content_destination_binding_ref", "fetched_content_admission_state", "fetched_content_retrieval_visibility", "fetched_content_history_terminal_state", "fetched_content_terminal_response_fingerprint", "reason_class", "validity_ref", "decision_fingerprint"],
+  "properties": {
+    "record_type": {"const": "PMIRI_D2_OUTBOUND_NETWORK_DECISION"},
+    "schema_version": {"const": "0.3"},
+    "decision_id": {"type": "string", "minLength": 1},
+    "operation": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/operation"},
+    "purpose": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/purpose"},
+    "destination_binding_ref": {"type": "string", "minLength": 1},
+    "destination_identity_ref": {"type": "string", "minLength": 1},
+    "canonicalization_profile_id": {"type": "string", "minLength": 1},
+    "canonicalization_profile_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "normalized_target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scheme", "authority"],
+      "properties": {"scheme": {"const": "HTTPS"}, "authority": {"type": "string", "minLength": 1}, "path_class": {"type": "string", "minLength": 1}}
+    },
+    "connection_binding_ref": {"type": "string", "minLength": 1},
+    "connection_binding_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "selected_target_resolution_ref": {"type": ["string", "null"], "minLength": 1},
+    "selected_target_ip": {"type": ["string", "null"], "minLength": 1},
+    "selected_target_family": {"enum": ["IPv4", "IPv6", null]},
+    "resolution_set_status": {"enum": ["ALL_ALLOWLISTED_PUBLIC", "DENIED_MIXED"]},
+    "connection_binding_status": {"enum": ["VALIDATED", "DENIED", "STALE"]},
+    "final_revalidation_event_sequence": {"type": "integer", "minimum": 0},
+    "final_revalidation_result": {"enum": ["MATCHED", "MISMATCHED", "DENIED"]},
+    "tls_identity_status": {"enum": ["MATCHED", "MISMATCHED"]},
+    "tls_identity_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "connection_epoch": {"type": "integer", "minimum": 0},
+    "invalidation_epoch": {"type": "integer", "minimum": 0},
+    "freshness_profile_id": {"type": "string", "minLength": 1},
+    "freshness_profile_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "purpose_binding_ref": {"type": "string", "minLength": 1},
+    "trust_decision_ref": {"type": "string", "minLength": 1},
+    "capability_decision_ref": {"type": "string", "minLength": 1},
+    "limits_profile_ref": {"type": "string", "minLength": 1},
+    "authority_manifest_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "action_result": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/action_result"},
+    "content_lifecycle": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/content_lifecycle"},
+    "fetched_content_lifecycle_ref": {"type": ["string", "null"], "minLength": 1},
+    "fetched_content_lifecycle_fingerprint": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+    "fetched_content_origin_binding_ref": {"type": ["string", "null"], "minLength": 1},
+    "fetched_content_destination_binding_ref": {"type": ["string", "null"], "minLength": 1},
+    "fetched_content_admission_state": {"oneOf": [{"type": "null"}, {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/content_lifecycle"}]},
+    "fetched_content_retrieval_visibility": {"oneOf": [{"type": "null"}, {"enum": ["NONE", "QUARANTINE_ONLY", "TYPED_DATA_ONLY"]}]},
+    "fetched_content_history_terminal_state": {"oneOf": [{"type": "null"}, {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/content_lifecycle"}]},
+    "fetched_content_terminal_response_fingerprint": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+    "reason_class": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/reason_class"},
+    "validity_ref": {"type": "string", "minLength": 1},
+    "decision_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"action_result": {"enum": ["ALLOW", "ALLOW_WITH_CONSTRAINTS"]}}},
+      "then": {
+        "properties": {
+          "tls_identity_status": {"const": "MATCHED"},
+          "resolution_set_status": {"const": "ALL_ALLOWLISTED_PUBLIC"},
+          "connection_binding_status": {"const": "VALIDATED"},
+          "final_revalidation_result": {"const": "MATCHED"},
+          "selected_target_resolution_ref": {"type": "string", "minLength": 1},
+          "selected_target_ip": {"type": "string", "minLength": 1},
+          "selected_target_family": {"enum": ["IPv4", "IPv6"]}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"operation": {"const": "provider_call"}}},
+      "then": {
+        "properties": {
+          "content_lifecycle": {"const": "NOT_APPLICABLE"},
+          "fetched_content_lifecycle_ref": {"type": "null"},
+          "fetched_content_lifecycle_fingerprint": {"type": "null"},
+          "fetched_content_origin_binding_ref": {"type": "null"},
+          "fetched_content_destination_binding_ref": {"type": "null"},
+          "fetched_content_admission_state": {"type": "null"},
+          "fetched_content_retrieval_visibility": {"type": "null"},
+          "fetched_content_history_terminal_state": {"type": "null"},
+          "fetched_content_terminal_response_fingerprint": {"type": "null"}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"operation": {"enum": ["connector_fetch", "attachment_fetch", "external_fetch"]}}},
+      "then": {
+        "required": ["fetched_content_lifecycle_ref", "fetched_content_lifecycle_fingerprint", "fetched_content_origin_binding_ref", "fetched_content_destination_binding_ref", "fetched_content_admission_state", "fetched_content_retrieval_visibility", "fetched_content_history_terminal_state", "fetched_content_terminal_response_fingerprint"],
+        "properties": {
+          "content_lifecycle": {"not": {"const": "NOT_APPLICABLE"}},
+          "fetched_content_lifecycle_ref": {"type": "string", "minLength": 1},
+          "fetched_content_lifecycle_fingerprint": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "fetched_content_origin_binding_ref": {"type": "string", "minLength": 1},
+          "fetched_content_destination_binding_ref": {"type": "string", "minLength": 1},
+          "fetched_content_admission_state": {"not": {"type": "null"}},
+          "fetched_content_retrieval_visibility": {"not": {"type": "null"}},
+          "fetched_content_history_terminal_state": {"not": {"type": "null"}},
+          "fetched_content_terminal_response_fingerprint": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"resolution_set_status": {"const": "DENIED_MIXED"}}},
+      "then": {"properties": {"action_result": {"enum": ["DENY", "REQUIRE_REVIEW", "REQUIRE_REVALIDATION", "LOCAL_ONLY"]}}}
+    }
+  ]
+}

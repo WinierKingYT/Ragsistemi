@@ -1,0 +1,20 @@
+{
+  "matrix_format": "PMIRI-GATE-D-R2-OBLIGATION-TRANSFORMATION-DECISION-MATRIX",
+  "matrix_version": "0.1",
+  "status": "DESIGN_ONLY",
+  "implementation_authorization": "NOT_GRANTED",
+  "rows": [
+    {"impact":"PRESERVED","required_action":"ALLOW","constraint_required":false,"constraint_visible":true,"citation_rule":"retain_or_remap_to_included_span","recompile_or_replan_required":false},
+    {"impact":"PRESERVED_WITH_CONSTRAINT","required_action":"ALLOW_WITH_CONSTRAINTS","constraint_required":true,"constraint_visible":true,"citation_rule":"remap_and_expose_constraint","recompile_or_replan_required":false},
+    {"impact":"WEAKENED","required_action":"REQUIRE_REVIEW","constraint_required":true,"constraint_visible":true,"citation_rule":"remap_only_to_qualified_included_span","recompile_or_replan_required":false},
+    {"impact":"UNSATISFIABLE","required_action":"DENY","constraint_required":true,"constraint_visible":true,"citation_rule":"no_complete_answer_citation","recompile_or_replan_required":true},
+    {"impact":"INVALIDATED","required_action":"DENY","constraint_required":true,"constraint_visible":true,"citation_rule":"invalidate_derived_citations","recompile_or_replan_required":true},
+    {"impact":"NOT_APPLICABLE","required_action":"ALLOW","constraint_required":false,"constraint_visible":true,"citation_rule":"typed_reason_required","recompile_or_replan_required":false}
+  ],
+  "rules": [
+    "A later D1 or D2 decision may narrow the required_action but may not widen it.",
+    "WEAKENED never serializes as DEGRADED; it requires a visible constraint and review disposition.",
+    "UNSATISFIABLE and INVALIDATED cannot produce external complete-answer emission.",
+    "Every row is evaluated per obligation and per transformation manifest entry."
+  ]
+}

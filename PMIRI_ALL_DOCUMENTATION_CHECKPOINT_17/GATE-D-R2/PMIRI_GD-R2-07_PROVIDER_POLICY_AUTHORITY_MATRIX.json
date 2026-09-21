@@ -1,0 +1,27 @@
+{
+  "matrix_format": "PMIRI-GATE-D-R2-PROVIDER-POLICY-AUTHORITY-MATRIX",
+  "matrix_version": "0.1",
+  "status": "DESIGN_ONLY",
+  "implementation_authorization": "NOT_GRANTED",
+  "freshness_profile_id": "D2-POLICY-FRESHNESS-001",
+  "freshness_profile_fingerprint": "604dd146196571cf7dd5d25eec7d8db066cebbeca07814ccfe647c9edd267d41",
+  "authority_precedence": ["LOCAL_HARD_POLICY", "NETWORK_OR_CONNECTOR_ATTESTATION", "SIGNED_PROVIDER_DECLARATION", "AUTHORITATIVE_REGISTRY", "DIRECT_RUNTIME_OBSERVATION", "PROVIDER_DOCUMENTATION", "CALLER_CLAIM"],
+  "dimensions": [
+    {"dimension":"destination_identity","required_for":["provider_call","connector_fetch","external_fetch","attachment_fetch"],"minimum_authority":"NETWORK_OR_CONNECTOR_ATTESTATION","max_age_seconds":300,"missing_action":"DENY","stale_action":"REQUIRE_REVALIDATION","conflict_action":"REQUIRE_REVIEW"},
+    {"dimension":"retention_deletion","required_for":["provider_call","context_delivery"],"minimum_authority":"SIGNED_PROVIDER_DECLARATION","max_age_seconds":86400,"missing_action":"DENY","stale_action":"REQUIRE_REVALIDATION","conflict_action":"REQUIRE_REVIEW"},
+    {"dimension":"training_use","required_for":["provider_call","context_delivery"],"minimum_authority":"SIGNED_PROVIDER_DECLARATION","max_age_seconds":86400,"missing_action":"DENY","stale_action":"REQUIRE_REVALIDATION","conflict_action":"REQUIRE_REVIEW"},
+    {"dimension":"subprocessors","required_for":["provider_call","context_delivery"],"minimum_authority":"SIGNED_PROVIDER_DECLARATION","max_age_seconds":3600,"missing_action":"DENY","stale_action":"REQUIRE_REVALIDATION","conflict_action":"REQUIRE_REVIEW"},
+    {"dimension":"processing_region","required_for":["provider_call","context_delivery","connector_fetch"],"minimum_authority":"SIGNED_PROVIDER_DECLARATION","max_age_seconds":3600,"missing_action":"DENY","stale_action":"REQUIRE_REVALIDATION","conflict_action":"REQUIRE_REVIEW"},
+    {"dimension":"feature_capability","required_for":["provider_call","context_delivery"],"minimum_authority":"SIGNED_PROVIDER_DECLARATION","max_age_seconds":86400,"missing_action":"DENY","stale_action":"REQUIRE_REVALIDATION","conflict_action":"REQUIRE_REVIEW"},
+    {"dimension":"structured_output_attachment","required_for":["provider_call","attachment_fetch"],"minimum_authority":"SIGNED_PROVIDER_DECLARATION","max_age_seconds":3600,"missing_action":"DENY","stale_action":"REQUIRE_REVALIDATION","conflict_action":"REQUIRE_REVIEW"},
+    {"dimension":"logging_diagnostics","required_for":["provider_call","context_delivery"],"minimum_authority":"SIGNED_PROVIDER_DECLARATION","max_age_seconds":86400,"missing_action":"DENY","stale_action":"REQUIRE_REVALIDATION","conflict_action":"REQUIRE_REVIEW"},
+    {"dimension":"credential_operation_scope","required_for":["connector_fetch","attachment_fetch"],"minimum_authority":"LOCAL_HARD_POLICY","max_age_seconds":300,"missing_action":"DENY","stale_action":"REQUIRE_REVALIDATION","conflict_action":"DENY"},
+    {"dimension":"redirect_fetch_behavior","required_for":["connector_fetch","attachment_fetch","external_fetch"],"minimum_authority":"NETWORK_OR_CONNECTOR_ATTESTATION","max_age_seconds":900,"missing_action":"DENY","stale_action":"REQUIRE_REVALIDATION","conflict_action":"REQUIRE_REVIEW"}
+  ],
+  "rules": [
+    "A lower authority cannot widen a higher authority restriction.",
+    "Same-authority contradictions are CONTRADICTED and never resolved by recency alone.",
+    "CALLER_CLAIM cannot authorize external disclosure.",
+    "Every selected observation fingerprint is included in the derived decision fingerprint."
+  ]
+}

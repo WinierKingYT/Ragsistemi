@@ -1,0 +1,52 @@
+{
+  "artifact_kind": "PMIRI-GATE-D-RUNTIME-SMOKE-REPORT",
+  "authority_execution_authorized": false,
+  "authority_fingerprint": "9a5628f336cc6332128ad434ac0bad478933d5e76baa53f2982fbc1b2ef49b8b",
+  "captured_at": "2026-01-01T00:00:00Z",
+  "cases": [
+    {
+      "actual": {
+        "action_result": "ALLOW",
+        "output": {
+          "provider": "in-memory",
+          "text": "synthetic response"
+        },
+        "reason_class": "NONE",
+        "status": "EXECUTED",
+        "transport_called": true
+      },
+      "case_id": "D2-SMOKE-ALLOW",
+      "expected": "ALLOW_WITH_IN_MEMORY_TRANSPORT"
+    },
+    {
+      "actual": {
+        "action_result": "DENY",
+        "output": null,
+        "reason_class": "AUTHORITY_MISSING",
+        "status": "DENIED",
+        "transport_called": false
+      },
+      "case_id": "D2-SMOKE-SUBSTITUTION",
+      "expected": "DENY_WITHOUT_TRANSPORT"
+    },
+    {
+      "actual": {
+        "action_result": "ALLOW",
+        "output": null,
+        "reason_class": "POLICY_EPOCH_CHANGED",
+        "status": "DENIED",
+        "transport_called": false
+      },
+      "case_id": "D2-SMOKE-EPOCH",
+      "expected": "DENY_WITHOUT_TRANSPORT"
+    }
+  ],
+  "d2_acceptance": "NOT_CLAIMED",
+  "external_network_access": "NOT_PERFORMED",
+  "external_provider_access": "NOT_PERFORMED",
+  "policy_version": "local-smoke-policy-0.1",
+  "provider_calls": 1,
+  "r_fc_pass": "NONE",
+  "report_fingerprint": "98567df12be2c019c6aa01b3023054377da3cab33572456bb27885fd720d9d2f",
+  "status": "RUNTIME_SMOKE_CANDIDATE"
+}

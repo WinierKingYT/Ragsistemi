@@ -1,0 +1,17 @@
+{
+  "review_id": "PMIRI-GC-C1-INDEPENDENT-CONTRACT-RECHECK-01",
+  "review_version": "0.2",
+  "status": "CONTRACT_FIXES_CLEARED_FOR_SEPARATE_REVIEW",
+  "runtime_execution": false,
+  "r_fc_pass_claimed": false,
+  "closed_findings": ["F-01", "F-02", "F-03", "F-04", "F-05", "F-06", "F-07"],
+  "documentary_checks": {
+    "json_parse": "CLEAR",
+    "preflight_required_fields_match": "CLEAR",
+    "rfc_fixture_id_count": 17,
+    "pf_check_id_count": 16,
+    "authority_member_count": 10
+  },
+  "execution_authorization": "NOT_GRANTED",
+  "r_fc_status": "UNVERIFIED"
+}

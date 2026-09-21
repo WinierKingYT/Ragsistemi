@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:pmiri:gc-c1:controlled-preflight-authorization:0.1",
+  "title": "PMIRI GC-C1 Controlled Preflight Preparation and Authorization",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "preparation_id",
+    "version",
+    "status",
+    "execution_authorization",
+    "bound_inputs",
+    "operator",
+    "independent_reviewer",
+    "checklist",
+    "selected_fixture",
+    "environment",
+    "stop_conditions",
+    "created_at"
+  ],
+  "properties": {
+    "preparation_id": { "type": "string", "minLength": 1 },
+    "version": { "type": "string", "const": "0.1" },
+    "status": { "type": "string", "enum": ["DESIGN_ONLY", "PREPARED", "BLOCKED", "INVALIDATED"] },
+    "execution_authorization": { "type": "string", "enum": ["NOT_GRANTED", "AUTHORIZED_FOR_CONTROLLED_PREFLIGHT_ONLY", "EXPIRED", "REVOKED"] },
+    "bound_inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evidence_matrix","evidence_schema","fixture_catalog","runner_contract","runner_manifest","preflight_contract","preflight_spec","scenario_matrix","output_contract","preflight_record_schema","sealing_contract","manifest_schema","authority_bundle"],
+      "properties": {
+        "evidence_matrix": { "$ref": "#/$defs/sha256" },
+        "evidence_schema": { "$ref": "#/$defs/sha256" },
+        "fixture_catalog": { "$ref": "#/$defs/sha256" },
+        "runner_contract": { "$ref": "#/$defs/sha256" },
+        "runner_manifest": { "$ref": "#/$defs/sha256" },
+        "preflight_contract": { "$ref": "#/$defs/sha256" },
+        "preflight_spec": { "$ref": "#/$defs/sha256" },
+        "scenario_matrix": { "$ref": "#/$defs/sha256" },
+        "output_contract": { "$ref": "#/$defs/sha256" },
+        "preflight_record_schema": { "$ref": "#/$defs/sha256" },
+        "sealing_contract": { "$ref": "#/$defs/sha256" },
+        "manifest_schema": { "$ref": "#/$defs/sha256" },
+        "authority_bundle": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "operator": { "$ref": "#/$defs/identity" },
+    "independent_reviewer": { "$ref": "#/$defs/identity" },
+    "checklist": {
+      "type": "array",
+      "minItems": 14,
+      "maxItems": 14,
+      "items": { "$ref": "#/$defs/checklist_item" },
+      "allOf": [
+        { "contains": { "properties": { "check_id": { "const": "OP-01" } }, "required": ["check_id"] } },
+        { "contains": { "properties": { "check_id": { "const": "OP-02" } }, "required": ["check_id"] } },
+        { "contains": { "properties": { "check_id": { "const": "OP-03" } }, "required": ["check_id"] } },
+        { "contains": { "properties": { "check_id": { "const": "OP-04" } }, "required": ["check_id"] } },
+        { "contains": { "properties": { "check_id": { "const": "OP-05" } }, "required": ["check_id"] } },
+        { "contains": { "properties": { "check_id": { "const": "OP-06" } }, "required": ["check_id"] } },
+        { "contains": { "properties": { "check_id": { "const": "OP-07" } }, "required": ["check_id"] } },
+        { "contains": { "properties": { "check_id": { "const": "OP-08" } }, "required": ["check_id"] } },
+        { "contains": { "properties": { "check_id": { "const": "OP-09" } }, "required": ["check_id"] } },
+        { "contains": { "properties": { "check_id": { "const": "OP-10" } }, "required": ["check_id"] } },
+        { "contains": { "properties": { "check_id": { "const": "OP-11" } }, "required": ["check_id"] } },
+        { "contains": { "properties": { "check_id": { "const": "OP-12" } }, "required": ["check_id"] } },
+        { "contains": { "properties": { "check_id": { "const": "OP-13" } }, "required": ["check_id"] } },
+        { "contains": { "properties": { "check_id": { "const": "OP-14" } }, "required": ["check_id"] } }
+      ]
+    },
+    "selected_fixture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fixture_id", "case_id", "r_fc_id", "fingerprint"],
+      "properties": {
+        "fixture_id": { "type": "string", "minLength": 1 },
+        "case_id": { "type": "string", "minLength": 1 },
+        "r_fc_id": { "type": "string", "pattern": "^R-FC-(0[1-9]|1[0-7])$" },
+        "fingerprint": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile_id", "network", "credentials", "filesystem", "determinism", "resource_limits", "privacy", "teardown"],
+      "properties": {
+        "profile_id": { "type": "string", "minLength": 1 },
+        "network": { "type": "string", "enum": ["DENIED", "UNVERIFIED"] },
+        "credentials": { "type": "string", "enum": ["DENIED", "UNVERIFIED"] },
+        "filesystem": { "type": "string", "enum": ["ALLOWLIST_VERIFIED", "UNVERIFIED"] },
+        "determinism": { "type": "string", "enum": ["VERIFIED", "UNVERIFIED"] },
+        "resource_limits": { "type": "string", "enum": ["VERIFIED", "UNVERIFIED"] },
+        "privacy": { "type": "string", "enum": ["CONFIGURED", "UNVERIFIED"] },
+        "teardown": { "type": "string", "enum": ["AVAILABLE", "UNVERIFIED"] }
+      }
+    },
+    "stop_conditions": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+    "created_at": { "type": "string", "format": "date-time" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["identity_ref", "role"],
+      "properties": {
+        "identity_ref": { "type": "string", "minLength": 1 },
+        "role": { "type": "string", "enum": ["OPERATOR", "INDEPENDENT_REVIEWER"] }
+      }
+    },
+    "checklist_item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["check_id", "result", "evidence_ref"],
+      "properties": {
+        "check_id": { "type": "string", "pattern": "^OP-(0[1-9]|1[0-4])$" },
+        "result": { "type": "string", "enum": ["READY", "BLOCKED", "UNVERIFIED"] },
+        "evidence_ref": { "type": "string", "minLength": 1 },
+        "observation": { "type": "string" }
+      }
+    }
+  }
+}

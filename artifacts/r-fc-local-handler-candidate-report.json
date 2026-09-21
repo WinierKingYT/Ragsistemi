@@ -1,0 +1,1169 @@
+{
+  "all_oracles_match": true,
+  "artifact_kind": "PMIRI-GC-C1-R-FC-LOCAL-HANDLER-CANDIDATE-REPORT",
+  "authority_execution_authorized": false,
+  "cases": [
+    {
+      "actual": {
+        "disposition": "DENIED",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "effective_authority": {
+            "project": [
+              "alpha"
+            ],
+            "purpose": [
+              "local_read"
+            ]
+          },
+          "foreign_locator": "beta://guide.md",
+          "foreign_locator_grants_access": false,
+          "lineage_not_caller_selected": true,
+          "widening_attempt_recorded": true
+        }
+      },
+      "actual_fingerprint": "682d33b65e44721662ecd1f27401ef548f53daf9aa06815b545250605e1535aa",
+      "case_id": "GC-C1-FC01-A",
+      "case_type": "adversarial",
+      "check_id": "R-FC-01",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "DENIED",
+          "BOUNDED_BY_TRUSTED_AUTHORIZATION"
+        ],
+        "forbidden_dispositions": [
+          "ALLOWED_WITHIN_ENVELOPE"
+        ],
+        "required_observables": [
+          "widening attempt is recorded",
+          "foreign locator does not grant access",
+          "lineage does not change to caller-selected authority"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "ALLOWED_WITHIN_ENVELOPE",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "authorization_lineage_stable": true,
+          "effective_authority": {
+            "project": [
+              "alpha"
+            ],
+            "purpose": [
+              "local_read"
+            ]
+          },
+          "result_domain_bounded": true
+        }
+      },
+      "actual_fingerprint": "235e6d52b69a6920bd2d5c09d23782a13e6e485d22e16484c66530119b10673d",
+      "case_id": "GC-C1-FC01-P",
+      "case_type": "positive",
+      "check_id": "R-FC-01",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "ALLOWED_WITHIN_ENVELOPE",
+          "BOUNDED_BY_TRUSTED_AUTHORIZATION"
+        ],
+        "forbidden_dispositions": [
+          "DENIED"
+        ],
+        "required_observables": [
+          "authorization lineage remains identical",
+          "result domain remains inside the original envelope"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "UNKNOWN_OR_PARTIAL",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "compiled_coverage": "partial",
+          "inherited_epistemic_ceiling": "partial",
+          "packing_claims_complete": false,
+          "retrieval_coverage": "partial"
+        }
+      },
+      "actual_fingerprint": "42cbcdcfa5428fc767ccddfc77ffde72b5b2853f108a6dffcd0ba5f0138a2bc8",
+      "case_id": "GC-C1-FC02-A",
+      "case_type": "adversarial",
+      "check_id": "R-FC-02",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "UNKNOWN_OR_PARTIAL",
+          "DEGRADED"
+        ],
+        "forbidden_dispositions": [
+          "ALLOWED_WITHIN_ENVELOPE"
+        ],
+        "required_observables": [
+          "InheritedEpistemicCeiling is preserved",
+          "packing cannot claim complete evidence coverage"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "ALLOWED_WITHIN_ENVELOPE",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "compiled_coverage": "complete",
+          "retrieval_coverage": "complete",
+          "stronger_coverage_claim": false
+        }
+      },
+      "actual_fingerprint": "3ea3f4879a4043d3f833d1129dab8abaa29ef5bb07723d017caa02004538a4ea",
+      "case_id": "GC-C1-FC02-P",
+      "case_type": "positive",
+      "check_id": "R-FC-02",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "ALLOWED_WITHIN_ENVELOPE"
+        ],
+        "forbidden_dispositions": [
+          "UNKNOWN_OR_PARTIAL"
+        ],
+        "required_observables": [
+          "coverage metadata is preserved through compilation",
+          "no stronger coverage claim is introduced"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "UNKNOWN_OR_PARTIAL",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "candidate_universe_completeness": "unknown",
+          "emitted_complete_current_claim": false,
+          "omitted_candidates": true,
+          "partial_state_survives_resolution": true
+        }
+      },
+      "actual_fingerprint": "e75e734255a386e5a0a638920b11be19bcee8f02d0d213bb9a63edd1422385c7",
+      "case_id": "GC-C1-FC03-A",
+      "case_type": "adversarial",
+      "check_id": "R-FC-03",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "UNKNOWN_OR_PARTIAL",
+          "DENIED"
+        ],
+        "forbidden_dispositions": [
+          "ALLOWED_WITHIN_ENVELOPE"
+        ],
+        "required_observables": [
+          "partial/unknown state survives resolution",
+          "no complete-current claim is emitted"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "ALLOWED_WITHIN_ENVELOPE",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "candidate_universe_completeness": "known_complete",
+          "emitted_complete_current_claim": true,
+          "resolution_references_complete_candidate_set": true
+        }
+      },
+      "actual_fingerprint": "96c5f3fb293f502b277d653c7cd67ff3a37989b02f341fcb2722e8405bb12391",
+      "case_id": "GC-C1-FC03-P",
+      "case_type": "positive",
+      "check_id": "R-FC-03",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "ALLOWED_WITHIN_ENVELOPE"
+        ],
+        "forbidden_dispositions": [
+          "UNKNOWN_OR_PARTIAL"
+        ],
+        "required_observables": [
+          "candidate-universe completeness is retained",
+          "resolution references the complete candidate set"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "REVALIDATE_REQUIRED",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "changed_state_detected": true,
+          "fence_reason": "context_revalidation_required",
+          "stale_artifact_emitted": false
+        }
+      },
+      "actual_fingerprint": "cd7c6a43812a1541898a1b0c6b75d418cf1fa98ac8ac659de6bf8b1fa5ebab89",
+      "case_id": "GC-C1-FC04-A",
+      "case_type": "adversarial",
+      "check_id": "R-FC-04",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "REPROJECT_REQUIRED",
+          "REVALIDATE_REQUIRED",
+          "DENIED"
+        ],
+        "forbidden_dispositions": [
+          "EMIT_VALID"
+        ],
+        "required_observables": [
+          "changed epoch/state is detected",
+          "stale artifact is not emitted unchanged"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "EMIT_VALID",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "context_fingerprint": "26b67f1150f1a43893898571c85eb1af3b8c4592ff3e4ab5eaad31cd49550fd3",
+          "epoch_coverage_unchanged": true,
+          "final_fence_covers_emitted_artifact": true
+        }
+      },
+      "actual_fingerprint": "08c1116f00e37c2af8a49e194321a1e9d0263c4634e38463780371d20d9e138d",
+      "case_id": "GC-C1-FC04-P",
+      "case_type": "positive",
+      "check_id": "R-FC-04",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "EMIT_VALID"
+        ],
+        "forbidden_dispositions": [
+          "REPROJECT_REQUIRED",
+          "REVALIDATE_REQUIRED"
+        ],
+        "required_observables": [
+          "all required epoch coverage is present",
+          "final fence covers the emitted artifact"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "CONFLICT_PRESERVED",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "both_sides_visible": true,
+          "conflict_group": "obligation-1",
+          "context_disposition": "DEGRADED",
+          "one_sided_removal_silent": false,
+          "supporting_evidence_refs": [
+            "ev_b7c750d05f9c920efc7dee55b42e058c",
+            "ev_d06da1b1c1fea884806c540b8ba6836c"
+          ]
+        }
+      },
+      "actual_fingerprint": "9a0f60a77db066de72add652683cab14de0f03fb2891a0159155765b03dc4cf2",
+      "case_id": "GC-C1-FC05-A",
+      "case_type": "adversarial",
+      "check_id": "R-FC-05",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "CONFLICT_PRESERVED",
+          "DEGRADED",
+          "UNSATISFIABLE",
+          "DENIED"
+        ],
+        "forbidden_dispositions": [
+          "ALLOWED_WITHIN_ENVELOPE"
+        ],
+        "required_observables": [
+          "conflict obligation remains visible internally",
+          "one-sided removal is not silently presented as resolution"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "ALLOWED_WITHIN_ENVELOPE",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "conflict_preserved": false,
+          "supporting_evidence_refs": [
+            "ev_a3e3a43615c4a745f6fc4f59a916b350"
+          ]
+        }
+      },
+      "actual_fingerprint": "74e9ab6fc799a9bd6ef9dc517d64ced60fe657d7d9ebb088d095fb894f178a40",
+      "case_id": "GC-C1-FC05-P",
+      "case_type": "positive",
+      "check_id": "R-FC-05",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "ALLOWED_WITHIN_ENVELOPE"
+        ],
+        "forbidden_dispositions": [
+          "DEGRADED",
+          "UNSATISFIABLE"
+        ],
+        "required_observables": [
+          "both supporting evidence items remain traceable"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "REVALIDATE_REQUIRED",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "current_anchor_refs": [
+            "anchor_6a2eaba3a0e5a8458cc02e6384d4f73362df0dc5215ee17d2789c9c53ce9d5f6"
+          ],
+          "old_anchor_refs": [
+            "anchor_baf8691e62efece8e9dc7734faa99b07cd873a49dcfce77533091f86a407423f"
+          ],
+          "stale_positional_reuse_detected": true,
+          "unmapped_alias_emitted": false
+        }
+      },
+      "actual_fingerprint": "66b0c611b6e521a8f9b5c0477c7d68b90f1cbf4301dd638bf4c5ae1bc2426ead",
+      "case_id": "GC-C1-FC06-A",
+      "case_type": "adversarial",
+      "check_id": "R-FC-06",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "REVALIDATE_REQUIRED",
+          "DENIED",
+          "TYPE_REJECTED"
+        ],
+        "forbidden_dispositions": [
+          "EMIT_VALID"
+        ],
+        "required_observables": [
+          "stale positional reuse is detected",
+          "unmapped alias cannot be emitted"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "ALLOWED_WITHIN_ENVELOPE",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "canonical_anchor_count": 1,
+          "citation_map_complete": true,
+          "span_fingerprints_stable": true
+        }
+      },
+      "actual_fingerprint": "5834cdf81f52f429998d861b2ce3a393b3d27c0c9af996d51cffdf2bbdeb31ef",
+      "case_id": "GC-C1-FC06-P",
+      "case_type": "positive",
+      "check_id": "R-FC-06",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "ALLOWED_WITHIN_ENVELOPE"
+        ],
+        "forbidden_dispositions": [
+          "TYPE_REJECTED"
+        ],
+        "required_observables": [
+          "every final alias maps to one canonical anchor",
+          "span fingerprints remain stable"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "DENIED",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "admitted_evidence_refs": [
+            "ev_a3e3a43615c4a745f6fc4f59a916b350"
+          ],
+          "excluded_evidence_ref": "ev_excluded_by_fixture",
+          "excluded_evidence_resurrected": false,
+          "implicit_retrieval_calls": 0
+        }
+      },
+      "actual_fingerprint": "5add27d25493521034f0efe9c0817da3fa8a4a1a6df0a680fc1cc78a937ee50f",
+      "case_id": "GC-C1-FC07-A",
+      "case_type": "adversarial",
+      "check_id": "R-FC-07",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "DENIED",
+          "REAUTHORIZE_REQUIRED",
+          "UNSATISFIABLE"
+        ],
+        "forbidden_dispositions": [
+          "ALLOWED_WITHIN_ENVELOPE"
+        ],
+        "required_observables": [
+          "no implicit retrieval is performed",
+          "excluded evidence is not resurrected"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "ALLOWED_WITHIN_ENVELOPE",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "no_retrieval_after_admission": true,
+          "omitted_evidence_resurrected": false,
+          "output_evidence_refs": [
+            "ev_a3e3a43615c4a745f6fc4f59a916b350"
+          ],
+          "source_evidence_refs": [
+            "ev_a3e3a43615c4a745f6fc4f59a916b350"
+          ]
+        }
+      },
+      "actual_fingerprint": "dfbfb21d02b3cdbe7d466eb52d4401f54e3995f7d153526231b6ae18c2a2450f",
+      "case_id": "GC-C1-FC07-P",
+      "case_type": "positive",
+      "check_id": "R-FC-07",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "ALLOWED_WITHIN_ENVELOPE"
+        ],
+        "forbidden_dispositions": [
+          "REAUTHORIZE_REQUIRED"
+        ],
+        "required_observables": [
+          "all output evidence refs exist in the source EvidenceSet",
+          "no retrieval call occurs during constrained compilation"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "REVALIDATE_REQUIRED",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "destination_binding_mismatch": true,
+          "original_destination": "LOCAL_ONLY",
+          "proof_substitution_accepted": false,
+          "reason": "external_emission_denied",
+          "substituted_destination": "SUBSTITUTE"
+        }
+      },
+      "actual_fingerprint": "03fe883d5cfb2514cb8b7f4d77e3d0ae4b6a6ec10e6e91afeb93df88085574d0",
+      "case_id": "GC-C1-FC08-A",
+      "case_type": "adversarial",
+      "check_id": "R-FC-08",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "REVALIDATE_REQUIRED",
+          "DENIED"
+        ],
+        "forbidden_dispositions": [
+          "EMIT_VALID"
+        ],
+        "required_observables": [
+          "at least one bound fingerprint mismatches",
+          "original proof is not accepted for the substitute"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "EMIT_VALID",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "binding_match": true,
+          "destination": "LOCAL_ONLY",
+          "payload_fingerprint": "b93d980694ff51730cf30eb125b98cd5b8ea96df527b9820e063e4bb92db9bcb",
+          "profile_fingerprint": "94fe7155742a986f4c5c0147e88d7dc9b98b103bba5e7c1fcc5a3364e0b1ed43"
+        }
+      },
+      "actual_fingerprint": "db0ea78b711ce8ae5cb0fef59dc8682d000f9ff5e13c3db22d96d64e5de840bb",
+      "case_id": "GC-C1-FC08-P",
+      "case_type": "positive",
+      "check_id": "R-FC-08",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "EMIT_VALID"
+        ],
+        "forbidden_dispositions": [
+          "REVALIDATE_REQUIRED",
+          "DENIED"
+        ],
+        "required_observables": [
+          "destination, payload, and profile fingerprints match"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "DENIED",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "current_restriction": "REVOKED",
+          "historical_content_preserved": true,
+          "recorded_time_meaning_rewritten": false,
+          "unsafe_emission_prevented": true
+        }
+      },
+      "actual_fingerprint": "a4b1dcfc5ba439c2ea17c7ccaba011a1c440609af25c133b93c7bf336a732482",
+      "case_id": "GC-C1-FC09-A",
+      "case_type": "adversarial",
+      "check_id": "R-FC-09",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "REPROJECT_REQUIRED",
+          "DENIED",
+          "REVALIDATE_REQUIRED"
+        ],
+        "forbidden_dispositions": [
+          "EMIT_VALID"
+        ],
+        "required_observables": [
+          "historical meaning is not rewritten",
+          "current restriction prevents unsafe emission"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "ALLOWED_WITHIN_ENVELOPE",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "current_access_check_present": true,
+          "current_restriction": "NONE",
+          "recorded_time_meaning_pinned": true
+        }
+      },
+      "actual_fingerprint": "6484d1588a8c19d2f0ab0476de3347014a0f30b35b3c8fe38efd938f43777434",
+      "case_id": "GC-C1-FC09-P",
+      "case_type": "positive",
+      "check_id": "R-FC-09",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "ALLOWED_WITHIN_ENVELOPE"
+        ],
+        "forbidden_dispositions": [
+          "UNKNOWN_OR_PARTIAL"
+        ],
+        "required_observables": [
+          "recorded-time meaning is retained",
+          "current access check is present"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "REVALIDATE_REQUIRED",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "continuation_widened": false,
+          "forged_cursor": "cursor_0000000000000000000000000000000000000000000000000000000000000000",
+          "integrity_mismatch_detected": true,
+          "original_cursor": "cursor_bf196f704fa89f33bb8ca4ad686b597cfb07e2877a3c35425dbdece7fbce2c34",
+          "reason": "read_cursor_binding_mismatch"
+        }
+      },
+      "actual_fingerprint": "6ee59e5539d592cd28e35cf3e869a61a262dd75eeb83d1fd33f77c733f6ba253",
+      "case_id": "GC-C1-FC10-A",
+      "case_type": "adversarial",
+      "check_id": "R-FC-10",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "DENIED",
+          "REVALIDATE_REQUIRED"
+        ],
+        "forbidden_dispositions": [
+          "ALLOWED_WITHIN_ENVELOPE"
+        ],
+        "required_observables": [
+          "integrity mismatch is detected",
+          "continuation cannot widen or authorize"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "ALLOWED_WITHIN_ENVELOPE",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "continuation_authorizes": false,
+          "continuation_bound_to_request": true,
+          "original_constraint_fingerprint": "330f9182e4dcc8e66229637957db1b540a4fb53c5306272b05b8e17e5629742f"
+        }
+      },
+      "actual_fingerprint": "60596c854a9edb9c190c4a0838363f93f2fcd242cfce8bc8175e2d58ffdffd1a",
+      "case_id": "GC-C1-FC10-P",
+      "case_type": "positive",
+      "check_id": "R-FC-10",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "ALLOWED_WITHIN_ENVELOPE",
+          "BOUNDED_BY_TRUSTED_AUTHORIZATION"
+        ],
+        "forbidden_dispositions": [
+          "REAUTHORIZE_REQUIRED"
+        ],
+        "required_observables": [
+          "original constraint fingerprint matches",
+          "continuation is not treated as authorization"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "REPROJECT_REQUIRED",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "sensitive_fields_removed_or_coarsened": false,
+          "tamper_reason": "read_projection_fingerprint_mismatch",
+          "universal_projection_bypass": false
+        }
+      },
+      "actual_fingerprint": "ec6c8299f8ea8cd8ff0c842223bf8aac5a161f8f1bb0075e3a51d18f520d3111",
+      "case_id": "GC-C1-FC11-A",
+      "case_type": "adversarial",
+      "check_id": "R-FC-11",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "REPROJECT_REQUIRED",
+          "DENIED"
+        ],
+        "forbidden_dispositions": [
+          "EMIT_VALID"
+        ],
+        "required_observables": [
+          "sensitive internal fields are removed or coarsened",
+          "no operation bypasses the universal projection boundary"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "EMIT_VALID",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "final_emission_fences_present": true,
+          "operation_count": 7,
+          "operations": [
+            "explain",
+            "fetch_evidence",
+            "resolve_current_state",
+            "retrieve_history",
+            "search",
+            "status",
+            "timeline"
+          ],
+          "projection_records_present": true,
+          "typed_output_preserves_state": true
+        }
+      },
+      "actual_fingerprint": "450842a06b4d63e400f04d7ae0b52f6f889645a92afed510e6ae981b658a34cd",
+      "case_id": "GC-C1-FC11-P",
+      "case_type": "positive",
+      "check_id": "R-FC-11",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "EMIT_VALID"
+        ],
+        "forbidden_dispositions": [
+          "DENIED"
+        ],
+        "required_observables": [
+          "each operation has a projection record",
+          "each operation has a final emission fence",
+          "typed output preserves permitted epistemic state"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "REVALIDATE_REQUIRED",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "api_fingerprint": "bc39c9d8a85bbdb243b325ae80a263ca9f7aa9d2dd67f4fa3d56508817f155c2",
+          "caller_selected_privilege_ignored": true,
+          "hidden_session_state_cannot_grant_correctness": true,
+          "mcp_fingerprint": "e5757e241319c31cd6e962a9a13e7bc8540365f9f35e28d72ea046c920ba0518"
+        }
+      },
+      "actual_fingerprint": "e05778c3bd6e80e8a3904ca19aae09e31c1b1c8f5c60255949704be8130d7924",
+      "case_id": "GC-C1-FC12-A",
+      "case_type": "adversarial",
+      "check_id": "R-FC-12",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "DENIED",
+          "REVALIDATE_REQUIRED"
+        ],
+        "forbidden_dispositions": [
+          "ALLOWED_WITHIN_ENVELOPE"
+        ],
+        "required_observables": [
+          "hidden session state cannot grant correctness",
+          "caller-selected privilege is ignored"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "ALLOWED_WITHIN_ENVELOPE",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "api_fingerprint": "3141b2243ef67641ec14d8512858a6518792a49573abbe25470930fd038d3511",
+          "mcp_fingerprint": "3141b2243ef67641ec14d8512858a6518792a49573abbe25470930fd038d3511",
+          "normalized_typed_outputs_equivalent": true,
+          "server_derived_authorization_equivalent": true
+        }
+      },
+      "actual_fingerprint": "6925972eb64131e240ad587392b4ae2a6f14b0f7180840302d702ef076daabbc",
+      "case_id": "GC-C1-FC12-P",
+      "case_type": "positive",
+      "check_id": "R-FC-12",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "ALLOWED_WITHIN_ENVELOPE"
+        ],
+        "forbidden_dispositions": [
+          "DENIED"
+        ],
+        "required_observables": [
+          "server-derived authorization semantics are equivalent",
+          "normalized typed outputs are equivalent"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "SCHEMA_REJECTED",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "malformed_structured_content_rejected": true,
+          "prose_cannot_override_typed_state": true,
+          "typed_disposition": "ALLOWED_WITHOUT_CHECK"
+        }
+      },
+      "actual_fingerprint": "199ebb6732eef5a8cb8175d07f2b3f021f368bc8077c3fb8bca0c7299b512182",
+      "case_id": "GC-C1-FC13-A",
+      "case_type": "adversarial",
+      "check_id": "R-FC-13",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "SCHEMA_REJECTED",
+          "DENIED",
+          "DEGRADED"
+        ],
+        "forbidden_dispositions": [
+          "ALLOWED_WITHIN_ENVELOPE"
+        ],
+        "required_observables": [
+          "malformed structured content is rejected",
+          "prose cannot override typed safety state"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "ALLOWED_WITHIN_ENVELOPE",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "prose_typed_state_agrees": true,
+          "structured_result_valid": true
+        }
+      },
+      "actual_fingerprint": "ce4e2d4418953e6c8143cee3e06c9de2a29bfcdfc12fbaeb912f950ee387e336",
+      "case_id": "GC-C1-FC13-P",
+      "case_type": "positive",
+      "check_id": "R-FC-13",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "ALLOWED_WITHIN_ENVELOPE"
+        ],
+        "forbidden_dispositions": [
+          "SCHEMA_REJECTED"
+        ],
+        "required_observables": [
+          "structured result validates",
+          "prose and typed state agree"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "NO_MUTATION",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "canonical_fingerprint_unchanged": true,
+          "injected_instruction_treated_as_data": true,
+          "provider_side_action_performed": false,
+          "response_disposition": "EMPTY"
+        }
+      },
+      "actual_fingerprint": "16c736c14e76920e4f000881d434db137363035f740af14e62897a7d1c66774d",
+      "case_id": "GC-C1-FC14-A",
+      "case_type": "adversarial",
+      "check_id": "R-FC-14",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "NO_MUTATION",
+          "DENIED"
+        ],
+        "forbidden_dispositions": [
+          "ALLOWED_WITHIN_ENVELOPE"
+        ],
+        "required_observables": [
+          "injected instruction is treated as data",
+          "no semantic mutation or provider-side action occurs"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "NO_MUTATION",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "canonical_fingerprint_unchanged": true,
+          "user_domain_semantic_fingerprint_unchanged": true
+        }
+      },
+      "actual_fingerprint": "a6c986f0030765fb20706048c1961a6540bb2921d3591dd2e265e7dac0f42279",
+      "case_id": "GC-C1-FC14-P",
+      "case_type": "positive",
+      "check_id": "R-FC-14",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "NO_MUTATION",
+          "EMIT_VALID"
+        ],
+        "forbidden_dispositions": [
+          "DEGRADED"
+        ],
+        "required_observables": [
+          "canonical fingerprint is unchanged",
+          "user-domain semantic fingerprint is unchanged"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "REPROJECT_REQUIRED",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "final_projection_disposition": "EMPTY",
+          "revocation_visible_to_final_fence": true,
+          "stale_result_emitted_unchanged": false
+        }
+      },
+      "actual_fingerprint": "798dcc1d5a74362684ef3272928ff25bc8a56251a3f7e75c19865e44dd5a6b71",
+      "case_id": "GC-C1-FC15-A",
+      "case_type": "adversarial",
+      "check_id": "R-FC-15",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "REPROJECT_REQUIRED",
+          "REVALIDATE_REQUIRED",
+          "DENIED"
+        ],
+        "forbidden_dispositions": [
+          "EMIT_VALID"
+        ],
+        "required_observables": [
+          "revocation is visible to the final fence",
+          "stale result is not emitted unchanged"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "EMIT_VALID",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "authorization_valid_for_emission": true,
+          "evidence_disclosed": true,
+          "projection_result_fingerprint": "cfe027897ec414b1e0d9f6cbfb03658b0e76faef3ccdbd1deb60daf9d68c6245"
+        }
+      },
+      "actual_fingerprint": "9f8110f8a4ec4d92bea73df3b5a3ea2c41cbe6295ae59be6772f43ddd4017175",
+      "case_id": "GC-C1-FC15-P",
+      "case_type": "positive",
+      "check_id": "R-FC-15",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "EMIT_VALID"
+        ],
+        "forbidden_dispositions": [
+          "REPROJECT_REQUIRED",
+          "DENIED"
+        ],
+        "required_observables": [
+          "authorization validity covers the emitted result",
+          "projection and result fingerprints match"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "TYPE_REJECTED",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "constrained_artifact_passed_as_neutral": true,
+          "provider_constraints_erased": false,
+          "rejection_reason": "external_destination_not_authorized_in_s0"
+        }
+      },
+      "actual_fingerprint": "9d97628092258a150fc0a4e285bf56dcf69caead4a5a1d3488877dd80b738080",
+      "case_id": "GC-C1-FC16-A",
+      "case_type": "adversarial",
+      "check_id": "R-FC-16",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "TYPE_REJECTED",
+          "DENIED"
+        ],
+        "forbidden_dispositions": [
+          "EMIT_VALID"
+        ],
+        "required_observables": [
+          "artifact type mismatch is detected",
+          "provider-specific constraints are not erased"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "ALLOWED_WITHIN_ENVELOPE",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "constrained_artifact_kind": "EgressConstrainedContextArtifact",
+          "constrained_destination_binding": "PROVIDER_A",
+          "provider_neutral_artifact_kind": "ProviderNeutralContextArtifact",
+          "provider_neutral_unchanged": true
+        }
+      },
+      "actual_fingerprint": "f9dc81c55ec1340db1c092342167b6792e83ee24b9b9534c46f5b6ca3eff14a6",
+      "case_id": "GC-C1-FC16-P",
+      "case_type": "positive",
+      "check_id": "R-FC-16",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "ALLOWED_WITHIN_ENVELOPE"
+        ],
+        "forbidden_dispositions": [
+          "TYPE_REJECTED"
+        ],
+        "required_observables": [
+          "provider-neutral artifact remains unchanged",
+          "constrained artifact has its own destination binding"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "TYPE_REJECTED",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "control_boundary_promotion_rejected": true,
+          "instruction_like_text_remains_data": true,
+          "provider_action_performed": false
+        }
+      },
+      "actual_fingerprint": "4d03588a048f435131d13a9b15e058112954b646418b6a23d59462045b19b7e3",
+      "case_id": "GC-C1-FC17-A",
+      "case_type": "adversarial",
+      "check_id": "R-FC-17",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "DENIED",
+          "TYPE_REJECTED",
+          "DEGRADED"
+        ],
+        "forbidden_dispositions": [
+          "EMIT_VALID"
+        ],
+        "required_observables": [
+          "retrieved text remains data",
+          "control boundary rejects promotion"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "disposition": "ALLOWED_WITHIN_ENVELOPE",
+        "execution": "LOCAL_SYNTHETIC_ONLY",
+        "handler_contract_version": "0.1",
+        "observables": {
+          "data_content_class": "DATA",
+          "evidence_count": 1,
+          "wrapper_promotes_to_control": false
+        }
+      },
+      "actual_fingerprint": "4730066c7770976e47a887cbeb1a44a0266c5f22512a5561d45ff41629e33fd8",
+      "case_id": "GC-C1-FC17-P",
+      "case_type": "positive",
+      "check_id": "R-FC-17",
+      "executed": true,
+      "oracle": {
+        "expected_dispositions": [
+          "ALLOWED_WITHIN_ENVELOPE"
+        ],
+        "forbidden_dispositions": [
+          "TYPE_REJECTED"
+        ],
+        "required_observables": [
+          "data/content class is preserved",
+          "wrapper metadata does not promote evidence to control"
+        ]
+      },
+      "oracle_match": true,
+      "status": "ORACLE_MATCH"
+    }
+  ],
+  "catalog_id": "urn:pmiri:gc-c1:replay-fixture-catalog:0.1",
+  "catalog_version": "0.1",
+  "executed_case_count": 34,
+  "external_connector_access": "NOT_PERFORMED",
+  "external_network_access": "NOT_PERFORMED",
+  "external_provider_access": "NOT_PERFORMED",
+  "handler_error_count": 0,
+  "handler_manifest_fingerprint": "af1db8707427d3197369eab4f04d098c4b06fa3770501846a1d4d37ab12a161c",
+  "handler_module": {
+    "entrypoint": "HANDLERS",
+    "module_id": "pmiri.r_fc_handlers",
+    "source_fingerprint": "add2dcb197224afd70b95a0250c34f96023560db0a2e97636a246b6282ca9531",
+    "source_path": "pmiri/r_fc_handlers.py"
+  },
+  "oracle_match_count": 34,
+  "r_fc_pass": "NONE",
+  "report_fingerprint": "a9db9a422c5f4c2bfc9afd43e70ff18444af2f93799795941b83e9445d32943b",
+  "runtime_execution": "LOCAL_SYNTHETIC_ONLY",
+  "selected_case_count": 34,
+  "status": "LOCAL_SYNTHETIC_ONLY"
+}

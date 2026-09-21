@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pmiri://schema/gate-d-r2/fetched-content-lifecycle/0.3",
+  "title": "PMIRI Gate D Round 2 Fetched Content Lifecycle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["record_type", "schema_version", "content_id", "operation", "purpose", "origin_binding_ref", "destination_binding_ref", "response_fingerprint", "terminal_response_fingerprint", "observed_content_type", "response_size_bytes", "initial_classification", "trust_state", "admission_state", "history_start_state", "history_terminal_state", "retrieval_visibility", "canonical_or_control_influence_prohibited", "transitions", "authority_manifest_fingerprint", "lifecycle_fingerprint"],
+  "properties": {
+    "record_type": {"const": "PMIRI_D2_FETCHED_CONTENT_LIFECYCLE"},
+    "schema_version": {"const": "0.3"},
+    "content_id": {"type": "string", "minLength": 1},
+    "operation": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/operation"},
+    "purpose": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/purpose"},
+    "origin_binding_ref": {"type": "string", "minLength": 1},
+    "destination_binding_ref": {"type": "string", "minLength": 1},
+    "response_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "terminal_response_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "observed_content_type": {"type": "string", "minLength": 1},
+    "response_size_bytes": {"type": "integer", "minimum": 0},
+    "initial_classification": {"type": "string", "minLength": 1},
+    "trust_state": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/trust_state"},
+    "admission_state": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/content_lifecycle"},
+    "history_start_state": {"const": "NOT_APPLICABLE"},
+    "history_terminal_state": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/content_lifecycle"},
+    "retrieval_visibility": {"enum": ["NONE", "QUARANTINE_ONLY", "TYPED_DATA_ONLY"]},
+    "canonical_or_control_influence_prohibited": {"const": true},
+    "admission_predicate": {"type": "object", "additionalProperties": false, "required": ["explicit_operation", "explicit_operation_ref", "origin_bound", "parser_result_ref", "classification_ref", "validation_result_ref", "content_policy_result_ref", "instruction_influence_prohibited", "control_influence_prohibited"], "properties": {"explicit_operation": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/operation"}, "explicit_operation_ref": {"type": "string", "minLength": 1}, "origin_bound": {"const": true}, "parser_result_ref": {"type": "string", "minLength": 1}, "classification_ref": {"type": "string", "minLength": 1}, "validation_result_ref": {"type": "string", "minLength": 1}, "content_policy_result_ref": {"type": "string", "minLength": 1}, "instruction_influence_prohibited": {"const": true}, "control_influence_prohibited": {"const": true}}},
+    "typed_data_schema_ref": {"type": "string", "minLength": 1},
+    "typed_data_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "transitions": {"type": "array", "minItems": 0, "items": {"type": "object", "additionalProperties": false, "required": ["sequence", "from_state", "to_state", "event", "observed_at", "actor_ref", "reason_class"], "properties": {"sequence": {"type": "integer", "minimum": 0}, "from_state": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/content_lifecycle"}, "to_state": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/content_lifecycle"}, "event": {"enum": ["FETCH_COMPLETED", "VALIDATION_COMPLETED", "ADMISSION_APPROVED", "REJECTED", "DISCARDED", "ABORTED"]}, "observed_at": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/timestamp"}, "actor_ref": {"type": "string", "minLength": 1}, "reason_class": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/reason_class"}}, "oneOf": [
+      {"properties": {"from_state": {"const": "NOT_APPLICABLE"}, "to_state": {"const": "QUARANTINED"}, "event": {"const": "FETCH_COMPLETED"}}},
+      {"properties": {"from_state": {"const": "QUARANTINED"}, "to_state": {"const": "ADMITTED_TYPED_DATA"}, "event": {"const": "ADMISSION_APPROVED"}}},
+      {"properties": {"from_state": {"const": "QUARANTINED"}, "to_state": {"const": "REJECTED"}, "event": {"const": "REJECTED"}}},
+      {"properties": {"from_state": {"const": "QUARANTINED"}, "to_state": {"const": "DISCARDED"}, "event": {"const": "DISCARDED"}}},
+      {"properties": {"from_state": {"const": "QUARANTINED"}, "to_state": {"const": "ABORTED"}, "event": {"const": "ABORTED"}}},
+      {"properties": {"from_state": {"const": "ADMITTED_TYPED_DATA"}, "to_state": {"const": "DISCARDED"}, "event": {"const": "DISCARDED"}}},
+      {"properties": {"from_state": {"const": "ADMITTED_TYPED_DATA"}, "to_state": {"const": "ABORTED"}, "event": {"const": "ABORTED"}}}
+    ]}},
+    "authority_manifest_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "lifecycle_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"}
+  },
+  "allOf": [
+    {"if": {"properties": {"admission_state": {"const": "NOT_APPLICABLE"}}}, "then": {"properties": {"retrieval_visibility": {"const": "NONE"}}, "not": {"required": ["admission_predicate"]}}},
+    {"if": {"properties": {"admission_state": {"const": "QUARANTINED"}}}, "then": {"required": ["admission_predicate"], "properties": {"retrieval_visibility": {"const": "QUARANTINE_ONLY"}, "transitions": {"minItems": 1}}}},
+    {"if": {"properties": {"admission_state": {"const": "ADMITTED_TYPED_DATA"}}}, "then": {"required": ["admission_predicate", "typed_data_schema_ref", "typed_data_fingerprint"], "properties": {"retrieval_visibility": {"const": "TYPED_DATA_ONLY"}, "transitions": {"minItems": 1}}}},
+    {"if": {"properties": {"admission_state": {"enum": ["REJECTED", "DISCARDED", "ABORTED"]}}}, "then": {"required": ["admission_predicate"], "properties": {"retrieval_visibility": {"const": "NONE"}, "transitions": {"minItems": 1}}}}
+  ]
+}

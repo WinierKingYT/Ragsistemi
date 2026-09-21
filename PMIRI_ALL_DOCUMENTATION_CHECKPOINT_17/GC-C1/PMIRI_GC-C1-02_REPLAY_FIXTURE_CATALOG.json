@@ -1,0 +1,1232 @@
+{
+  "catalog_format": "PMIRI-GC-C1-REPLAY-FIXTURE-CATALOG",
+  "catalog_id": "urn:pmiri:gc-c1:replay-fixture-catalog:0.1",
+  "title": "PMIRI GC-C1 Replay Fixture Catalog",
+  "catalog_version": "0.1",
+  "status": "DESIGN_ONLY",
+  "scope": {
+    "gate": "C.1",
+    "implementation_authorization": "NOT_GRANTED",
+    "tests_executed": false,
+    "evidence_record_schema": "PMIRI_GC-C1-02_EVIDENCE_RECORD.schema.json"
+  },
+  "authority_refs": [
+    "PMIRI_GC-C1-08_AUTHORITY_BUNDLE_MANIFEST.json",
+    "PMIRI_v1.0_Gate_C_Accepted/00_DOCUMENTATION_AUTHORITY.md",
+    "PMIRI_GC-C1-01_GATE_C_EVIDENCE_MATRIX_v0.1.md"
+  ],
+  "required_case_types": [
+    "positive",
+    "adversarial"
+  ],
+  "disposition_vocabulary": [
+    "ALLOWED_WITHIN_ENVELOPE",
+    "BOUNDED_BY_TRUSTED_AUTHORIZATION",
+    "DENIED",
+    "REPROJECT_REQUIRED",
+    "REAUTHORIZE_REQUIRED",
+    "REVALIDATE_REQUIRED",
+    "DEGRADED",
+    "UNSATISFIABLE",
+    "UNKNOWN_OR_PARTIAL",
+    "CONFLICT_PRESERVED",
+    "SCHEMA_REJECTED",
+    "TYPE_REJECTED",
+    "NO_MUTATION",
+    "EMIT_VALID"
+  ],
+  "fixtures": [
+    {
+      "fixture_id": "GC-C1-FC01",
+      "check_id": "R-FC-01",
+      "invariant": "Constraint rewrites cannot widen authorization; references are locators, never capabilities.",
+      "dependency_class": "GATE_C_CROSS_ROUND",
+      "cases": [
+        {
+          "case_id": "GC-C1-FC01-P",
+          "case_type": "positive",
+          "setup": [
+            "Create a trusted request with a narrow project and purpose envelope.",
+            "Retrieve only records inside that envelope."
+          ],
+          "actions": [
+            "Fetch an admitted result using its locator.",
+            "Compile the result without changing the envelope."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "ALLOWED_WITHIN_ENVELOPE",
+              "BOUNDED_BY_TRUSTED_AUTHORIZATION"
+            ],
+            "forbidden_dispositions": [
+              "DENIED"
+            ],
+            "required_observables": [
+              "authorization lineage remains identical",
+              "result domain remains inside the original envelope"
+            ]
+          },
+          "evidence_artifact_types": [
+            "SearchRequest",
+            "ConstraintEnvelope",
+            "RequestAuthorizationBinding",
+            "AuthorizationLineageRef",
+            "ExternalTypedResult"
+          ],
+          "status": "DESIGN_ONLY"
+        },
+        {
+          "case_id": "GC-C1-FC01-A",
+          "case_type": "adversarial",
+          "setup": [
+            "Create a trusted request with a narrow project and purpose envelope.",
+            "Prepare a wider rewritten envelope and a locator from another domain."
+          ],
+          "actions": [
+            "Submit the wider rewrite.",
+            "Attempt fetch with the foreign locator.",
+            "Compare the final authorization lineage with the original request."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "DENIED",
+              "BOUNDED_BY_TRUSTED_AUTHORIZATION"
+            ],
+            "forbidden_dispositions": [
+              "ALLOWED_WITHIN_ENVELOPE"
+            ],
+            "required_observables": [
+              "widening attempt is recorded",
+              "foreign locator does not grant access",
+              "lineage does not change to caller-selected authority"
+            ]
+          },
+          "evidence_artifact_types": [
+            "OriginalConstraintEnvelope",
+            "RewrittenConstraintEnvelope",
+            "ForeignLocator",
+            "AuthorizationValidityDecision",
+            "ExternalReadEmissionFence"
+          ],
+          "status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    {
+      "fixture_id": "GC-C1-FC02",
+      "check_id": "R-FC-02",
+      "invariant": "Retrieval coverage degradation cannot become complete context or provider evidence.",
+      "dependency_class": "GATE_C_CROSS_ROUND",
+      "cases": [
+        {
+          "case_id": "GC-C1-FC02-P",
+          "case_type": "positive",
+          "setup": [
+            "Create a retrieval run with complete coverage metadata for its declared search domain."
+          ],
+          "actions": [
+            "Build an EvidenceSet.",
+            "Compile provider-neutral context."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "ALLOWED_WITHIN_ENVELOPE"
+            ],
+            "forbidden_dispositions": [
+              "UNKNOWN_OR_PARTIAL"
+            ],
+            "required_observables": [
+              "coverage metadata is preserved through compilation",
+              "no stronger coverage claim is introduced"
+            ]
+          },
+          "evidence_artifact_types": [
+            "RetrievalReadView",
+            "CoverageRecord",
+            "EvidenceSet",
+            "CompiledContextArtifact"
+          ],
+          "status": "DESIGN_ONLY"
+        },
+        {
+          "case_id": "GC-C1-FC02-A",
+          "case_type": "adversarial",
+          "setup": [
+            "Create mixed retrieval partitions where one partition is stale or degraded.",
+            "Mark the combined coverage as partial."
+          ],
+          "actions": [
+            "Pass the combined result to context packing.",
+            "Pass the packed context to provider formatting."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "UNKNOWN_OR_PARTIAL",
+              "DEGRADED"
+            ],
+            "forbidden_dispositions": [
+              "ALLOWED_WITHIN_ENVELOPE"
+            ],
+            "required_observables": [
+              "InheritedEpistemicCeiling is preserved",
+              "packing cannot claim complete evidence coverage"
+            ]
+          },
+          "evidence_artifact_types": [
+            "MixedCoverageFixture",
+            "InheritedEpistemicCeiling",
+            "CompiledContextArtifact",
+            "ProviderEnvelope"
+          ],
+          "status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    {
+      "fixture_id": "GC-C1-FC03",
+      "check_id": "R-FC-03",
+      "invariant": "Partial or unknown current-state universes cannot become complete current state.",
+      "dependency_class": "GATE_C_TRUTH_BOUNDARY",
+      "cases": [
+        {
+          "case_id": "GC-C1-FC03-P",
+          "case_type": "positive",
+          "setup": [
+            "Create a current-state candidate universe whose completeness is explicitly known."
+          ],
+          "actions": [
+            "Resolve current state from the complete universe.",
+            "Project the typed result."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "ALLOWED_WITHIN_ENVELOPE"
+            ],
+            "forbidden_dispositions": [
+              "UNKNOWN_OR_PARTIAL"
+            ],
+            "required_observables": [
+              "candidate-universe completeness is retained",
+              "resolution references the complete candidate set"
+            ]
+          },
+          "evidence_artifact_types": [
+            "ResolutionCandidateUniverse",
+            "CurrentStateResolution",
+            "ExternalTypedResult"
+          ],
+          "status": "DESIGN_ONLY"
+        },
+        {
+          "case_id": "GC-C1-FC03-A",
+          "case_type": "adversarial",
+          "setup": [
+            "Omit candidates from a current-state universe.",
+            "Mark the universe partial or unknown."
+          ],
+          "actions": [
+            "Request a definitive current-state answer.",
+            "Attempt to format the result as complete."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "UNKNOWN_OR_PARTIAL",
+              "DENIED"
+            ],
+            "forbidden_dispositions": [
+              "ALLOWED_WITHIN_ENVELOPE"
+            ],
+            "required_observables": [
+              "partial/unknown state survives resolution",
+              "no complete-current claim is emitted"
+            ]
+          },
+          "evidence_artifact_types": [
+            "PartialCandidateUniverse",
+            "ResolutionCandidateUniverse",
+            "ContextEmissionValidityDecision",
+            "ExternalReadEmissionFence"
+          ],
+          "status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    {
+      "fixture_id": "GC-C1-FC04",
+      "check_id": "R-FC-04",
+      "invariant": "Correction, retraction, restriction, or semantic invalidation between stages cannot escape the applicable fence.",
+      "dependency_class": "GATE_C_BOUNDARY_FENCE",
+      "cases": [
+        {
+          "case_id": "GC-C1-FC04-P",
+          "case_type": "positive",
+          "setup": [
+            "Create a stable artifact chain with unchanged epochs from retrieval to emission."
+          ],
+          "actions": [
+            "Run retrieval, compilation, handoff, and final boundary validation."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "EMIT_VALID"
+            ],
+            "forbidden_dispositions": [
+              "REPROJECT_REQUIRED",
+              "REVALIDATE_REQUIRED"
+            ],
+            "required_observables": [
+              "all required epoch coverage is present",
+              "final fence covers the emitted artifact"
+            ]
+          },
+          "evidence_artifact_types": [
+            "ContextEmissionValidityDecision",
+            "ProviderSendFence",
+            "ExternalReadEmissionFence"
+          ],
+          "status": "DESIGN_ONLY"
+        },
+        {
+          "case_id": "GC-C1-FC04-A",
+          "case_type": "adversarial",
+          "setup": [
+            "Create a valid internal result.",
+            "Inject a correction, retraction, restriction, or semantic invalidation before emission."
+          ],
+          "actions": [
+            "Attempt final provider or direct-read emission using the stale result."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "REPROJECT_REQUIRED",
+              "REVALIDATE_REQUIRED",
+              "DENIED"
+            ],
+            "forbidden_dispositions": [
+              "EMIT_VALID"
+            ],
+            "required_observables": [
+              "changed epoch/state is detected",
+              "stale artifact is not emitted unchanged"
+            ]
+          },
+          "evidence_artifact_types": [
+            "EpochTransitionTrace",
+            "AuthorizationValidityDecision",
+            "ContextEmissionValidityDecision",
+            "ExternalReadEmissionFence",
+            "ProviderSendFence"
+          ],
+          "status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    {
+      "fixture_id": "GC-C1-FC05",
+      "check_id": "R-FC-05",
+      "invariant": "Unresolved conflict survives or produces an explicit degraded, unsatisfiable, or denied result.",
+      "dependency_class": "GATE_C_SEMANTIC_OBLIGATION",
+      "cases": [
+        {
+          "case_id": "GC-C1-FC05-P",
+          "case_type": "positive",
+          "setup": [
+            "Create two compatible evidence items supporting a single semantic obligation."
+          ],
+          "actions": [
+            "Rank, pack, and compile both items."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "ALLOWED_WITHIN_ENVELOPE"
+            ],
+            "forbidden_dispositions": [
+              "DEGRADED",
+              "UNSATISFIABLE"
+            ],
+            "required_observables": [
+              "both supporting evidence items remain traceable"
+            ]
+          },
+          "evidence_artifact_types": [
+            "EvidenceSet",
+            "SemanticObligationSet",
+            "CompiledContextArtifact"
+          ],
+          "status": "DESIGN_ONLY"
+        },
+        {
+          "case_id": "GC-C1-FC05-A",
+          "case_type": "adversarial",
+          "setup": [
+            "Create irreconcilable evidence items for the same obligation.",
+            "Apply budget or egress pressure that removes one side."
+          ],
+          "actions": [
+            "Compile and attempt external emission."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "CONFLICT_PRESERVED",
+              "DEGRADED",
+              "UNSATISFIABLE",
+              "DENIED"
+            ],
+            "forbidden_dispositions": [
+              "ALLOWED_WITHIN_ENVELOPE"
+            ],
+            "required_observables": [
+              "conflict obligation remains visible internally",
+              "one-sided removal is not silently presented as resolution"
+            ]
+          },
+          "evidence_artifact_types": [
+            "ConflictEvidenceFixture",
+            "SemanticObligationSet",
+            "OmissionLedger",
+            "EgressConstrainedContextArtifact"
+          ],
+          "status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    {
+      "fixture_id": "GC-C1-FC06",
+      "check_id": "R-FC-06",
+      "invariant": "Citation identity survives all accepted transforms and destination aliasing.",
+      "dependency_class": "GATE_C_PROVENANCE",
+      "cases": [
+        {
+          "case_id": "GC-C1-FC06-P",
+          "case_type": "positive",
+          "setup": [
+            "Create stable canonical anchors and cited spans."
+          ],
+          "actions": [
+            "Compile spans without reordering or truncation.",
+            "Create destination aliases."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "ALLOWED_WITHIN_ENVELOPE"
+            ],
+            "forbidden_dispositions": [
+              "TYPE_REJECTED"
+            ],
+            "required_observables": [
+              "every final alias maps to one canonical anchor",
+              "span fingerprints remain stable"
+            ]
+          },
+          "evidence_artifact_types": [
+            "CanonicalAnchor",
+            "EvidenceItem",
+            "CompiledSpanRef",
+            "CitationMap",
+            "ProviderAlias"
+          ],
+          "status": "DESIGN_ONLY"
+        },
+        {
+          "case_id": "GC-C1-FC06-A",
+          "case_type": "adversarial",
+          "setup": [
+            "Create cited spans and then reorder, truncate, and transform them."
+          ],
+          "actions": [
+            "Attempt to reuse stale positional citations.",
+            "Attempt to emit an alias without canonical anchor lineage."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "REVALIDATE_REQUIRED",
+              "DENIED",
+              "TYPE_REJECTED"
+            ],
+            "forbidden_dispositions": [
+              "EMIT_VALID"
+            ],
+            "required_observables": [
+              "stale positional reuse is detected",
+              "unmapped alias cannot be emitted"
+            ]
+          },
+          "evidence_artifact_types": [
+            "TransformMap",
+            "ConstrainedCitationMap",
+            "StaleCitationFixture",
+            "ProviderSendFence"
+          ],
+          "status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    {
+      "fixture_id": "GC-C1-FC07",
+      "check_id": "R-FC-07",
+      "invariant": "Constrained recompilation cannot retrieve, add, or resurrect evidence.",
+      "dependency_class": "GATE_C_EGRESS_HANDOFF",
+      "cases": [
+        {
+          "case_id": "GC-C1-FC07-P",
+          "case_type": "positive",
+          "setup": [
+            "Create an admitted EvidenceSet containing all material needed for the destination."
+          ],
+          "actions": [
+            "Apply a destination constraint that selects a subset.",
+            "Compile from the admitted subset."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "ALLOWED_WITHIN_ENVELOPE"
+            ],
+            "forbidden_dispositions": [
+              "REAUTHORIZE_REQUIRED"
+            ],
+            "required_observables": [
+              "all output evidence refs exist in the source EvidenceSet",
+              "no retrieval call occurs during constrained compilation"
+            ]
+          },
+          "evidence_artifact_types": [
+            "EvidenceSet",
+            "EgressConstraintSet",
+            "EgressConstrainedContextArtifact",
+            "RetrievalCallTrace"
+          ],
+          "status": "DESIGN_ONLY"
+        },
+        {
+          "case_id": "GC-C1-FC07-A",
+          "case_type": "adversarial",
+          "setup": [
+            "Create an EvidenceSet with omitted, denied, and restricted evidence."
+          ],
+          "actions": [
+            "Ask constrained compilation to restore an omitted item.",
+            "Ask it to retrieve a missing item implicitly."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "DENIED",
+              "REAUTHORIZE_REQUIRED",
+              "UNSATISFIABLE"
+            ],
+            "forbidden_dispositions": [
+              "ALLOWED_WITHIN_ENVELOPE"
+            ],
+            "required_observables": [
+              "no implicit retrieval is performed",
+              "excluded evidence is not resurrected"
+            ]
+          },
+          "evidence_artifact_types": [
+            "ExcludedEvidenceRefs",
+            "EgressConstrainedContextArtifact",
+            "RetrievalCallTrace",
+            "ProviderSendFence"
+          ],
+          "status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    {
+      "fixture_id": "GC-C1-FC08",
+      "check_id": "R-FC-08",
+      "invariant": "Destination, payload, and profile proof cannot be substituted.",
+      "dependency_class": "GATE_C_DESTINATION_BINDING",
+      "cases": [
+        {
+          "case_id": "GC-C1-FC08-P",
+          "case_type": "positive",
+          "setup": [
+            "Create an exact destination binding and matching payload/profile fingerprints."
+          ],
+          "actions": [
+            "Validate the proof immediately before transport."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "EMIT_VALID"
+            ],
+            "forbidden_dispositions": [
+              "REVALIDATE_REQUIRED",
+              "DENIED"
+            ],
+            "required_observables": [
+              "destination, payload, and profile fingerprints match"
+            ]
+          },
+          "evidence_artifact_types": [
+            "DestinationBindingProof",
+            "PayloadFingerprint",
+            "ProviderProfileFingerprint",
+            "ProviderSendFence"
+          ],
+          "status": "DESIGN_ONLY"
+        },
+        {
+          "case_id": "GC-C1-FC08-A",
+          "case_type": "adversarial",
+          "setup": [
+            "Create a valid proof for provider A and payload P.",
+            "Substitute provider B, feature F, or payload Q after proof creation."
+          ],
+          "actions": [
+            "Attempt transport with the substituted destination or payload."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "REVALIDATE_REQUIRED",
+              "DENIED"
+            ],
+            "forbidden_dispositions": [
+              "EMIT_VALID"
+            ],
+            "required_observables": [
+              "at least one bound fingerprint mismatches",
+              "original proof is not accepted for the substitute"
+            ]
+          },
+          "evidence_artifact_types": [
+            "OriginalDestinationBindingProof",
+            "SubstitutedDestinationBindingProof",
+            "FingerprintMismatch",
+            "ProviderSendFence"
+          ],
+          "status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    {
+      "fixture_id": "GC-C1-FC09",
+      "check_id": "R-FC-09",
+      "invariant": "Historical meaning remains pinned while current access and restriction safety still applies.",
+      "dependency_class": "GATE_C_HISTORICAL_SEMANTICS",
+      "cases": [
+        {
+          "case_id": "GC-C1-FC09-P",
+          "case_type": "positive",
+          "setup": [
+            "Create a historical record with a pinned recorded-time meaning.",
+            "Keep current access valid."
+          ],
+          "actions": [
+            "Request the historical view.",
+            "Project it through the external read boundary."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "ALLOWED_WITHIN_ENVELOPE"
+            ],
+            "forbidden_dispositions": [
+              "UNKNOWN_OR_PARTIAL"
+            ],
+            "required_observables": [
+              "recorded-time meaning is retained",
+              "current access check is present"
+            ]
+          },
+          "evidence_artifact_types": [
+            "HistoricalCut",
+            "RecordedTimeMeaning",
+            "ExternalReadDisclosureProjection",
+            "ExternalReadEmissionFence"
+          ],
+          "status": "DESIGN_ONLY"
+        },
+        {
+          "case_id": "GC-C1-FC09-A",
+          "case_type": "adversarial",
+          "setup": [
+            "Create a historical record with valid recorded-time meaning.",
+            "Change its current restriction or access state."
+          ],
+          "actions": [
+            "Request the same historical view after the current restriction change."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "REPROJECT_REQUIRED",
+              "DENIED",
+              "REVALIDATE_REQUIRED"
+            ],
+            "forbidden_dispositions": [
+              "EMIT_VALID"
+            ],
+            "required_observables": [
+              "historical meaning is not rewritten",
+              "current restriction prevents unsafe emission"
+            ]
+          },
+          "evidence_artifact_types": [
+            "HistoricalCut",
+            "CurrentRestrictionEpoch",
+            "AuthorizationValidityDecision",
+            "ExternalReadEmissionFence"
+          ],
+          "status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    {
+      "fixture_id": "GC-C1-FC10",
+      "check_id": "R-FC-10",
+      "invariant": "Continuations preserve original constraints and integrity; they never authorize.",
+      "dependency_class": "GATE_C_CONTINUATION",
+      "cases": [
+        {
+          "case_id": "GC-C1-FC10-P",
+          "case_type": "positive",
+          "setup": [
+            "Create a continuation descriptor bound to an original request and integrity proof."
+          ],
+          "actions": [
+            "Resume with the unchanged continuation.",
+            "Re-evaluate current access."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "ALLOWED_WITHIN_ENVELOPE",
+              "BOUNDED_BY_TRUSTED_AUTHORIZATION"
+            ],
+            "forbidden_dispositions": [
+              "REAUTHORIZE_REQUIRED"
+            ],
+            "required_observables": [
+              "original constraint fingerprint matches",
+              "continuation is not treated as authorization"
+            ]
+          },
+          "evidence_artifact_types": [
+            "ContinuationStateDescriptor",
+            "ContinuationIntegrityProof",
+            "RequestAuthorizationBinding"
+          ],
+          "status": "DESIGN_ONLY"
+        },
+        {
+          "case_id": "GC-C1-FC10-A",
+          "case_type": "adversarial",
+          "setup": [
+            "Create a valid continuation.",
+            "Tamper with its constraints, project, cursor, or integrity data."
+          ],
+          "actions": [
+            "Attempt resume with the tampered continuation.",
+            "Attempt reuse in another authorization domain."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "DENIED",
+              "REVALIDATE_REQUIRED"
+            ],
+            "forbidden_dispositions": [
+              "ALLOWED_WITHIN_ENVELOPE"
+            ],
+            "required_observables": [
+              "integrity mismatch is detected",
+              "continuation cannot widen or authorize"
+            ]
+          },
+          "evidence_artifact_types": [
+            "OriginalContinuation",
+            "TamperedContinuation",
+            "ContinuationIntegrityProof",
+            "AuthorizationValidityDecision"
+          ],
+          "status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    {
+      "fixture_id": "GC-C1-FC11",
+      "check_id": "R-FC-11",
+      "invariant": "Every declared external read operation passes disclosure projection and final emission fencing.",
+      "dependency_class": "GATE_C_EXTERNAL_READ",
+      "cases": [
+        {
+          "case_id": "GC-C1-FC11-P",
+          "case_type": "positive",
+          "setup": [
+            "Prepare safe internal results for search, fetch_evidence, resolve_current_state, retrieve_history, timeline, explain, and status."
+          ],
+          "actions": [
+            "Run each operation through its adapter.",
+            "Record projection and final fence artifacts."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "EMIT_VALID"
+            ],
+            "forbidden_dispositions": [
+              "DENIED"
+            ],
+            "required_observables": [
+              "each operation has a projection record",
+              "each operation has a final emission fence",
+              "typed output preserves permitted epistemic state"
+            ]
+          },
+          "evidence_artifact_types": [
+            "OperationInventory",
+            "ExternalReadDisclosureProjection",
+            "ExternalTypedResult",
+            "ExternalReadEmissionFence"
+          ],
+          "status": "DESIGN_ONLY"
+        },
+        {
+          "case_id": "GC-C1-FC11-A",
+          "case_type": "adversarial",
+          "setup": [
+            "Prepare an internal result containing inaccessible existence, hidden IDs, omission reasons, and policy diagnostics."
+          ],
+          "actions": [
+            "Exercise every declared read operation.",
+            "Attempt to return internal fields directly or bypass projection."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "REPROJECT_REQUIRED",
+              "DENIED"
+            ],
+            "forbidden_dispositions": [
+              "EMIT_VALID"
+            ],
+            "required_observables": [
+              "sensitive internal fields are removed or coarsened",
+              "no operation bypasses the universal projection boundary"
+            ]
+          },
+          "evidence_artifact_types": [
+            "InternalSemanticResult",
+            "ExternalReadDisclosureProjection",
+            "ExternalTypedResult",
+            "ExternalReadEmissionFence"
+          ],
+          "status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    {
+      "fixture_id": "GC-C1-FC12",
+      "check_id": "R-FC-12",
+      "invariant": "MCP and protocol-neutral API share semantic operations and trusted per-request authorization.",
+      "dependency_class": "GATE_C_PROTOCOL_PARITY",
+      "cases": [
+        {
+          "case_id": "GC-C1-FC12-P",
+          "case_type": "positive",
+          "setup": [
+            "Create one canonical request and send it through MCP and the protocol-neutral API."
+          ],
+          "actions": [
+            "Normalize both adapter outputs.",
+            "Compare domain dispositions, lineage, and typed fields."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "ALLOWED_WITHIN_ENVELOPE"
+            ],
+            "forbidden_dispositions": [
+              "DENIED"
+            ],
+            "required_observables": [
+              "server-derived authorization semantics are equivalent",
+              "normalized typed outputs are equivalent"
+            ]
+          },
+          "evidence_artifact_types": [
+            "CanonicalRequest",
+            "MCPAdapterResult",
+            "APIAdapterResult",
+            "ParityDiff"
+          ],
+          "status": "DESIGN_ONLY"
+        },
+        {
+          "case_id": "GC-C1-FC12-A",
+          "case_type": "adversarial",
+          "setup": [
+            "Create a request whose MCP path has hidden connection-local state or a caller-selected privileged reference."
+          ],
+          "actions": [
+            "Replay the request statelessly.",
+            "Compare it with the protocol-neutral API path."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "DENIED",
+              "REVALIDATE_REQUIRED"
+            ],
+            "forbidden_dispositions": [
+              "ALLOWED_WITHIN_ENVELOPE"
+            ],
+            "required_observables": [
+              "hidden session state cannot grant correctness",
+              "caller-selected privilege is ignored"
+            ]
+          },
+          "evidence_artifact_types": [
+            "StatelessRequest",
+            "RequestAuthorizationBinding",
+            "MCPAdapterResult",
+            "APIAdapterResult",
+            "ParityDiff"
+          ],
+          "status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    {
+      "fixture_id": "GC-C1-FC13",
+      "check_id": "R-FC-13",
+      "invariant": "Typed structured safety state is authoritative; prose cannot override it.",
+      "dependency_class": "GATE_C_TYPED_OUTPUT",
+      "cases": [
+        {
+          "case_id": "GC-C1-FC13-P",
+          "case_type": "positive",
+          "setup": [
+            "Create a valid structured MCP result and matching presentation prose."
+          ],
+          "actions": [
+            "Validate the structured result against its schema.",
+            "Compare it with the transport-neutral typed result."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "ALLOWED_WITHIN_ENVELOPE"
+            ],
+            "forbidden_dispositions": [
+              "SCHEMA_REJECTED"
+            ],
+            "required_observables": [
+              "structured result validates",
+              "prose and typed state agree"
+            ]
+          },
+          "evidence_artifact_types": [
+            "MCPStructuredResult",
+            "MCPResultSchema",
+            "TransportNeutralTypedResult"
+          ],
+          "status": "DESIGN_ONLY"
+        },
+        {
+          "case_id": "GC-C1-FC13-A",
+          "case_type": "adversarial",
+          "setup": [
+            "Create malformed structured content or prose that contradicts a typed deny/degraded/uncertain state."
+          ],
+          "actions": [
+            "Submit the MCP result to validation.",
+            "Attempt to use prose to override the structured state."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "SCHEMA_REJECTED",
+              "DENIED",
+              "DEGRADED"
+            ],
+            "forbidden_dispositions": [
+              "ALLOWED_WITHIN_ENVELOPE"
+            ],
+            "required_observables": [
+              "malformed structured content is rejected",
+              "prose cannot override typed safety state"
+            ]
+          },
+          "evidence_artifact_types": [
+            "MalformedMCPResult",
+            "ContradictoryProse",
+            "SchemaValidationResult",
+            "TransportNeutralTypedResult"
+          ],
+          "status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    {
+      "fixture_id": "GC-C1-FC14",
+      "check_id": "R-FC-14",
+      "invariant": "Read-only operations cannot mutate canonical or user-domain semantic state.",
+      "dependency_class": "GATE_C_READ_ONLY",
+      "cases": [
+        {
+          "case_id": "GC-C1-FC14-P",
+          "case_type": "positive",
+          "setup": [
+            "Create canonical and user-domain state fingerprints.",
+            "Run an ordinary read-only operation."
+          ],
+          "actions": [
+            "Compare before and after fingerprints.",
+            "Inspect operational trace and cache side effects."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "NO_MUTATION",
+              "EMIT_VALID"
+            ],
+            "forbidden_dispositions": [
+              "DEGRADED"
+            ],
+            "required_observables": [
+              "canonical fingerprint is unchanged",
+              "user-domain semantic fingerprint is unchanged"
+            ]
+          },
+          "evidence_artifact_types": [
+            "CanonicalStateFingerprint",
+            "UserDomainStateFingerprint",
+            "ReadOnlyOperationTrace"
+          ],
+          "status": "DESIGN_ONLY"
+        },
+        {
+          "case_id": "GC-C1-FC14-A",
+          "case_type": "adversarial",
+          "setup": [
+            "Prepare a read-only operation containing an injected mutation request in retrieved text or wrapper metadata."
+          ],
+          "actions": [
+            "Execute the operation.",
+            "Inspect canonical state, user-domain state, cache, logs, and provider-action traces."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "NO_MUTATION",
+              "DENIED"
+            ],
+            "forbidden_dispositions": [
+              "ALLOWED_WITHIN_ENVELOPE"
+            ],
+            "required_observables": [
+              "injected instruction is treated as data",
+              "no semantic mutation or provider-side action occurs"
+            ]
+          },
+          "evidence_artifact_types": [
+            "InjectedEvidenceFixture",
+            "CanonicalStateFingerprint",
+            "MutationAttemptTrace",
+            "ProviderActionTrace"
+          ],
+          "status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    {
+      "fixture_id": "GC-C1-FC15",
+      "check_id": "R-FC-15",
+      "invariant": "Authorization revocation after retrieval but before direct response blocks or safely reprojects output.",
+      "dependency_class": "GATE_C_EXTERNAL_READ_FENCE",
+      "cases": [
+        {
+          "case_id": "GC-C1-FC15-P",
+          "case_type": "positive",
+          "setup": [
+            "Create a valid request, retrieve an internal result, and leave authorization unchanged."
+          ],
+          "actions": [
+            "Run disclosure projection.",
+            "Run the final external read emission fence."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "EMIT_VALID"
+            ],
+            "forbidden_dispositions": [
+              "REPROJECT_REQUIRED",
+              "DENIED"
+            ],
+            "required_observables": [
+              "authorization validity covers the emitted result",
+              "projection and result fingerprints match"
+            ]
+          },
+          "evidence_artifact_types": [
+            "InternalSemanticResult",
+            "AuthorizationValidityDecision",
+            "ExternalReadDisclosureProjection",
+            "ExternalReadEmissionFence"
+          ],
+          "status": "DESIGN_ONLY"
+        },
+        {
+          "case_id": "GC-C1-FC15-A",
+          "case_type": "adversarial",
+          "setup": [
+            "Retrieve a valid internal result.",
+            "Revoke access or change policy before direct API/MCP emission."
+          ],
+          "actions": [
+            "Attempt emission using the stale authorization lineage."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "REPROJECT_REQUIRED",
+              "REVALIDATE_REQUIRED",
+              "DENIED"
+            ],
+            "forbidden_dispositions": [
+              "EMIT_VALID"
+            ],
+            "required_observables": [
+              "revocation is visible to the final fence",
+              "stale result is not emitted unchanged"
+            ]
+          },
+          "evidence_artifact_types": [
+            "PreRevocationAuthorization",
+            "PostRevocationAuthorization",
+            "AuthorizationValidityDecision",
+            "ExternalReadEmissionFence"
+          ],
+          "status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    {
+      "fixture_id": "GC-C1-FC16",
+      "check_id": "R-FC-16",
+      "invariant": "Provider-specific constrained artifacts cannot masquerade as provider-neutral compiled context.",
+      "dependency_class": "GATE_C_ARTIFACT_TYPE_SEPARATION",
+      "cases": [
+        {
+          "case_id": "GC-C1-FC16-P",
+          "case_type": "positive",
+          "setup": [
+            "Create a provider-neutral CompiledContextArtifact.",
+            "Create a separate destination-constrained artifact from it."
+          ],
+          "actions": [
+            "Validate both artifact types and their source references."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "ALLOWED_WITHIN_ENVELOPE"
+            ],
+            "forbidden_dispositions": [
+              "TYPE_REJECTED"
+            ],
+            "required_observables": [
+              "provider-neutral artifact remains unchanged",
+              "constrained artifact has its own destination binding"
+            ]
+          },
+          "evidence_artifact_types": [
+            "CompiledContextArtifact",
+            "EgressConstrainedContextArtifact",
+            "ArtifactTypeRegistry"
+          ],
+          "status": "DESIGN_ONLY"
+        },
+        {
+          "case_id": "GC-C1-FC16-A",
+          "case_type": "adversarial",
+          "setup": [
+            "Create an EgressConstrainedContextArtifact.",
+            "Relabel it or pass it into a provider-neutral context path."
+          ],
+          "actions": [
+            "Submit the substituted artifact to validation and assembly."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "TYPE_REJECTED",
+              "DENIED"
+            ],
+            "forbidden_dispositions": [
+              "EMIT_VALID"
+            ],
+            "required_observables": [
+              "artifact type mismatch is detected",
+              "provider-specific constraints are not erased"
+            ]
+          },
+          "evidence_artifact_types": [
+            "EgressConstrainedContextArtifact",
+            "CompiledContextArtifact",
+            "TypeValidationResult",
+            "ProviderEnvelope"
+          ],
+          "status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    {
+      "fixture_id": "GC-C1-FC17",
+      "check_id": "R-FC-17",
+      "invariant": "Evidence data and control classes survive wrappers and transforms.",
+      "dependency_class": "GATE_C_TRUST_BOUNDARY",
+      "cases": [
+        {
+          "case_id": "GC-C1-FC17-P",
+          "case_type": "positive",
+          "setup": [
+            "Create ordinary retrieved evidence with an explicit data/content class."
+          ],
+          "actions": [
+            "Wrap it in context and provider envelope metadata.",
+            "Validate class lineage."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "ALLOWED_WITHIN_ENVELOPE"
+            ],
+            "forbidden_dispositions": [
+              "TYPE_REJECTED"
+            ],
+            "required_observables": [
+              "data/content class is preserved",
+              "wrapper metadata does not promote evidence to control"
+            ]
+          },
+          "evidence_artifact_types": [
+            "EvidenceItem",
+            "TrustContentClass",
+            "CompiledContextArtifact",
+            "ProviderEnvelope"
+          ],
+          "status": "DESIGN_ONLY"
+        },
+        {
+          "case_id": "GC-C1-FC17-A",
+          "case_type": "adversarial",
+          "setup": [
+            "Place instruction-like or policy-like text inside retrieved evidence."
+          ],
+          "actions": [
+            "Pass it through context compilation and provider wrapping.",
+            "Attempt to execute it as trusted control."
+          ],
+          "oracle": {
+            "expected_dispositions": [
+              "DENIED",
+              "TYPE_REJECTED",
+              "DEGRADED"
+            ],
+            "forbidden_dispositions": [
+              "EMIT_VALID"
+            ],
+            "required_observables": [
+              "retrieved text remains data",
+              "control boundary rejects promotion"
+            ]
+          },
+          "evidence_artifact_types": [
+            "InstructionLikeEvidence",
+            "TrustContentClass",
+            "ControlBoundaryDecision",
+            "ProviderEnvelope"
+          ],
+          "status": "DESIGN_ONLY"
+        }
+      ]
+    }
+  ]
+}

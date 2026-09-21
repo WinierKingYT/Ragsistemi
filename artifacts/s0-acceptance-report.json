@@ -1,0 +1,256 @@
+{
+  "artifact_kind": "PMIRI-V1-S0-ACCEPTANCE-REPORT",
+  "cases": [
+    {
+      "actual": {
+        "fingerprint": "b368b256ada7e4832dd2f784548d9c7af03a1fae023b94158b2e92261b648094",
+        "source_id": "src_d5399c6b5cb3c1feb0a7f5b009632c6b",
+        "version_id": "ver_b368b256ada7e4832dd2f784548d9c7af03a1fae023b94158b2e92261b648094"
+      },
+      "actual_fingerprint": "ff503ec8b522b7cb42d967c8b655bdb3876acd204d5790a6d66bacbba81b96ee",
+      "case_id": "VS-01",
+      "citation_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "fixture_fingerprint": "d5b5889861dd6d8346928ec88a567fa31e53c2448360c496c22f8d9e83eb4794",
+      "request": {
+        "operation": "register_source",
+        "project": "project-alpha",
+        "source": "source-a.md"
+      },
+      "request_fingerprint": "8c48c28fdcb770da1ee11fd817f4175cb193aaa1439b1d218a56ccfae99d1107",
+      "status": "RECORDED"
+    },
+    {
+      "actual": {
+        "first_registration_mutated": true,
+        "no_second_mutation": true,
+        "same_version": true
+      },
+      "actual_fingerprint": "fca562618c7e867c59cefb74e97eeb07a9d69a58ee948fe93edd4a144f921eca",
+      "case_id": "VS-02",
+      "citation_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "fixture_fingerprint": "b533591eb5bae9c90d1128d64bfc30ee0c61ec6ce1323897142fb686c89fca90",
+      "request": {
+        "operation": "register_source",
+        "project": "project-alpha",
+        "repeat": true,
+        "source": "duplicate.md"
+      },
+      "request_fingerprint": "4d43414ed537c6fb4b0ea6e438b1ebd4201c24642b3248b1f6c9213dae63f529",
+      "status": "RECORDED"
+    },
+    {
+      "actual": {
+        "all_in_project": true,
+        "citation_refs": [
+          "anchor_2c0fe5e752f17a6cf92329888ba84261e9edd00ec1296101e0aa2883fd536c39",
+          "anchor_b42a0bb0ffbb04108a6c68d4c9ab2ecba38c1ea0298b315c18f5d22e76ef146f"
+        ],
+        "coverage": "complete",
+        "disposition": "DEGRADED",
+        "evidence_refs": [
+          "ev_abe49a838e34d1337a89bdd7c20ca21c",
+          "ev_29d0cefaac990d249a2cf9336da12eff",
+          "ev_4d3d8f9cd7febeffdfeecb5622e1fcd2"
+        ],
+        "result_fingerprint": "1814e0125b5ac9d5aa457329e53badcf75a46d5ea9b804d9c9605ccc65826399"
+      },
+      "actual_fingerprint": "4f7aa85ed7b9d2330b1bb927d1c7442cab69d9117352eb0b8ede939561f96e9c",
+      "case_id": "VS-03",
+      "citation_fingerprint": "38819d5569da39ccb8a2e420d75918b3d2fc9c99b9306842cf52cc1d8ef68267",
+      "fixture_fingerprint": "d2a6075961da63437964b8f6bcf57049b218df059b674c6ae06f6c83ddbdc944",
+      "request": {
+        "max_results": 20,
+        "project_constraint": "project-alpha",
+        "purpose": "local_read",
+        "query": "release status",
+        "request_id": "vs3"
+      },
+      "request_fingerprint": "a509ec780957fdbe5c1958742189e18f28aef71e7022fbe9b8868d43a5f1c978",
+      "status": "RECORDED"
+    },
+    {
+      "actual": {
+        "beta_is_absent": true,
+        "disposition": "EMPTY",
+        "failure_explanation": "foreign project records remain outside the trusted project constraint"
+      },
+      "actual_fingerprint": "2a53de3c2192a55bee49c158ff206abe517ce8c15e9137768b52872d47c7ac6e",
+      "case_id": "VS-04",
+      "citation_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "fixture_fingerprint": "979756b52ba84f56d12dd968dc4b8bfd21b7e49d48d7f0d7f00e12222e334397",
+      "request": {
+        "max_results": 20,
+        "project_constraint": "project-alpha",
+        "purpose": "local_read",
+        "query": "private",
+        "request_id": "vs4"
+      },
+      "request_fingerprint": "e0e33583ce4e732a55328bf77e032a10fede1f2b54d60ac3c8329e1a6c5dea6b",
+      "status": "RECORDED"
+    },
+    {
+      "actual": {
+        "disposition": "EMPTY",
+        "failure_explanation": "no supporting evidence is represented as typed EMPTY"
+      },
+      "actual_fingerprint": "55e913aa1b4a50fa77e57fb5b7e261014aea4c5048bec8942bc18516c762754b",
+      "case_id": "VS-05",
+      "citation_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "fixture_fingerprint": "e84457974162fb5580276385d39349a82528190b58e4af06a949825970bcc614",
+      "request": {
+        "max_results": 20,
+        "project_constraint": "project-alpha",
+        "purpose": "local_read",
+        "query": "not present anywhere",
+        "request_id": "vs5"
+      },
+      "request_fingerprint": "8a73aa742935f99d53b50d45cb7aff5105bd2bbfe100bbe0994e12ca6c4d6a02",
+      "status": "RECORDED"
+    },
+    {
+      "actual": {
+        "citation_refs": [
+          "anchor_2c0fe5e752f17a6cf92329888ba84261e9edd00ec1296101e0aa2883fd536c39",
+          "anchor_b42a0bb0ffbb04108a6c68d4c9ab2ecba38c1ea0298b315c18f5d22e76ef146f"
+        ],
+        "context_fingerprint": "6931611f8a68170ba0a7a9ba82ea29fce09ace0422a10ce8013f1b6d3223d755",
+        "within_bound": true
+      },
+      "actual_fingerprint": "281435fb6e56d4b34263827931aebafb928b0fd2b03b55e7ab3c517f16f0e0ac",
+      "case_id": "VS-06",
+      "citation_fingerprint": "38819d5569da39ccb8a2e420d75918b3d2fc9c99b9306842cf52cc1d8ef68267",
+      "fixture_fingerprint": "aba2e7908a00389a95adc1642fe4e3564414ce1ad38a1331653abab0683ffdfa",
+      "request": {
+        "max_results": 20,
+        "project_constraint": "project-alpha",
+        "purpose": "local_read",
+        "query": "release",
+        "request_id": "vs6"
+      },
+      "request_fingerprint": "3f9b4b5f8864bd387188c89f5374d46860feea4ad83dbe3e7a6238faeb31ce86",
+      "status": "RECORDED"
+    },
+    {
+      "actual": {
+        "conflict_group_visible": true,
+        "disposition": "CONFLICT_PRESERVED"
+      },
+      "actual_fingerprint": "977a896b04822e540a5bf7d455a0d78f8d4ec9a7b9b7ef864c3d2b6dd0a9676a",
+      "case_id": "VS-07",
+      "citation_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "fixture_fingerprint": "c55b6a032ee1c10e8945bfac123fd2eb64b346f8f5692d9d9de1f61584fe618f",
+      "request": {
+        "max_results": 20,
+        "project_constraint": "project-alpha",
+        "purpose": "local_read",
+        "query": "release status",
+        "request_id": "vs7"
+      },
+      "request_fingerprint": "2c38ae063f02dbdbd9113543d49a1d8db97f8a85ff22b39a1b8a5d3ea2aa1767",
+      "status": "RECORDED"
+    },
+    {
+      "actual": {
+        "deterministic": true
+      },
+      "actual_fingerprint": "4341945c2c90d096f8bfa2de0b9bcc0c2fde79411753a51b685e8eb9c9fd2824",
+      "case_id": "VS-08",
+      "citation_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "fixture_fingerprint": "6aab0028fe17b2fba57d8d1340a57ec9c7fa5e614c07bd5ad36c88d05e7b9a87",
+      "request": {
+        "operation": "query",
+        "project": "p",
+        "query": "alpha"
+      },
+      "request_fingerprint": "b7b190b600a98fb042019d463041c517056fae9a26fe2f6829832c71c05cc2da",
+      "status": "RECORDED"
+    },
+    {
+      "actual": {
+        "equivalent": true
+      },
+      "actual_fingerprint": "436383d3e84e544005551f29291b54e7d46b6438a9b1ff872cdd1e0fe34a6596",
+      "case_id": "VS-09",
+      "citation_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "fixture_fingerprint": "5a05a8d1cbcd447ff8a24ea86f9e2333fa37a3bbf102a34728df88057fb88db4",
+      "request": {
+        "max_results": 20,
+        "project_constraint": "project-alpha",
+        "purpose": "local_read",
+        "query": "release",
+        "request_id": "vs9"
+      },
+      "request_fingerprint": "6dd13383710d81e6472c94cfbb8e25b510314cf495538627537cc4e493d3250e",
+      "status": "RECORDED"
+    },
+    {
+      "actual": {
+        "fails_closed": true,
+        "failure_explanation": "strict UTF-8 decoder rejects malformed input"
+      },
+      "actual_fingerprint": "26502891aaf8d0ae550893891d5f8b86b3eb3b033f95292fd10274669e58b981",
+      "case_id": "VS-10",
+      "citation_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "fixture_fingerprint": "7c00c5036bbceb189ea63035ee7c3d17f59c43743d131e6cfcd3a49c3ce39a0c",
+      "request": {
+        "operation": "register_source",
+        "project": "project-alpha",
+        "source": "malformed.md"
+      },
+      "request_fingerprint": "6a4f3fb1b0687ddd3bb3dc6205b161aa8590dad5d61fb12a5a7075b9aa3a0bdc",
+      "status": "RECORDED"
+    },
+    {
+      "actual": {
+        "denied": true,
+        "external_access_observation": "no network call performed by deny-only boundary"
+      },
+      "actual_fingerprint": "f96958e1787405393793f2922a3e4b613800b78b55478f61b12e6822a72d1769",
+      "case_id": "VS-11",
+      "citation_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "fixture_fingerprint": "569f8767d639a5daa8135b0ca186768a16c5ff91a861459792d918e749c7be45",
+      "request": {
+        "operation": "external_fetch",
+        "url": "https://example.com"
+      },
+      "request_fingerprint": "52d8976d9c98d959cb6913ac51e1aaa81030b98374b71f66f67cea2fdcd859c8",
+      "status": "RECORDED"
+    },
+    {
+      "actual": {
+        "canonical_state_after": "ca94f1890f7ceb734e448c591cbc18fa0856b8982a742c9128cbf2dad912587f",
+        "canonical_state_before": "ca94f1890f7ceb734e448c591cbc18fa0856b8982a742c9128cbf2dad912587f",
+        "canonical_state_unchanged": true,
+        "citation_refs": [
+          "anchor_d3313f30e236f26163da6893b34840fddf048af60801318a20bb87b7fbf019ae"
+        ],
+        "context_fingerprint": "6329ece386e134e9cec9cabd2751f4fcc5c0a0144248bd2202b4c896cd24c502"
+      },
+      "actual_fingerprint": "14f8479194174a60ac32c69404d93cf19796de9dc367d821c9b48443e71526eb",
+      "case_id": "VS-12",
+      "citation_fingerprint": "e140186be122b9664f43ca1c2cb1e1b2dfe48a4674a0a17022159406bb31f3db",
+      "fixture_fingerprint": "e00795cd3cb779facf8f7f05cede26aa3e300ee070ba9a6ec2365ebe42595b0d",
+      "request": {
+        "max_results": 20,
+        "project_constraint": "project-alpha",
+        "purpose": "local_read",
+        "query": "recipe",
+        "request_id": "vs12"
+      },
+      "request_fingerprint": "7ad239100a1386daef364ad6ef830f621a1b82658986ffcf68fdecc8cc388422",
+      "status": "RECORDED"
+    }
+  ],
+  "command": "python -m pmiri acceptance <project-root>",
+  "environment": {
+    "encoding": "UTF-8",
+    "network": "DENY_BY_DEFAULT",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.14",
+    "timezone": "UTC"
+  },
+  "external_provider_access": "NOT_PERFORMED",
+  "gate_c_r_fc_status": "NOT_APPLICABLE",
+  "r_fc_pass": "NONE",
+  "status": "S0_ACCEPTANCE_CANDIDATE"
+}

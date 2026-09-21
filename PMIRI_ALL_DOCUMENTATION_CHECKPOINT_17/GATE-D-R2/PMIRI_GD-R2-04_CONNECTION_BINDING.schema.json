@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pmiri://schema/gate-d-r2/connection-binding/0.3",
+  "title": "PMIRI Gate D Round 2 Network Connection Binding",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["record_type", "schema_version", "connection_binding_id", "destination_identity_ref", "canonicalization_profile_id", "canonicalization_profile_fingerprint", "normalized_authority", "resolver_ref", "resolved_addresses", "resolution_set_status", "selected_target", "proxy", "tls", "revalidation_events", "connection_epoch", "invalidation_epoch", "binding_status", "binding_fingerprint"],
+  "properties": {
+    "record_type": {"const": "PMIRI_D2_CONNECTION_BINDING"},
+    "schema_version": {"const": "0.3"},
+    "connection_binding_id": {"type": "string", "minLength": 1},
+    "destination_identity_ref": {"type": "string", "minLength": 1},
+    "canonicalization_profile_id": {"type": "string", "minLength": 1},
+    "canonicalization_profile_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "normalized_authority": {"type": "string", "minLength": 1},
+    "resolver_ref": {"type": "string", "minLength": 1},
+    "resolved_addresses": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["resolution_entry_id", "ip", "family", "policy_status", "observed_at", "allowlist_ref"],
+        "properties": {
+          "resolution_entry_id": {"type": "string", "minLength": 1},
+          "ip": {"type": "string", "minLength": 1},
+          "family": {"enum": ["IPv4", "IPv6"]},
+          "policy_status": {"enum": ["ALLOWLISTED_PUBLIC", "DENIED_PRIVATE", "DENIED_RESERVED", "DENIED_UNALLOWLISTED"]},
+          "observed_at": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/timestamp"},
+          "allowlist_ref": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "resolution_set_status": {"enum": ["ALL_ALLOWLISTED_PUBLIC", "DENIED_MIXED"]},
+    "selected_target": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["resolution_entry_ref", "ip", "family", "policy_status"],
+      "properties": {
+        "resolution_entry_ref": {"type": "string", "minLength": 1},
+        "ip": {"type": "string", "minLength": 1},
+        "family": {"enum": ["IPv4", "IPv6"]},
+        "policy_status": {"const": "ALLOWLISTED_PUBLIC"}
+      }
+    },
+    "proxy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode"],
+      "properties": {"mode": {"enum": ["DIRECT", "EXPLICIT_PROXY", "DENY"]}, "proxy_identity_ref": {"type": "string", "minLength": 1}}
+    },
+    "tls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scheme", "sni", "certificate_fingerprint", "identity_status", "expected_identity_ref", "verified_identity_ref", "identity_binding_fingerprint"],
+      "properties": {
+        "scheme": {"const": "HTTPS"},
+        "sni": {"type": "string", "minLength": 1},
+        "certificate_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+        "identity_status": {"enum": ["MATCHED", "MISMATCHED"]},
+        "expected_identity_ref": {"type": "string", "minLength": 1},
+        "verified_identity_ref": {"type": "string", "minLength": 1},
+        "identity_binding_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"}
+      }
+    },
+    "revalidation_events": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["sequence", "event_type", "observed_at", "result", "prior_connection_epoch", "connection_epoch", "prior_invalidation_epoch", "invalidation_epoch"],
+        "properties": {
+          "sequence": {"type": "integer", "minimum": 0},
+          "event_type": {"enum": ["INITIAL_RESOLUTION", "REDIRECT", "RETRY", "CONNECTION_REUSE", "AUTHORITY_CHANGE", "POLICY_EPOCH_CHANGE"]},
+          "observed_at": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/timestamp"},
+          "result": {"enum": ["MATCHED", "MISMATCHED", "DENIED"]},
+          "prior_connection_epoch": {"type": "integer", "minimum": 0},
+          "connection_epoch": {"type": "integer", "minimum": 0},
+          "prior_invalidation_epoch": {"type": "integer", "minimum": 0},
+          "invalidation_epoch": {"type": "integer", "minimum": 0},
+          "reason_class": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/reason_class"}
+        }
+      }
+    },
+    "connection_epoch": {"type": "integer", "minimum": 0},
+    "invalidation_epoch": {"type": "integer", "minimum": 0},
+    "binding_status": {"enum": ["VALIDATED", "DENIED", "STALE"]},
+    "binding_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"proxy": {"properties": {"mode": {"const": "EXPLICIT_PROXY"}}}}},
+      "then": {"properties": {"proxy": {"required": ["proxy_identity_ref"]}}},
+      "else": {"properties": {"proxy": {"not": {"required": ["proxy_identity_ref"]}}}}
+    },
+    {
+      "if": {"properties": {"resolution_set_status": {"const": "ALL_ALLOWLISTED_PUBLIC"}}},
+      "then": {"properties": {"resolved_addresses": {"items": {"properties": {"policy_status": {"const": "ALLOWLISTED_PUBLIC"}}}}}}
+    },
+    {
+      "if": {"properties": {"resolution_set_status": {"const": "DENIED_MIXED"}}},
+      "then": {"properties": {"binding_status": {"enum": ["DENIED", "STALE"]}}}
+    },
+    {
+      "if": {"properties": {"selected_target": {"type": "null"}}},
+      "then": {
+        "properties": {
+          "resolution_set_status": {"const": "DENIED_MIXED"},
+          "binding_status": {"enum": ["DENIED", "STALE"]}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"resolution_set_status": {"const": "ALL_ALLOWLISTED_PUBLIC"}}},
+      "then": {"properties": {"selected_target": {"type": "object"}}}
+    },
+    {
+      "if": {"properties": {"binding_status": {"const": "VALIDATED"}}},
+      "then": {
+        "properties": {
+          "resolution_set_status": {"const": "ALL_ALLOWLISTED_PUBLIC"},
+          "selected_target": {"type": "object"},
+          "tls": {"properties": {"identity_status": {"const": "MATCHED"}}}
+        }
+      }
+    }
+  ]
+}

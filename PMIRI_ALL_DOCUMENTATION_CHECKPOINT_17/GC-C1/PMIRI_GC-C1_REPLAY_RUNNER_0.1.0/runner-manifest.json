@@ -1,0 +1,25 @@
+{
+  "manifest_format": "PMIRI_GC_C1_REPLAY_RUNNER",
+  "manifest_version": "0.1",
+  "status": "DESIGN_ONLY",
+  "runner": {
+    "runner_id": "pmiri-gc-c1-replay",
+    "runner_version": "0.1.0",
+    "source_fingerprint": "36017417e8bb94fbb5730f7b0e00a9728c572f1daf1265730dca1c8b7940d851",
+    "manifest_fingerprint": "e9ac3667f75cd1193aeacb16c081a8cdbaded976da9cce5c74cad730a211f717",
+    "latest_alias_allowed": false,
+    "self_upgrade_allowed": false,
+    "dependency_download_allowed": false
+  },
+  "package_files": [
+    {"path":"pmiri_gc_c1_replay_runner.py","sha256":"36017417e8bb94fbb5730f7b0e00a9728c572f1daf1265730dca1c8b7940d851"},
+    {"path":"README.md","sha256":"a9ed711ef8dd617c65af3f73bdc180d904714ac94091ad85bb07bd0d3a1a9812"},
+    {"path":"runner-manifest.json","sha256":"SELF_HASH_EXCLUDED_FROM_PACKAGE_FINGERPRINT"}
+  ],
+  "clean_room_required": true,
+  "network_allowed": false,
+  "credentials_allowed": false,
+  "production_access_allowed": false,
+  "r_fc_replay_performed": false,
+  "execution_authorization": "NOT_GRANTED"
+}

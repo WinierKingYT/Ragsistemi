@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:pmiri:gc-c1:isolation-attestation:0.1",
+  "title": "PMIRI GC-C1 Clean-Room Isolation Attestation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "attestation_id",
+    "version",
+    "status",
+    "launcher",
+    "case",
+    "authorization_id",
+    "fingerprints",
+    "filesystem",
+    "network",
+    "credentials",
+    "connectors",
+    "determinism",
+    "resource_limits",
+    "privacy",
+    "teardown",
+    "outcome",
+    "captured_at"
+  ],
+  "properties": {
+    "attestation_id": { "type": "string", "minLength": 1 },
+    "version": { "type": "string", "const": "0.1" },
+    "status": { "type": "string", "enum": ["DESIGN_ONLY", "VERIFIED", "UNVERIFIED", "FAILED", "INVALIDATED"] },
+    "launcher": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["launcher_id", "launcher_version"],
+      "properties": {
+        "launcher_id": { "type": "string", "const": "pmiri-gc-c1-clean-room-launcher" },
+        "launcher_version": { "type": "string", "const": "0.1.0" }
+      }
+    },
+    "case": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["case_id", "root_policy", "root_fingerprint"],
+      "properties": {
+        "case_id": { "type": "string", "minLength": 1 },
+        "root_policy": { "type": "string", "enum": ["FRESH_CASE_ROOT", "UNVERIFIED"] },
+        "root_fingerprint": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "authorization_id": { "type": "string", "minLength": 1 },
+    "fingerprints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["runner_source", "runner_manifest", "authority_bundle", "evidence_schema", "fixture_catalog", "preflight_matrix", "profile"],
+      "properties": {
+        "runner_source": { "$ref": "#/$defs/sha256" },
+        "runner_manifest": { "$ref": "#/$defs/sha256" },
+        "authority_bundle": { "$ref": "#/$defs/sha256" },
+        "evidence_schema": { "$ref": "#/$defs/sha256" },
+        "fixture_catalog": { "$ref": "#/$defs/sha256" },
+        "preflight_matrix": { "$ref": "#/$defs/sha256" },
+        "profile": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "filesystem": { "$ref": "#/$defs/observation" },
+    "network": { "$ref": "#/$defs/observation" },
+    "credentials": { "$ref": "#/$defs/observation" },
+    "connectors": { "$ref": "#/$defs/observation" },
+    "determinism": { "$ref": "#/$defs/observation" },
+    "resource_limits": { "$ref": "#/$defs/observation" },
+    "privacy": { "$ref": "#/$defs/observation" },
+    "teardown": { "$ref": "#/$defs/observation" },
+    "outcome": { "type": "string", "enum": ["READY_FOR_REPLAY", "BLOCKED", "VALIDATION_ERROR", "ISOLATION_VIOLATION"] },
+    "failure_reason": { "type": "string", "minLength": 1 },
+    "captured_at": { "type": "string", "format": "date-time" },
+    "attestation_sha256": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["result", "evidence_ref"],
+      "properties": {
+        "result": { "type": "string", "enum": ["VERIFIED", "DENIED", "UNVERIFIED", "FAILED"] },
+        "evidence_ref": { "type": "string", "minLength": 1 },
+        "observation": { "type": "string", "minLength": 1 },
+        "observed_at": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}

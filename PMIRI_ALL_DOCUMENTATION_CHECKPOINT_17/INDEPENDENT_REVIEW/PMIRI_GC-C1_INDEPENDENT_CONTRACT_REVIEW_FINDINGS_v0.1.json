@@ -1,0 +1,19 @@
+{
+  "review_id": "PMIRI-GC-C1-INDEPENDENT-CONTRACT-REVIEW-01",
+  "review_version": "0.1",
+  "status": "FIX-FIRST",
+  "scope": "GC-C1-01 through GC-C1-07 and Gate-C authority references",
+  "runtime_execution": false,
+  "r_fc_pass_claimed": false,
+  "findings": [
+    {"id":"F-01","severity":"BLOCKER","area":"preflight_record_shape","status":"OPEN"},
+    {"id":"F-02","severity":"BLOCKER","area":"preflight_result_vocabulary","status":"OPEN"},
+    {"id":"F-03","severity":"BLOCKER","area":"record_lifecycle_status","status":"OPEN"},
+    {"id":"F-04","severity":"HIGH","area":"manifest_role_coverage","status":"OPEN"},
+    {"id":"F-05","severity":"HIGH","area":"manifest_path_uniqueness","status":"OPEN"},
+    {"id":"F-06","severity":"HIGH","area":"authority_bundle_lineage","status":"OPEN"},
+    {"id":"F-07","severity":"MEDIUM","area":"not_applicable_entry_shape","status":"OPEN"}
+  ],
+  "execution_blocked": true,
+  "next_action": "repair and re-review the canonical contracts"
+}

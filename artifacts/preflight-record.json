@@ -1,0 +1,225 @@
+{
+  "artifacts": {
+    "artifact_manifest_fingerprint": null,
+    "isolation_attestation_ref": null,
+    "output_fingerprint": null,
+    "privacy_record_ref": null,
+    "seal_status": "UNSEALED"
+  },
+  "captured_at": "2026-09-12T08:37:56Z",
+  "checks": [
+    {
+      "assertion": "RUNNER_IDENTITY",
+      "check_id": "PF-01",
+      "evidence_refs": [],
+      "failure_reason": "exact pinned runner identity not supplied",
+      "observation": "exact pinned runner identity not supplied",
+      "observed_fingerprints": [
+        "1dd107fe018e38bef52445a02607909b1298076811cc985400102d3fec3b9c36"
+      ],
+      "result": "BLOCKED",
+      "severity": "HARD_BLOCK"
+    },
+    {
+      "assertion": "RUNNER_PACKAGE_INTEGRITY",
+      "check_id": "PF-02",
+      "evidence_refs": [],
+      "observation": "pinned_runner_package_matches",
+      "observed_fingerprints": [
+        "9b187264cd5d7519d45811ed37b2d9c1437ff61d63fc68ca8a2e33b9c5ce0b4a"
+      ],
+      "result": "READY",
+      "severity": "HARD_BLOCK"
+    },
+    {
+      "assertion": "MANIFEST_INTEGRITY",
+      "check_id": "PF-03",
+      "evidence_refs": [],
+      "observation": "pinned_runner_package_matches",
+      "observed_fingerprints": [
+        "a5e64d71b4e88322be9df2528dd3e8da9b0e3ef074bbdcf934d1abb0f67fa5b6"
+      ],
+      "result": "READY",
+      "severity": "HARD_BLOCK"
+    },
+    {
+      "assertion": "AUTHORITY_BUNDLE_INTEGRITY",
+      "check_id": "PF-04",
+      "evidence_refs": [],
+      "observation": "all_manifest_member_hashes_match",
+      "observed_fingerprints": [
+        "7533b7d7d2c2876161c5c3e9b3f9f394802a2d8e1f0b7cb80246bcb3aa9c01ba"
+      ],
+      "result": "READY",
+      "severity": "HARD_BLOCK"
+    },
+    {
+      "assertion": "SCHEMA_INTEGRITY",
+      "check_id": "PF-05",
+      "evidence_refs": [],
+      "observation": "parsed",
+      "observed_fingerprints": [
+        "f02a3c7d9e701e4df8138f3fecc656727801a6050e9f4ab305c1c83768b991b0"
+      ],
+      "result": "READY",
+      "severity": "HARD_BLOCK"
+    },
+    {
+      "assertion": "FIXTURE_CATALOG_INTEGRITY",
+      "check_id": "PF-06",
+      "evidence_refs": [],
+      "observation": "parsed",
+      "observed_fingerprints": [
+        "661c03eb16ae8215225e70730f1b8d51fab1fb790cf00f61d2fa03b1deb77839"
+      ],
+      "result": "READY",
+      "severity": "HARD_BLOCK"
+    },
+    {
+      "assertion": "MATRIX_CATALOG_COVERAGE",
+      "check_id": "PF-07",
+      "evidence_refs": [],
+      "failure_reason": "controlled_fixture_and_case_selection_not_supplied",
+      "observation": "controlled_fixture_and_case_selection_not_supplied",
+      "observed_fingerprints": [
+        "bff03535fb7f6316384bb2feca4a3390297e600f70980824cd182be8140ef3db"
+      ],
+      "result": "BLOCKED",
+      "severity": "HARD_BLOCK"
+    },
+    {
+      "assertion": "CLEAN_ROOM_CAPABILITY",
+      "check_id": "PF-08",
+      "evidence_refs": [],
+      "failure_reason": "no externally observed clean-room attestation",
+      "observation": "no externally observed clean-room attestation",
+      "observed_fingerprints": [
+        "e4989e61320055db02beeaf55bb5c10b32c7b20c72a93ef73356eac960d5bd98"
+      ],
+      "result": "ISOLATION_VIOLATION",
+      "severity": "HARD_BLOCK"
+    },
+    {
+      "assertion": "NETWORK_CREDENTIAL_DENIAL",
+      "check_id": "PF-09",
+      "evidence_refs": [],
+      "failure_reason": "no externally observed clean-room attestation",
+      "observation": "no externally observed clean-room attestation",
+      "observed_fingerprints": [
+        "f7f3967c94bbec8a91b5b80069efeb857d6ea6305a26aea0c224f9f5587113e5"
+      ],
+      "result": "ISOLATION_VIOLATION",
+      "severity": "HARD_BLOCK"
+    },
+    {
+      "assertion": "FILESYSTEM_ALLOWLIST",
+      "check_id": "PF-10",
+      "evidence_refs": [],
+      "failure_reason": "no externally observed clean-room attestation",
+      "observation": "no externally observed clean-room attestation",
+      "observed_fingerprints": [
+        "1ec1320681c6822920fb8bc744d4767900c44b7da3c060c7073d79561d2742e9"
+      ],
+      "result": "ISOLATION_VIOLATION",
+      "severity": "HARD_BLOCK"
+    },
+    {
+      "assertion": "RESOURCE_LIMITS",
+      "check_id": "PF-11",
+      "evidence_refs": [],
+      "failure_reason": "no externally observed clean-room attestation",
+      "observation": "no externally observed clean-room attestation",
+      "observed_fingerprints": [
+        "4cfea47558d255dc994ec1c853c727ebdf4f0b00e3d3a76bd434027de34cbcbe"
+      ],
+      "result": "BLOCKED",
+      "severity": "HARD_BLOCK"
+    },
+    {
+      "assertion": "DETERMINISTIC_RUNTIME",
+      "check_id": "PF-12",
+      "evidence_refs": [],
+      "failure_reason": "no externally observed clean-room attestation",
+      "observation": "no externally observed clean-room attestation",
+      "observed_fingerprints": [
+        "42052b47b5ad58b44fca75bb8c5640ef46a728d6e086aae44ba0398d56e0621b"
+      ],
+      "result": "BLOCKED",
+      "severity": "HARD_BLOCK"
+    },
+    {
+      "assertion": "OUTPUT_PATH_AND_SEALING",
+      "check_id": "PF-13",
+      "evidence_refs": [],
+      "failure_reason": "no externally observed clean-room attestation",
+      "observation": "no externally observed clean-room attestation",
+      "observed_fingerprints": [
+        "8a609fa54608c719640e29c544ee51845c84dc40e38004b57751eff799c64c57"
+      ],
+      "result": "BLOCKED",
+      "severity": "HARD_BLOCK"
+    },
+    {
+      "assertion": "PRIVACY_CONTROLS",
+      "check_id": "PF-14",
+      "evidence_refs": [],
+      "failure_reason": "no externally observed clean-room attestation",
+      "observation": "no externally observed clean-room attestation",
+      "observed_fingerprints": [
+        "c6fcf3b447c6e09ecb30e9607b5399790ba9a7815ac04ccb72df3d9ddf77dee3"
+      ],
+      "result": "BLOCKED",
+      "severity": "HARD_BLOCK"
+    },
+    {
+      "assertion": "EVIDENCE_SCHEMA_READINESS",
+      "check_id": "PF-15",
+      "evidence_refs": [],
+      "observation": "schema reference available",
+      "observed_fingerprints": [
+        "5e55dff07b6abbcf50111b03881a90c8b2e69894d85748f1596a94e9a3da22c7"
+      ],
+      "result": "READY",
+      "severity": "HARD_BLOCK"
+    },
+    {
+      "assertion": "REVIEW_SEPARATION",
+      "check_id": "PF-16",
+      "evidence_refs": [],
+      "failure_reason": "operator and independent reviewer identities are not separated",
+      "observation": "operator and independent reviewer identities are not separated",
+      "observed_fingerprints": [
+        "475e20bfb8719212dc19b56a04ae8b571f5221a66abdcd5d40b1499777642525"
+      ],
+      "result": "BLOCKED",
+      "severity": "HARD_BLOCK"
+    }
+  ],
+  "environment": {
+    "credentials": "UNVERIFIED",
+    "determinism": "UNVERIFIED",
+    "environment_fingerprint": "0af419e3ec0061cc4d40c2d6fe25c66d6e9bd6270174eaf752a01344776dc07e",
+    "filesystem": "UNVERIFIED",
+    "network": "UNVERIFIED",
+    "resource_limits": "UNVERIFIED",
+    "teardown": "UNVERIFIED"
+  },
+  "inputs": {
+    "authority_bundle_fingerprint": "3df4c9e94951538f13eb091eb6253241de4bfaa2fa76b25c2cf2e4a28efd051b",
+    "catalog_fingerprint": "e01d75f7d41d701de104a84177343f13205d8c0ac11fb9c20b95f98f46032045",
+    "matrix_fingerprint": "02c7661b8a31bf0f2b8a0c80580a1c34d20d7f613377bbe3ffd6aad0d30ca539",
+    "schema_fingerprint": "39f1f9915142bc75e086069a4ffc47e25c67e8318cbdf0d99d0c44c9d3f1bf7c"
+  },
+  "overall_result": "BLOCKED",
+  "preflight_id": "pf_ad4ec44369f371305c275ad9161bd3c4",
+  "runner": {
+    "manifest_fingerprint": "e9ac3667f75cd1193aeacb16c081a8cdbaded976da9cce5c74cad730a211f717",
+    "runner_id": "pmiri-gc-c1-replay",
+    "runner_version": "0.1.0",
+    "source_fingerprint": "36017417e8bb94fbb5730f7b0e00a9728c572f1daf1265730dca1c8b7940d851"
+  },
+  "selected_case_id": "NONE",
+  "selected_fixture_id": "NONE",
+  "spec_version": "0.1",
+  "status": "RECORDED"
+}

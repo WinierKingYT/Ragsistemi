@@ -1,0 +1,24 @@
+{
+  "manifest_format": "PMIRI_GC_C1_AUTHORITY_BUNDLE",
+  "manifest_version": "0.1",
+  "status": "DESIGN_ONLY",
+  "authority_set_id": "PMIRI-GATE-C-V1.0-ACCEPTED",
+  "source_archive": {
+    "path": "PMIRI_v1.0_Gate_C_Accepted/PMIRI_v1.0_Gate_C_Accepted.zip",
+    "sha256": "4b9057d38f3058e3c558af10034a2fbe918bcea5ebf1512f0afa40cea8a24aa7"
+  },
+  "members": [
+    {"role":"documentation_authority","path":"PMIRI_v1.0_Gate_C_Accepted/00_DOCUMENTATION_AUTHORITY.md","sha256":"30c5fff933ff56d7a147f5966685a08ba45e177547654087bf9b7ffab73c25d4"},
+    {"role":"gate_c_cross_round_contract","path":"PMIRI_v1.0_Gate_C_Accepted/01_GATE_C_CROSS_ROUND_COMPATIBILITY_CONTRACT.md","sha256":"261b22960bfb71f5e69bcf44fce9f092e98dcecd95d97ef12cc5bb01f6fe83db"},
+    {"role":"authorization_and_emission_fences","path":"PMIRI_v1.0_Gate_C_Accepted/02_AUTHORIZATION_LINEAGE_AND_EXTERNAL_EMISSION_FENCES.md","sha256":"5849ba28494042c6e7d319ec3ab9035e47b6f9ac0763d4a698e1ccc113d1820f"},
+    {"role":"egress_constrained_artifact","path":"PMIRI_v1.0_Gate_C_Accepted/03_EGRESS_CONSTRAINED_CONTEXT_ARTIFACT.md","sha256":"7a1e7384adcb4ddd4282053ad91acf8c042dfebb9bc1a193db43bf0199c90296"},
+    {"role":"external_read_projection","path":"PMIRI_v1.0_Gate_C_Accepted/04_EXTERNAL_READ_PROJECTION_AND_API_MCP_PARITY.md","sha256":"dfb72b34327a7c2d97c127496339b6a65dc294d57dadf1e09b42e3e0bbc0ee49"},
+    {"role":"gate_c_decision_register","path":"PMIRI_v1.0_Gate_C_Accepted/05_GATE_C_FINAL_DECISION_REGISTER.md","sha256":"145442ae91473bc4674fa3070b8153c3c2b360d648d1a4bb8db1d4e9d6c3c6e7"},
+    {"role":"gate_c_recheck_report","path":"PMIRI_v1.0_Gate_C_Accepted/06_GATE_C_FINAL_RECHECK_REPORT.md","sha256":"3e22fd61b66a09b7d405e66e6fac38e14653e07c141f70532e9ff384d641de89"},
+    {"role":"mechanical_consistency_check","path":"PMIRI_v1.0_Gate_C_Accepted/07_MECHANICAL_CONSISTENCY_CHECK.md","sha256":"87d9a4ecfdfc18fb58a685c9f7169ed1c9498abc5ffb3c335de3e34328d641c7"},
+    {"role":"gate_d_entry_contract","path":"PMIRI_v1.0_Gate_C_Accepted/08_GATE_D_ENTRY_CONTRACT.md","sha256":"adf23764db316de03b239e136c4ef1b2cd35ca0c8f8f6648fa8d205da9f31b87"},
+    {"role":"changelog","path":"PMIRI_v1.0_Gate_C_Accepted/09_CHANGELOG.md","sha256":"1a03d8d85a25af76650fcd5196f980940a05bc2a0d66322fc1864218c75cde13"}
+  ],
+  "lineage_rule": "All GC-C1 authority-dependent artifacts must reference this manifest and verify the listed member hashes before replay.",
+  "execution_authorization": "NOT_GRANTED"
+}

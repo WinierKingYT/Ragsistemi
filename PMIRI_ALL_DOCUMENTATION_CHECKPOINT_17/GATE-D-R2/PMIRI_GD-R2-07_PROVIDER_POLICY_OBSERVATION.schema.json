@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pmiri://schema/gate-d-r2/provider-policy-observation/0.3",
+  "title": "PMIRI Gate D Round 2 Provider Policy Observation",
+  "$defs": {
+    "destination_identity_value": {"type": "object", "additionalProperties": false, "required": ["value_type", "identity_ref", "normalized_authority", "scheme"], "properties": {"value_type": {"const": "destination_identity"}, "identity_ref": {"type": "string", "minLength": 1}, "normalized_authority": {"type": "string", "minLength": 1}, "scheme": {"const": "HTTPS"}}},
+    "retention_deletion_value": {"type": "object", "additionalProperties": false, "required": ["value_type", "retention_mode", "deletion_mode"], "properties": {"value_type": {"const": "retention_deletion"}, "retention_mode": {"enum": ["NONE", "LIMITED", "INDEFINITE", "UNKNOWN"]}, "deletion_mode": {"enum": ["SUPPORTED", "NOT_SUPPORTED", "CONDITIONAL", "UNKNOWN"]}}},
+    "training_use_value": {"type": "object", "additionalProperties": false, "required": ["value_type", "training_use"], "properties": {"value_type": {"const": "training_use"}, "training_use": {"enum": ["PROHIBITED", "ALLOWED", "CONDITIONAL", "UNKNOWN"]}}},
+    "subprocessors_value": {"type": "object", "additionalProperties": false, "required": ["value_type", "subprocessors_fingerprint", "subprocessor_count"], "properties": {"value_type": {"const": "subprocessors"}, "subprocessors_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"}, "subprocessor_count": {"type": "integer", "minimum": 0}}},
+    "processing_region_value": {"type": "object", "additionalProperties": false, "required": ["value_type", "region", "region_scope"], "properties": {"value_type": {"const": "processing_region"}, "region": {"type": "string", "minLength": 1}, "region_scope": {"enum": ["SINGLE_REGION", "MULTI_REGION", "UNKNOWN"]}}},
+    "feature_capability_value": {"type": "object", "additionalProperties": false, "required": ["value_type", "capability_key", "supported", "capability_profile_ref"], "properties": {"value_type": {"const": "feature_capability"}, "capability_key": {"type": "string", "minLength": 1}, "supported": {"type": "boolean"}, "capability_profile_ref": {"type": "string", "minLength": 1}}},
+    "structured_output_attachment_value": {"type": "object", "additionalProperties": false, "required": ["value_type", "structured_output_supported", "attachment_types", "max_attachment_bytes"], "properties": {"value_type": {"const": "structured_output_attachment"}, "structured_output_supported": {"type": "boolean"}, "attachment_types": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}, "max_attachment_bytes": {"type": "integer", "minimum": 0}}},
+    "logging_diagnostics_value": {"type": "object", "additionalProperties": false, "required": ["value_type", "logging_scope"], "properties": {"value_type": {"const": "logging_diagnostics"}, "logging_scope": {"enum": ["NONE", "METADATA_ONLY", "CONTENT_POSSIBLE", "UNKNOWN"]}}},
+    "credential_operation_scope_value": {"type": "object", "additionalProperties": false, "required": ["value_type", "allowed_operations", "audience"], "properties": {"value_type": {"const": "credential_operation_scope"}, "allowed_operations": {"type": "array", "minItems": 1, "items": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/operation"}, "uniqueItems": true}, "audience": {"type": "string", "minLength": 1}}},
+    "redirect_fetch_behavior_value": {"type": "object", "additionalProperties": false, "required": ["value_type", "redirects_allowed", "max_redirect_hops", "revalidate_each_hop"], "properties": {"value_type": {"const": "redirect_fetch_behavior"}, "redirects_allowed": {"type": "boolean"}, "max_redirect_hops": {"type": "integer", "minimum": 0}, "revalidate_each_hop": {"const": true}}}
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["record_type", "schema_version", "observation_id", "subject_binding_ref", "policy_dimension", "observed_value", "purpose", "material_classes", "source_authority_class", "source_ref", "issuer", "observed_at", "valid_until", "policy_version", "freshness_profile_id", "freshness_profile_fingerprint", "invalidation_epoch", "status", "observation_fingerprint"],
+  "properties": {
+    "record_type": {"const": "PMIRI_D2_PROVIDER_POLICY_OBSERVATION"},
+  "schema_version": {"const": "0.3"},
+    "observation_id": {"type": "string", "minLength": 1},
+    "subject_binding_ref": {"type": "string", "minLength": 1},
+    "policy_dimension": {"enum": ["destination_identity", "retention_deletion", "training_use", "subprocessors", "processing_region", "feature_capability", "structured_output_attachment", "logging_diagnostics", "credential_operation_scope", "redirect_fetch_behavior"]},
+    "observed_value": {"oneOf": [{"$ref": "pmiri://schema/gate-d-r2/provider-policy-observation/0.3#/$defs/destination_identity_value"}, {"$ref": "pmiri://schema/gate-d-r2/provider-policy-observation/0.3#/$defs/retention_deletion_value"}, {"$ref": "pmiri://schema/gate-d-r2/provider-policy-observation/0.3#/$defs/training_use_value"}, {"$ref": "pmiri://schema/gate-d-r2/provider-policy-observation/0.3#/$defs/subprocessors_value"}, {"$ref": "pmiri://schema/gate-d-r2/provider-policy-observation/0.3#/$defs/processing_region_value"}, {"$ref": "pmiri://schema/gate-d-r2/provider-policy-observation/0.3#/$defs/feature_capability_value"}, {"$ref": "pmiri://schema/gate-d-r2/provider-policy-observation/0.3#/$defs/structured_output_attachment_value"}, {"$ref": "pmiri://schema/gate-d-r2/provider-policy-observation/0.3#/$defs/logging_diagnostics_value"}, {"$ref": "pmiri://schema/gate-d-r2/provider-policy-observation/0.3#/$defs/credential_operation_scope_value"}, {"$ref": "pmiri://schema/gate-d-r2/provider-policy-observation/0.3#/$defs/redirect_fetch_behavior_value"}]},
+    "purpose": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/purpose"},
+    "material_classes": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "source_authority_class": {"enum": ["LOCAL_HARD_POLICY", "NETWORK_OR_CONNECTOR_ATTESTATION", "SIGNED_PROVIDER_DECLARATION", "AUTHORITATIVE_REGISTRY", "DIRECT_RUNTIME_OBSERVATION", "PROVIDER_DOCUMENTATION", "CALLER_CLAIM"]},
+    "source_ref": {"type": "string", "minLength": 1},
+    "issuer": {"type": "string", "minLength": 1},
+    "observed_at": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/timestamp"},
+    "valid_until": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/timestamp"},
+    "policy_version": {"type": "string", "minLength": 1},
+    "freshness_profile_id": {"type": "string", "minLength": 1},
+    "freshness_profile_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "invalidation_epoch": {"type": "integer", "minimum": 0},
+    "status": {"enum": ["ACTIVE", "EXPIRED", "REVOKED", "SUPERSEDED", "CONTRADICTED", "INVALID"]},
+    "observation_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"}
+  }
+}

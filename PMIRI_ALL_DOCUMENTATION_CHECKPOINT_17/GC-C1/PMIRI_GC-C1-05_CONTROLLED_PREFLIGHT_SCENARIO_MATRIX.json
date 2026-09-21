@@ -1,0 +1,203 @@
+{
+  "spec_format": "PMIRI-GC-C1-CONTROLLED-PREFLIGHT-VALIDATION",
+  "spec_version": "0.1",
+  "status": "DESIGN_ONLY",
+  "tests_executed": false,
+  "implementation_authorization": "NOT_GRANTED",
+  "allowed_overall_results": [
+    "READY_FOR_REPLAY",
+    "BLOCKED",
+    "VALIDATION_ERROR",
+    "ISOLATION_VIOLATION"
+  ],
+  "control_rule": "Each negative scenario changes exactly one declared condition.",
+  "scenarios": [
+    {
+      "scenario_id": "PFV-00",
+      "check_id": "BASELINE_VALID",
+      "fault": "No fault; all prerequisites valid.",
+      "isolation_rule": "one_fault_only",
+      "expected_result": "READY_FOR_REPLAY",
+      "required_observable": "all 16 checks satisfied; no R-FC execution",
+      "status": "DESIGN_ONLY",
+      "executes_rfc_tests": false,
+      "assigns_rfc_pass": false
+    },
+    {
+      "scenario_id": "PFV-01",
+      "check_id": "RUNNER_IDENTITY",
+      "fault": "Runner ID or version differs from manifest.",
+      "isolation_rule": "one_fault_only",
+      "expected_result": "BLOCKED",
+      "required_observable": "identity mismatch stops replay",
+      "status": "DESIGN_ONLY",
+      "executes_rfc_tests": false,
+      "assigns_rfc_pass": false
+    },
+    {
+      "scenario_id": "PFV-02",
+      "check_id": "RUNNER_PACKAGE_INTEGRITY",
+      "fault": "Runner source fingerprint differs or self-upgrade occurs.",
+      "isolation_rule": "one_fault_only",
+      "expected_result": "BLOCKED",
+      "required_observable": "unbound runner cannot execute",
+      "status": "DESIGN_ONLY",
+      "executes_rfc_tests": false,
+      "assigns_rfc_pass": false
+    },
+    {
+      "scenario_id": "PFV-03",
+      "check_id": "MANIFEST_INTEGRITY",
+      "fault": "Manifest malformed or fingerprint mismatches.",
+      "isolation_rule": "one_fault_only",
+      "expected_result": "VALIDATION_ERROR",
+      "required_observable": "invalid manifest stops replay",
+      "status": "DESIGN_ONLY",
+      "executes_rfc_tests": false,
+      "assigns_rfc_pass": false
+    },
+    {
+      "scenario_id": "PFV-04",
+      "check_id": "AUTHORITY_BUNDLE_INTEGRITY",
+      "fault": "Required authority file missing or hash mismatched.",
+      "isolation_rule": "one_fault_only",
+      "expected_result": "BLOCKED",
+      "required_observable": "incomplete authority bundle stops replay",
+      "status": "DESIGN_ONLY",
+      "executes_rfc_tests": false,
+      "assigns_rfc_pass": false
+    },
+    {
+      "scenario_id": "PFV-05",
+      "check_id": "SCHEMA_INTEGRITY",
+      "fault": "Evidence schema malformed or fingerprint mismatches.",
+      "isolation_rule": "one_fault_only",
+      "expected_result": "VALIDATION_ERROR",
+      "required_observable": "schema replacement is rejected",
+      "status": "DESIGN_ONLY",
+      "executes_rfc_tests": false,
+      "assigns_rfc_pass": false
+    },
+    {
+      "scenario_id": "PFV-06",
+      "check_id": "FIXTURE_CATALOG_INTEGRITY",
+      "fault": "Catalog malformed or selected case fingerprint mismatches.",
+      "isolation_rule": "one_fault_only",
+      "expected_result": "VALIDATION_ERROR",
+      "required_observable": "invalid catalog/case stops replay",
+      "status": "DESIGN_ONLY",
+      "executes_rfc_tests": false,
+      "assigns_rfc_pass": false
+    },
+    {
+      "scenario_id": "PFV-07",
+      "check_id": "MATRIX_CATALOG_COVERAGE",
+      "fault": "Case lacks R-FC mapping or positive/adversarial coverage.",
+      "isolation_rule": "one_fault_only",
+      "expected_result": "BLOCKED",
+      "required_observable": "coverage gap stops replay",
+      "status": "DESIGN_ONLY",
+      "executes_rfc_tests": false,
+      "assigns_rfc_pass": false
+    },
+    {
+      "scenario_id": "PFV-08",
+      "check_id": "CLEAN_ROOM_CAPABILITY",
+      "fault": "Fresh root, teardown, or isolation capability unavailable.",
+      "isolation_rule": "one_fault_only",
+      "expected_result": "ISOLATION_VIOLATION",
+      "required_observable": "unverified isolation stops replay",
+      "status": "DESIGN_ONLY",
+      "executes_rfc_tests": false,
+      "assigns_rfc_pass": false
+    },
+    {
+      "scenario_id": "PFV-09",
+      "check_id": "NETWORK_CREDENTIAL_DENIAL",
+      "fault": "Network reachable or ambient credential visible.",
+      "isolation_rule": "one_fault_only",
+      "expected_result": "ISOLATION_VIOLATION",
+      "required_observable": "external access exposure stops replay",
+      "status": "DESIGN_ONLY",
+      "executes_rfc_tests": false,
+      "assigns_rfc_pass": false
+    },
+    {
+      "scenario_id": "PFV-10",
+      "check_id": "FILESYSTEM_ALLOWLIST",
+      "fault": "Undeclared filesystem read/write is possible.",
+      "isolation_rule": "one_fault_only",
+      "expected_result": "ISOLATION_VIOLATION",
+      "required_observable": "allowlist breach stops replay",
+      "status": "DESIGN_ONLY",
+      "executes_rfc_tests": false,
+      "assigns_rfc_pass": false
+    },
+    {
+      "scenario_id": "PFV-11",
+      "check_id": "RESOURCE_LIMITS",
+      "fault": "A required resource limit is missing or unenforceable.",
+      "isolation_rule": "one_fault_only",
+      "expected_result": "BLOCKED",
+      "required_observable": "unbounded execution stops replay",
+      "status": "DESIGN_ONLY",
+      "executes_rfc_tests": false,
+      "assigns_rfc_pass": false
+    },
+    {
+      "scenario_id": "PFV-12",
+      "check_id": "DETERMINISTIC_RUNTIME",
+      "fault": "Clock, locale, serialization, encoding, or seed is not pinned.",
+      "isolation_rule": "one_fault_only",
+      "expected_result": "BLOCKED",
+      "required_observable": "nondeterminism stops replay",
+      "status": "DESIGN_ONLY",
+      "executes_rfc_tests": false,
+      "assigns_rfc_pass": false
+    },
+    {
+      "scenario_id": "PFV-13",
+      "check_id": "OUTPUT_PATH_AND_SEALING",
+      "fault": "Output is shared/pre-populated or cannot seal artifacts.",
+      "isolation_rule": "one_fault_only",
+      "expected_result": "BLOCKED",
+      "required_observable": "ambiguous or unsealed output stops replay",
+      "status": "DESIGN_ONLY",
+      "executes_rfc_tests": false,
+      "assigns_rfc_pass": false
+    },
+    {
+      "scenario_id": "PFV-14",
+      "check_id": "PRIVACY_CONTROLS",
+      "fault": "Sensitive input or redaction control is unavailable.",
+      "isolation_rule": "one_fault_only",
+      "expected_result": "BLOCKED",
+      "required_observable": "privacy uncertainty stops replay",
+      "status": "DESIGN_ONLY",
+      "executes_rfc_tests": false,
+      "assigns_rfc_pass": false
+    },
+    {
+      "scenario_id": "PFV-15",
+      "check_id": "EVIDENCE_SCHEMA_READINESS",
+      "fault": "Required evidence references/fields cannot be represented.",
+      "isolation_rule": "one_fault_only",
+      "expected_result": "VALIDATION_ERROR",
+      "required_observable": "incomplete evidence structure stops replay",
+      "status": "DESIGN_ONLY",
+      "executes_rfc_tests": false,
+      "assigns_rfc_pass": false
+    },
+    {
+      "scenario_id": "PFV-16",
+      "check_id": "REVIEW_SEPARATION",
+      "fault": "Operator and reviewer are equal or reviewer is absent.",
+      "isolation_rule": "one_fault_only",
+      "expected_result": "BLOCKED",
+      "required_observable": "independent review cannot be bypassed",
+      "status": "DESIGN_ONLY",
+      "executes_rfc_tests": false,
+      "assigns_rfc_pass": false
+    }
+  ]
+}

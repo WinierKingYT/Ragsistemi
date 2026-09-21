@@ -1,0 +1,180 @@
+{
+  "review_format": "PMIRI-GATE-D-R2-HARD-CONTRACT-REVIEW-FINDINGS",
+  "review_version": "0.1",
+  "review_status": "FIX-FIRST",
+  "reviewer_role": "documentation hard review; not independent acceptance",
+  "review_scope": [
+    "PMIRI_GD-R2-01_PROVIDER_CONNECTOR_TRUST_REGISTRY_CONTRACT_v0.1.md",
+    "PMIRI_GD-R2-02_CAPABILITY_FRESHNESS_INVALIDATION_CONTRACT_v0.1.md",
+    "PMIRI_GD-R2-03_REDACTION_CONSTRAINED_EGRESS_CONTRACT_v0.1.md",
+    "PMIRI_GD-R2-04_EXTERNAL_FETCH_SSRF_NETWORK_BOUNDARY_CONTRACT_v0.1.md",
+    "PMIRI_GD-R2-05_INTEGRATED_DECISION_MODEL_AND_ADVERSARIAL_MATRIX_v0.1.md",
+    "PMIRI_GD-R2-05_ADVERSARIAL_SCENARIO_MATRIX.json",
+    "PMIRI_GD-R2_CANDIDATE_INDEX_v0.1.md",
+    "PMIRI_ALL_DOCUMENTATION_CHECKPOINT_15/SOURCE_AUTHORITY/00_DOCUMENTATION_AUTHORITY.md",
+    "PMIRI_ALL_DOCUMENTATION_CHECKPOINT_15/SOURCE_AUTHORITY/08_GATE_D_ENTRY_CONTRACT.md"
+  ],
+  "implementation_authorization": "NOT GRANTED",
+  "finding_counts": {
+    "BLOCKER": 4,
+    "HIGH": 6,
+    "MEDIUM": 1,
+    "total": 11
+  },
+  "findings": [
+    {
+      "id": "F-D2-01",
+      "severity": "BLOCKER",
+      "area": "canonical machine-readable contracts",
+      "evidence": [
+        "PMIRI_GD-R2-01...md §3 and §8 use illustrative YAML only",
+        "PMIRI_GD-R2-02...md §2 uses illustrative YAML only",
+        "PMIRI_GD-R2-03...md §3 uses illustrative YAML only",
+        "PMIRI_GD-R2-04...md §9 uses illustrative YAML only",
+        "The D2 package contains no schema artifact for these records"
+      ],
+      "impact": "There is no single canonical serialization, validation target or stable fingerprint input for a trust assertion, capability observation/decision, constrained artifact, transformation impact record, network decision or integrated final action envelope. Independent review cannot validate producer output against prose examples.",
+      "required_fix": "Add versioned JSON Schemas and canonical serialization rules for every normative D2 input/output object. Add schema fingerprints and require each scenario to reference the exact schema and a typed fixture or an explicit blocked reason."
+    },
+    {
+      "id": "F-D2-02",
+      "severity": "BLOCKER",
+      "area": "decision vocabulary",
+      "evidence": [
+        "PMIRI_GD-R2-01...md §8 permits result=STALE",
+        "PMIRI_GD-R2-04...md §9 permits result=ALLOW|DENY|REQUIRE_REVALIDATION",
+        "PMIRI_GD-R2-05...md §3 and §4 define a separate action vocabulary",
+        "PMIRI_GD-R2-05_ADVERSARIAL_SCENARIO_MATRIX.json uses FRESH, DEGRADED, UNSATISFIABLE, QUARANTINE and bounded abort as expected values"
+      ],
+      "impact": "State, action, lifecycle and transport outcomes are mixed. A consumer cannot determine whether a value is an observation state, a final authorization disposition, a safe terminal outcome or a human-readable explanation. This creates contradictory interpretations at the emission fence.",
+      "required_fix": "Define one canonical separation: evidence_state, action_result, content_lifecycle and reason_class. Map every component and matrix expectation to those enums. Remove raw state values such as FRESH or QUARANTINE from final action result fields."
+    },
+    {
+      "id": "F-D2-03",
+      "severity": "BLOCKER",
+      "area": "authority and lineage",
+      "evidence": [
+        "PMIRI_GD-R2-01...md §6 names D1 objects but gives no exact versioned authority references or hashes",
+        "PMIRI_GD-R2-05...md §2 requires fingerprints but gives no authority_refs or authority-bundle member set",
+        "PMIRI_GD-R2_CANDIDATE_INDEX_v0.1.md only states that accepted D1/C contracts will be compared in the next review"
+      ],
+      "impact": "The D2 package cannot prove which accepted D1 and Gate-C definitions it consumes. A same-named object or superseded contract could be substituted without a detectable lineage failure.",
+      "required_fix": "Add an exact authority bundle manifest containing the normative authority file, accepted Gate-C emission-fence/egress references, accepted D1 R1 references, versions and SHA-256 fingerprints. Bind that manifest into every D2 decision and the candidate package manifest."
+    },
+    {
+      "id": "F-D2-04",
+      "severity": "BLOCKER",
+      "area": "provider-policy authority and freshness",
+      "evidence": [
+        "PMIRI_GD-R2-01...md §5 lists retention, training/use, subprocessors, region and other dimensions",
+        "PMIRI_GD-R2-02...md §2–§4 requires source_authority, policy_version and freshness",
+        "Neither document defines authority precedence, dimension-specific required observations, conflict resolution or freshness windows"
+      ],
+      "impact": "Unknown policy is intended to fail closed, but the evaluator has no deterministic rule for which source is authoritative, how conflicting observations are resolved, or when a dimension becomes stale. Different implementations can produce different disclosure decisions from the same evidence.",
+      "required_fix": "Define the source-authority hierarchy, required dimension matrix by operation/material class, per-dimension freshness/expiry policy, contradiction algorithm, revocation semantics and the exact fail-closed result for each missing or conflicting dimension."
+    },
+    {
+      "id": "F-D2-05",
+      "severity": "HIGH",
+      "area": "connector credential boundary",
+      "evidence": [
+        "PMIRI_GD-R2-01...md §7 defines only a credential scope reference and a revocation/disable path",
+        "PMIRI_GD-R2-04...md §10 mentions missing, over-scoped or unexpectedly visible credentials",
+        "No typed credential-use decision or secret-lifecycle contract is present"
+      ],
+      "impact": "The package does not specify how a secret is injected, bound to one operation, hidden from provider/model/content, excluded from logs and outputs, rotated, revoked or isolated across connector processes. Credential ownership alone is not a security boundary.",
+      "required_fix": "Add a credential boundary object covering operation binding, scope, audience, injection channel, visibility prohibitions, lifetime, rotation/revocation epoch, logging prohibition, error handling and connector/provider separation."
+    },
+    {
+      "id": "F-D2-06",
+      "severity": "HIGH",
+      "area": "DNS, connection and TLS attestation",
+      "evidence": [
+        "PMIRI_GD-R2-04...md §4–§5 requires address validation and actual-target binding",
+        "PMIRI_GD-R2-04...md §9 contains only resolved_address_refs and normalized_target placeholders",
+        "No schema binds resolver observation, selected connection target, proxy behavior, TLS identity/SNI, connection reuse or IPv4/IPv6 canonicalization to the decision"
+      ],
+      "impact": "The contract states the correct security intent but does not provide evidence sufficient to prove that the socket target and authenticated destination are the target evaluated by policy. DNS rebinding and proxy/connection-reuse ambiguity remain under-specified.",
+      "required_fix": "Define address-observation and connection-binding records with canonical IP, address family, resolver identity, resolution time, selected target, proxy path, TLS certificate/SNI identity, allowlist decision, reuse/revalidation event and invalidation linkage."
+    },
+    {
+      "id": "F-D2-07",
+      "severity": "HIGH",
+      "area": "redirect and resource-limit determinism",
+      "evidence": [
+        "PMIRI_GD-R2-04...md §6 says small finite redirect limit without a numeric policy or authority",
+        "PMIRI_GD-R2-04...md §7 requires maximums but specifies no limit profile or fingerprint",
+        "The matrix expects DENY or bounded abort, but bounded abort is not a defined typed outcome"
+      ],
+      "impact": "Redirect count, byte/decompression/header/time/content-type and concurrency behavior can vary by implementation. A limit breach cannot be compared or independently audited as a canonical decision.",
+      "required_fix": "Define a versioned resource-limit profile with exact values, units, authority, freshness and fingerprint. Define redirect-hop records and map every limit breach to a canonical terminal action plus reason class."
+    },
+    {
+      "id": "F-D2-08",
+      "severity": "HIGH",
+      "area": "redaction semantic determinism",
+      "evidence": [
+        "PMIRI_GD-R2-03...md §5 allows WEAKENED to 'may require deny'",
+        "PMIRI_GD-R2-03...md §6 offers preserve, degraded/partial or deny without an obligation-specific decision function",
+        "ALLOW_WITH_CONSTRAINTS has no canonical constraints object"
+      ],
+      "impact": "The same redaction can produce different disclosure results depending on an implementation's judgment. Visibility of constraints, obligation satisfaction and final action are not mechanically connected.",
+      "required_fix": "Add an obligation-by-transformation decision matrix and typed constraint record. For each impact state define the required action, visible constraint, citation behavior and whether recompile/replan is mandatory."
+    },
+    {
+      "id": "F-D2-09",
+      "severity": "HIGH",
+      "area": "fetched-content quarantine lifecycle",
+      "evidence": [
+        "PMIRI_GD-R2-04...md §8 requires quarantine/validation and records admission status",
+        "No canonical lifecycle, admission predicate, post-parse classification rule or typed quarantine record is defined",
+        "The contract does not define whether fetched bytes can enter retrieval, canonical knowledge or only an isolated typed-data view"
+      ],
+      "impact": "A connector or attachment can be handled differently across implementations. Instruction-like content is declared untrusted, but its permitted downstream influence and transition out of quarantine are not enforceable from the contract.",
+      "required_fix": "Define quarantine states and transitions, admission predicates, provenance/classification requirements, retrieval visibility, typed-data conversion and the permanent prohibition on policy/control influence from fetched content."
+    },
+    {
+      "id": "F-D2-10",
+      "severity": "HIGH",
+      "area": "adversarial coverage",
+      "evidence": [
+        "PMIRI_GD-R2-05...md §5 requires positive and adversarial coverage for 17 classes",
+        "PMIRI_GD-R2-05_ADVERSARIAL_SCENARIO_MATRIX.json contains 12 scenarios and mostly adversarial-only coverage for the listed classes",
+        "The matrix has no fixture_id, schema_ref or per-scenario blocked reason"
+      ],
+      "impact": "The stated coverage requirement is not met by the current matrix. Provider-policy contradictions, credential rotation/visibility, TLS identity, IPv6/local encoding, proxy/reuse, content-type contradiction and several required positive cases are not separately testable.",
+      "required_fix": "Expand the matrix to a traceable coverage table with at least one positive and one adversarial scenario per required class, typed expected outputs, exact schema refs, fixture IDs or documented blocked reasons, and explicit D3 exclusions."
+    },
+    {
+      "id": "F-D2-11",
+      "severity": "MEDIUM",
+      "area": "D2 scope taxonomy",
+      "evidence": [
+        "PMIRI_GD-R2-05...md is named as an integrated D2-05 artifact and includes D2-05-A",
+        "PMIRI_GD-R2_CANDIDATE_INDEX_v0.1.md scope lists only D2-01 through D2-04",
+        "PMIRI_GD-R2-05_ADVERSARIAL_SCENARIO_MATRIX.json scope also lists only D2-01 through D2-04"
+      ],
+      "impact": "It is unclear whether D2-05 is a cross-cutting review artifact or an additional Gate-D workstream. This can create an accidental acceptance claim or leave integrated-decision requirements outside the declared scope.",
+      "required_fix": "Declare D2-05 explicitly as either a cross-cutting integration artifact with no new scope, or add it as a separately governed workstream with its own entry/exit criteria. Align filenames, index, matrix scope and review status."
+    }
+  ],
+  "documentary_passes": [
+    "All reviewed D2 documents preserve CANDIDATE/DESIGN-ONLY language and NOT GRANTED implementation authorization.",
+    "The candidate preserves the D1/Gate-C non-widening principle and states fail-closed intent for missing, stale, contradicted or invalid evidence.",
+    "Network default-deny, redirect revalidation, private-address denial, attachment quarantine intent and no-hidden-retrieval intent are explicitly present.",
+    "No provider, connector or network call was made during this review."
+  ],
+  "not_proven": [
+    "No runtime enforcement, provider-policy verification, credential isolation or SSRF execution evidence.",
+    "No canonical D2 schemas or independently replayable fixtures.",
+    "No D2 acceptance, PASS, production readiness or implementation authorization.",
+    "Gate-C replay/clean-room closure remains outside this review and is not upgraded by these documents."
+  ],
+  "recheck_exit_criteria": [
+    "All BLOCKER findings are closed with versioned artifacts and cross-document references.",
+    "All HIGH findings have deterministic contract text, schema linkage and matrix coverage.",
+    "All action/state/lifecycle vocabularies are canonical and non-overlapping.",
+    "Exact accepted D1 and Gate-C authority fingerprints are bound into the D2 package.",
+    "A separate independent reviewer can re-run the documentary review without relying on prose interpretation."
+  ]
+}

@@ -1,0 +1,308 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:pmiri:gc-c1:preflight-record:0.1",
+  "title": "PMIRI GC-C1 Preflight Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "preflight_id",
+    "spec_version",
+    "status",
+    "runner",
+    "inputs",
+    "selected_fixture_id",
+    "selected_case_id",
+    "environment",
+    "checks",
+    "artifacts",
+    "overall_result",
+    "captured_at"
+  ],
+  "properties": {
+    "preflight_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "spec_version": {
+      "type": "string",
+      "const": "0.1"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["DESIGN_ONLY", "RECORDED", "INVALIDATED"]
+    },
+    "runner": {
+      "$ref": "#/$defs/runner"
+    },
+    "inputs": {
+      "$ref": "#/$defs/inputs"
+    },
+    "selected_fixture_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "selected_case_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "environment": {
+      "$ref": "#/$defs/environment"
+    },
+    "checks": {
+      "type": "array",
+      "minItems": 16,
+      "maxItems": 16,
+      "allOf": [
+        { "contains": { "type": "object", "properties": { "check_id": { "const": "PF-01" } }, "required": ["check_id"] } },
+        { "contains": { "type": "object", "properties": { "check_id": { "const": "PF-02" } }, "required": ["check_id"] } },
+        { "contains": { "type": "object", "properties": { "check_id": { "const": "PF-03" } }, "required": ["check_id"] } },
+        { "contains": { "type": "object", "properties": { "check_id": { "const": "PF-04" } }, "required": ["check_id"] } },
+        { "contains": { "type": "object", "properties": { "check_id": { "const": "PF-05" } }, "required": ["check_id"] } },
+        { "contains": { "type": "object", "properties": { "check_id": { "const": "PF-06" } }, "required": ["check_id"] } },
+        { "contains": { "type": "object", "properties": { "check_id": { "const": "PF-07" } }, "required": ["check_id"] } },
+        { "contains": { "type": "object", "properties": { "check_id": { "const": "PF-08" } }, "required": ["check_id"] } },
+        { "contains": { "type": "object", "properties": { "check_id": { "const": "PF-09" } }, "required": ["check_id"] } },
+        { "contains": { "type": "object", "properties": { "check_id": { "const": "PF-10" } }, "required": ["check_id"] } },
+        { "contains": { "type": "object", "properties": { "check_id": { "const": "PF-11" } }, "required": ["check_id"] } },
+        { "contains": { "type": "object", "properties": { "check_id": { "const": "PF-12" } }, "required": ["check_id"] } },
+        { "contains": { "type": "object", "properties": { "check_id": { "const": "PF-13" } }, "required": ["check_id"] } },
+        { "contains": { "type": "object", "properties": { "check_id": { "const": "PF-14" } }, "required": ["check_id"] } },
+        { "contains": { "type": "object", "properties": { "check_id": { "const": "PF-15" } }, "required": ["check_id"] } },
+        { "contains": { "type": "object", "properties": { "check_id": { "const": "PF-16" } }, "required": ["check_id"] } }
+      ],
+      "items": {
+        "$ref": "#/$defs/check"
+      }
+    },
+    "artifacts": {
+      "$ref": "#/$defs/artifacts"
+    },
+    "overall_result": {
+      "type": "string",
+      "enum": [
+        "READY_FOR_REPLAY",
+        "BLOCKED",
+        "VALIDATION_ERROR",
+        "ISOLATION_VIOLATION"
+      ]
+    },
+    "captured_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "runner": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runner_id",
+        "runner_version",
+        "source_fingerprint",
+        "manifest_fingerprint"
+      ],
+      "properties": {
+        "runner_id": {
+          "type": "string",
+          "const": "pmiri-gc-c1-replay"
+        },
+        "runner_version": {
+          "type": "string",
+          "const": "0.1.0"
+        },
+        "source_fingerprint": {
+          "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "manifest_fingerprint": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authority_bundle_fingerprint",
+        "schema_fingerprint",
+        "catalog_fingerprint",
+        "matrix_fingerprint"
+      ],
+      "properties": {
+        "authority_bundle_fingerprint": {
+          "$ref": "#/$defs/sha256"
+        },
+        "schema_fingerprint": {
+          "$ref": "#/$defs/sha256"
+        },
+        "catalog_fingerprint": {
+          "$ref": "#/$defs/sha256"
+        },
+        "matrix_fingerprint": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "environment_fingerprint",
+        "network",
+        "credentials",
+        "filesystem",
+        "determinism",
+        "resource_limits",
+        "teardown"
+      ],
+      "properties": {
+        "environment_fingerprint": {
+          "$ref": "#/$defs/sha256"
+        },
+        "network": {
+          "type": "string",
+          "enum": [
+            "DENIED",
+            "UNVERIFIED"
+          ]
+        },
+        "credentials": {
+          "type": "string",
+          "enum": [
+            "DENIED",
+            "UNVERIFIED"
+          ]
+        },
+        "filesystem": {
+          "type": "string",
+          "enum": [
+            "ALLOWLIST_VERIFIED",
+            "UNVERIFIED"
+          ]
+        },
+        "determinism": {
+          "type": "string",
+          "enum": [
+            "VERIFIED",
+            "UNVERIFIED"
+          ]
+        },
+        "resource_limits": {
+          "type": "string",
+          "enum": [
+            "VERIFIED",
+            "UNVERIFIED"
+          ]
+        },
+        "teardown": {
+          "type": "string",
+          "enum": [
+            "AVAILABLE",
+            "UNVERIFIED"
+          ]
+        }
+      }
+    },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "check_id",
+        "severity",
+        "result",
+        "assertion",
+        "observation",
+        "evidence_refs",
+        "observed_fingerprints"
+      ],
+      "properties": {
+        "check_id": {
+          "type": "string",
+          "pattern": "^PF-(0[1-9]|1[0-6])$"
+        },
+        "severity": {
+          "type": "string",
+          "const": "HARD_BLOCK"
+        },
+        "result": {
+          "type": "string",
+          "enum": [
+            "READY",
+            "BLOCKED",
+            "VALIDATION_ERROR",
+            "ISOLATION_VIOLATION"
+          ]
+        },
+        "assertion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ref"
+          }
+        },
+        "observed_fingerprints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sha256"
+          }
+        },
+        "failure_reason": {
+          "type": "string"
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "result": { "enum": ["BLOCKED", "VALIDATION_ERROR", "ISOLATION_VIOLATION"] } } },
+          "then": { "required": ["failure_reason"] }
+        }
+      ]
+    },
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "output_fingerprint",
+        "artifact_manifest_fingerprint",
+        "isolation_attestation_ref",
+        "privacy_record_ref",
+        "seal_status"
+      ],
+      "properties": {
+        "output_fingerprint": {
+          "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "artifact_manifest_fingerprint": {
+          "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+        },
+        "isolation_attestation_ref": {
+          "anyOf": [{ "$ref": "#/$defs/ref" }, { "type": "null" }]
+        },
+        "privacy_record_ref": {
+          "anyOf": [{ "$ref": "#/$defs/ref" }, { "type": "null" }]
+        },
+        "seal_status": {
+          "type": "string",
+          "enum": [
+            "SEALED",
+            "INVALID",
+            "UNSEALED"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1803 @@
+{
+  "all_oracles_match": true,
+  "artifact_kind": "PMIRI-GATE-D-D2-RUNTIME-CANDIDATE-REPORT",
+  "authority_execution_authorized": false,
+  "authority_fingerprint": "9a5628f336cc6332128ad434ac0bad478933d5e76baa53f2982fbc1b2ef49b8b",
+  "captured_at": "2026-01-01T00:00:00Z",
+  "cases": [
+    {
+      "actual": {
+        "action_result": "ALLOW",
+        "assertion_fingerprint": "ca3cf824e3b79b0d09d35c6c3bc96bae962e01fd828d891815eb849036256a7c",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "decision_id": "decision://7335983f009a2fdba37ee3e5067bb7af",
+        "evidence_state": {
+          "kind": "trust_state",
+          "value": "TRUSTED_FOR_BOUND_PURPOSE"
+        },
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE"
+      },
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "trust_state",
+          "value": "TRUSTED_FOR_BOUND_PURPOSE"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "trust_assertion_set",
+          "destination_binding",
+          "purpose_binding",
+          "freshness_profile",
+          "authority_manifest",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "fresh": true,
+        "kind": "trust",
+        "scope": true,
+        "subject_exact": true
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-01-P",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "DENY",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "decision_id": "decision://7335983f009a2fdba37ee3e5067bb7af",
+        "evidence_state": {
+          "kind": "trust_state",
+          "value": "UNKNOWN"
+        },
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "AUTHORITY_MISSING"
+      },
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "diagnostic_trigger_variant": "UNREGISTERED_SUBJECT",
+        "evidence_state": {
+          "kind": "trust_state",
+          "value": "UNKNOWN"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "AUTHORITY_MISSING",
+        "required_bindings": [
+          "trust_assertion_set",
+          "destination_binding",
+          "purpose_binding",
+          "freshness_profile",
+          "authority_manifest",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "fresh": false,
+        "kind": "trust",
+        "scope": false,
+        "subject_exact": false
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-01-A",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "decision_id": "decision://9f0ab72ca406eaa1b6ac9a9a91494f8e",
+        "evidence_state": {
+          "kind": "capability_state",
+          "value": "FRESH"
+        },
+        "observation_fingerprint": "01ea08966d3a861d3fd88d0ca611d0593cd031cf2d46180838f8cfed88aa2e2f",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE"
+      },
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "capability_state",
+          "value": "FRESH"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "capability_observation_set",
+          "material_manifest",
+          "freshness_profile",
+          "authority_manifest",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "fresh": true,
+        "kind": "capability",
+        "supported": true
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-02-P",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "REQUIRE_REVALIDATION",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "decision_id": "decision://9f0ab72ca406eaa1b6ac9a9a91494f8e",
+        "evidence_state": {
+          "kind": "capability_state",
+          "value": "STALE"
+        },
+        "observation_fingerprint": "2fad6b07a0e7eecedf1804b9e010997b6509a159debaf5519c9170e1ce8feaf6",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "STALE_EVIDENCE"
+      },
+      "expected": {
+        "action_result": "REQUIRE_REVALIDATION",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "diagnostic_trigger_variant": "REVOCATION_EPOCH_CHANGE",
+        "evidence_state": {
+          "kind": "capability_state",
+          "value": "STALE"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "STALE_EVIDENCE",
+        "required_bindings": [
+          "capability_decision",
+          "capability_observation_set",
+          "invalidation_epoch",
+          "freshness_profile",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "fresh": false,
+        "kind": "capability",
+        "supported": true
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-02-A",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "policy_status",
+          "value": "COVERED_BY_PRECEDENCE"
+        },
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE"
+      },
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "policy_status",
+          "value": "COVERED_BY_PRECEDENCE"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "policy_observation_set",
+          "freshness_profile",
+          "invalidation_epoch",
+          "authority_manifest",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "authority": "AUTHORITATIVE_REGISTRY",
+        "complete": true,
+        "fresh": true,
+        "kind": "policy"
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-07-P",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "DENY",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "policy_status",
+          "value": "POLICY_UNKNOWN"
+        },
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "POLICY_UNKNOWN"
+      },
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "diagnostic_trigger_variant": "MISSING_REQUIRED_DIMENSION",
+        "evidence_state": {
+          "kind": "policy_status",
+          "value": "POLICY_UNKNOWN"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "POLICY_UNKNOWN",
+        "required_bindings": [
+          "policy_observation_set",
+          "freshness_profile",
+          "invalidation_epoch",
+          "authority_manifest",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "authority": "CALLER_CLAIM",
+        "complete": false,
+        "fresh": false,
+        "kind": "policy"
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-07-A",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "ALLOW",
+        "assertion_fingerprint": "ca3cf824e3b79b0d09d35c6c3bc96bae962e01fd828d891815eb849036256a7c",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "trust_state",
+          "value": "TRUSTED_FOR_BOUND_PURPOSE"
+        },
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE"
+      },
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "trust_state",
+          "value": "TRUSTED_FOR_BOUND_PURPOSE"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "destination_binding",
+          "material_manifest",
+          "trust_decision",
+          "capability_decision",
+          "freshness_profile",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "classification": "CLOUD_OK",
+        "kind": "classification"
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-01-B",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "DENY",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "trust_state",
+          "value": "INVALID"
+        },
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "CLASSIFICATION_MISMATCH"
+      },
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "diagnostic_trigger_variant": "DESTINATION_CLASS_MISMATCH",
+        "evidence_state": {
+          "kind": "trust_state",
+          "value": "INVALID"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "CLASSIFICATION_MISMATCH",
+        "required_bindings": [
+          "destination_binding",
+          "material_manifest",
+          "trust_decision",
+          "capability_decision",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "classification": "LOCAL_ONLY",
+        "kind": "classification"
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-01-C",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "ALLOW_WITH_CONSTRAINTS",
+        "artifact_fingerprint": "dbbe20023ea7eadc98d2074fca48e7f3b9e4814e27d3b19a5e27821974bae793",
+        "artifact_ref": "artifact://d2-egress-context",
+        "constraint_refs": [
+          "constraint_1fbf3de1fd66858ae0379e4e"
+        ],
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "obligation_impact",
+          "value": "PRESERVED_WITH_CONSTRAINT"
+        },
+        "operation": "provider_call",
+        "purpose": "context_delivery",
+        "reason_class": "NONE",
+        "transformation_refs": [
+          "transformation://d2-context"
+        ]
+      },
+      "expected": {
+        "action_result": "ALLOW_WITH_CONSTRAINTS",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "obligation_impact",
+          "value": "PRESERVED_WITH_CONSTRAINT"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "context_delivery",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "authorization_lineage",
+          "source_evidence_set",
+          "semantic_obligations",
+          "transformation_set",
+          "typed_constraints",
+          "egress_artifact",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "impact": "PRESERVED_WITH_CONSTRAINT",
+        "kind": "redaction"
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-03-P",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "DENY",
+        "artifact_fingerprint": "fd448cf3a4a34c939aefc12c9d18b7c06707d649a8c519df833fd1be7e488e27",
+        "artifact_ref": "artifact://d2-egress-context",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "obligation_impact",
+          "value": "UNSATISFIABLE"
+        },
+        "operation": "provider_call",
+        "purpose": "context_delivery",
+        "reason_class": "SEMANTIC_OBLIGATION_UNSATISFIABLE",
+        "transformation_refs": [
+          "transformation://d2-context"
+        ],
+        "transformed_fingerprint": "dd732f85618f82c9083c67ae2ca238a8a7d6e3332c28c13eaa089db9def2d69d"
+      },
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "diagnostic_trigger_variant": "UNSATISFIABLE_OBLIGATION",
+        "evidence_state": {
+          "kind": "obligation_impact",
+          "value": "UNSATISFIABLE"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "context_delivery",
+        "reason_class": "SEMANTIC_OBLIGATION_UNSATISFIABLE",
+        "required_bindings": [
+          "authorization_lineage",
+          "semantic_obligations",
+          "transformation_set",
+          "typed_constraints",
+          "egress_artifact",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "impact": "UNSATISFIABLE",
+        "kind": "redaction"
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-03-A",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "ALLOW_WITH_CONSTRAINTS",
+        "artifact_fingerprint": "dbbe20023ea7eadc98d2074fca48e7f3b9e4814e27d3b19a5e27821974bae793",
+        "artifact_ref": "artifact://d2-egress-context",
+        "citation_map_fingerprint": "dd732f85618f82c9083c67ae2ca238a8a7d6e3332c28c13eaa089db9def2d69d",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "obligation_impact",
+          "value": "PRESERVED_WITH_CONSTRAINT"
+        },
+        "operation": "provider_call",
+        "purpose": "context_delivery",
+        "reason_class": "NONE",
+        "transformation_refs": [
+          "transformation://d2-context"
+        ]
+      },
+      "expected": {
+        "action_result": "ALLOW_WITH_CONSTRAINTS",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "obligation_impact",
+          "value": "PRESERVED_WITH_CONSTRAINT"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "context_delivery",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "authorization_lineage",
+          "source_evidence_set",
+          "semantic_obligations",
+          "transformation_set",
+          "citation_map",
+          "typed_constraints",
+          "egress_artifact",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "kind": "citation",
+        "valid": true
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-03-B",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "DENY",
+        "artifact_fingerprint": "432cba7dcdfe30a9f7760fd515e5f1a54cb4ddcdb921d35424603668d621f32e",
+        "artifact_ref": "artifact://d2-egress-context",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "citation_status",
+          "value": "INVALID"
+        },
+        "operation": "provider_call",
+        "purpose": "context_delivery",
+        "reason_class": "CITATION_INVALID",
+        "transformation_refs": [
+          "transformation://d2-context"
+        ]
+      },
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "diagnostic_trigger_variant": "STALE_CITATION_OFFSET",
+        "evidence_state": {
+          "kind": "citation_status",
+          "value": "INVALID"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "context_delivery",
+        "reason_class": "CITATION_INVALID",
+        "required_bindings": [
+          "source_evidence_set",
+          "citation_map",
+          "egress_artifact",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "kind": "citation",
+        "valid": false
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-03-C",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "ALLOW",
+        "artifact_fingerprint": "3e4f53074202b594225665d48cc909b0d29dd06c8910636a0d8a3ad2aee0b430",
+        "artifact_ref": "artifact://d2-egress-context",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "retrieval_status",
+          "value": "NO_RETRIEVAL"
+        },
+        "operation": "provider_call",
+        "purpose": "context_delivery",
+        "reason_class": "NONE",
+        "transformation_refs": []
+      },
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "retrieval_status",
+          "value": "NO_RETRIEVAL"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "context_delivery",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "source_evidence_set",
+          "authorization_lineage",
+          "egress_artifact",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "hidden": false,
+        "kind": "hidden_retrieval"
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-03-D",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "DENY",
+        "artifact_fingerprint": "432cba7dcdfe30a9f7760fd515e5f1a54cb4ddcdb921d35424603668d621f32e",
+        "artifact_ref": "artifact://d2-egress-context",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "retrieval_status",
+          "value": "HIDDEN_RETRIEVAL_ATTEMPT"
+        },
+        "operation": "provider_call",
+        "purpose": "context_delivery",
+        "reason_class": "HIDDEN_RETRIEVAL_ATTEMPT",
+        "transformation_refs": []
+      },
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "retrieval_status",
+          "value": "HIDDEN_RETRIEVAL_ATTEMPT"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "context_delivery",
+        "reason_class": "HIDDEN_RETRIEVAL_ATTEMPT",
+        "required_bindings": [
+          "source_evidence_set",
+          "authorization_lineage",
+          "egress_artifact",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "hidden": true,
+        "kind": "hidden_retrieval"
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-03-E",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "ALLOW",
+        "boundary_fingerprint": "e4b0fc6a7362305612aa76a84fb54d95b281e97c9577ecc0f6a44bb3bc051dd6",
+        "content_lifecycle": "QUARANTINED",
+        "evidence_state": {
+          "kind": "credential_status",
+          "value": "EXACTLY_SCOPED"
+        },
+        "lifecycle_fingerprint": "73cf6cdcc31ddfd25779849e51dea2d2229589a9ce0aa7ff1c7b968d53de73ae",
+        "operation": "connector_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "NONE"
+      },
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "QUARANTINED",
+        "evidence_state": {
+          "kind": "credential_status",
+          "value": "EXACTLY_SCOPED"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "connector_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "credential_boundary",
+          "destination_binding",
+          "credential_epoch",
+          "freshness_profile",
+          "authority_manifest",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "kind": "credentials",
+        "scope": true
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-01-D",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "DENY",
+        "content_lifecycle": "ABORTED",
+        "evidence_state": {
+          "kind": "credential_status",
+          "value": "INVALID_SCOPE"
+        },
+        "operation": "connector_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "CREDENTIAL_SCOPE_INVALID"
+      },
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "ABORTED",
+        "evidence_state": {
+          "kind": "credential_status",
+          "value": "INVALID_SCOPE"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "connector_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "CREDENTIAL_SCOPE_INVALID",
+        "required_bindings": [
+          "credential_boundary",
+          "destination_binding",
+          "credential_epoch",
+          "fetched_content_lifecycle",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "kind": "credentials",
+        "scope": false
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-01-E",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "decision_id": "decision://b7e61fcf5500b5553d68ee00f15835b0",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "ALLOWLISTED_STABLE"
+        },
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE"
+      },
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "ALLOWLISTED_STABLE"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "connection_binding",
+          "selected_resolution",
+          "tls_identity",
+          "limits_profile",
+          "freshness_profile",
+          "authority_manifest",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "addresses": [
+          "93.184.216.34"
+        ],
+        "kind": "network",
+        "observation": "allowlisted_stable",
+        "revalidation": "MATCHED",
+        "tls": "MATCHED",
+        "url": "https://example.com/"
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "network_resolution_set_status": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-04-P",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "DENY",
+        "content_lifecycle": "ABORTED",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "UNSUPPORTED_SCHEME"
+        },
+        "lifecycle_fingerprint": "63224de157e2ced6d3059db3eaba9c0af29f09477c96f72ed93db24ec6b22dd3",
+        "network_resolution_set_status": "DENIED_MIXED",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "UNSUPPORTED_SCHEME"
+      },
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "ABORTED",
+        "diagnostic_trigger_variant": "UNSUPPORTED_SCHEME",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "UNSUPPORTED_SCHEME"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "UNSUPPORTED_SCHEME",
+        "required_bindings": [
+          "connection_binding",
+          "url_normalization",
+          "fetched_content_lifecycle",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "addresses": [],
+        "kind": "network",
+        "revalidation": "MATCHED",
+        "tls": "MATCHED",
+        "url": "http://example.com/"
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-04-A",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "decision_id": "decision://b7e61fcf5500b5553d68ee00f15835b0",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "ALL_ADDRESSES_ALLOWLISTED_PUBLIC"
+        },
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE"
+      },
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "ALL_ADDRESSES_ALLOWLISTED_PUBLIC"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "connection_binding",
+          "resolved_address_set",
+          "selected_resolution",
+          "tls_identity",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "addresses": [
+          "93.184.216.34",
+          "93.184.216.35"
+        ],
+        "kind": "network",
+        "observation": "all_addresses_allowlisted_public",
+        "revalidation": "MATCHED",
+        "tls": "MATCHED",
+        "url": "https://example.com/"
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "network_resolution_set_status": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-04-B",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "DENY",
+        "content_lifecycle": "ABORTED",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "PRIVATE_ADDRESS"
+        },
+        "lifecycle_fingerprint": "63224de157e2ced6d3059db3eaba9c0af29f09477c96f72ed93db24ec6b22dd3",
+        "network_resolution_set_status": "DENIED_MIXED",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "PRIVATE_ADDRESS"
+      },
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "ABORTED",
+        "diagnostic_trigger_variant": "PRIVATE_ADDRESS",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "PRIVATE_ADDRESS"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "DENIED_MIXED",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "PRIVATE_ADDRESS",
+        "required_bindings": [
+          "connection_binding",
+          "resolved_address_set",
+          "denied_resolution_set",
+          "fetched_content_lifecycle",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "addresses": [
+          "10.0.0.1"
+        ],
+        "kind": "network",
+        "revalidation": "MATCHED",
+        "tls": "MATCHED",
+        "url": "https://example.com/"
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "network_resolution_set_status": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-04-C",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "decision_id": "decision://b7e61fcf5500b5553d68ee00f15835b0",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "RESOLUTION_STABLE"
+        },
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE"
+      },
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "RESOLUTION_STABLE"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "connection_binding",
+          "revalidation_events",
+          "connection_epoch",
+          "tls_identity",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "addresses": [
+          "93.184.216.34"
+        ],
+        "kind": "network",
+        "observation": "resolution_stable",
+        "revalidation": "MATCHED",
+        "tls": "MATCHED",
+        "url": "https://example.com/"
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "network_resolution_set_status": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-04-D",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "DENY",
+        "content_lifecycle": "ABORTED",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "DNS_REBINDING"
+        },
+        "lifecycle_fingerprint": "63224de157e2ced6d3059db3eaba9c0af29f09477c96f72ed93db24ec6b22dd3",
+        "network_resolution_set_status": "DENIED_MIXED",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "DNS_REBINDING"
+      },
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "ABORTED",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "DNS_REBINDING"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "DENIED_MIXED",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "DNS_REBINDING",
+        "required_bindings": [
+          "connection_binding",
+          "revalidation_events",
+          "fetched_content_lifecycle",
+          "invalidation_epoch",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "addresses": [
+          "93.184.216.34"
+        ],
+        "kind": "network",
+        "revalidation": "MISMATCHED",
+        "tls": "MATCHED",
+        "url": "https://example.com/"
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "network_resolution_set_status": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-04-E",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "QUARANTINED",
+        "decision_id": "decision://b7e61fcf5500b5553d68ee00f15835b0",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "REDIRECTS_REVALIDATED"
+        },
+        "lifecycle_fingerprint": "2890c8a048641759065fa891cb52624b0346143b7a7b7b54017b683e1bb6d914",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "NONE"
+      },
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "QUARANTINED",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "REDIRECTS_REVALIDATED"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "connection_binding",
+          "revalidation_events",
+          "selected_resolution",
+          "tls_identity",
+          "fetched_content_lifecycle",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "addresses": [
+          "93.184.216.34"
+        ],
+        "kind": "network",
+        "observation": "redirects_revalidated",
+        "redirects": "validated",
+        "revalidation": "MATCHED",
+        "tls": "MATCHED",
+        "url": "https://example.com/"
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "network_resolution_set_status": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-04-F",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "DENY",
+        "content_lifecycle": "ABORTED",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "REDIRECT_UNAUTHORIZED"
+        },
+        "lifecycle_fingerprint": "63224de157e2ced6d3059db3eaba9c0af29f09477c96f72ed93db24ec6b22dd3",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "REDIRECT_UNAUTHORIZED"
+      },
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "ABORTED",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "REDIRECT_UNAUTHORIZED"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "REDIRECT_UNAUTHORIZED",
+        "required_bindings": [
+          "connection_binding",
+          "revalidation_events",
+          "fetched_content_lifecycle",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "addresses": [
+          "93.184.216.34"
+        ],
+        "kind": "network",
+        "redirects": "unauthorized",
+        "revalidation": "MATCHED",
+        "tls": "MATCHED",
+        "url": "https://example.com/"
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-04-G",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "QUARANTINED",
+        "decision_id": "decision://b7e61fcf5500b5553d68ee00f15835b0",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "WITHIN_RESOURCE_LIMITS"
+        },
+        "lifecycle_fingerprint": "2890c8a048641759065fa891cb52624b0346143b7a7b7b54017b683e1bb6d914",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "NONE"
+      },
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "QUARANTINED",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "WITHIN_RESOURCE_LIMITS"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "connection_binding",
+          "limits_profile",
+          "fetched_content_lifecycle",
+          "freshness_profile",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "addresses": [
+          "93.184.216.34"
+        ],
+        "kind": "network",
+        "limits": "within",
+        "observation": "within_resource_limits",
+        "revalidation": "MATCHED",
+        "tls": "MATCHED",
+        "url": "https://example.com/"
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "network_resolution_set_status": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-04-H",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "DENY",
+        "content_lifecycle": "ABORTED",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "RESOURCE_LIMIT_EXCEEDED"
+        },
+        "lifecycle_fingerprint": "63224de157e2ced6d3059db3eaba9c0af29f09477c96f72ed93db24ec6b22dd3",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "RESOURCE_LIMIT_EXCEEDED"
+      },
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "ABORTED",
+        "diagnostic_trigger_variant": "RESOURCE_LIMIT_EXCEEDED",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "RESOURCE_LIMIT_EXCEEDED"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "RESOURCE_LIMIT_EXCEEDED",
+        "required_bindings": [
+          "connection_binding",
+          "limits_profile",
+          "fetched_content_lifecycle",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "addresses": [
+          "93.184.216.34"
+        ],
+        "kind": "network",
+        "limits": "exceeded",
+        "revalidation": "MATCHED",
+        "tls": "MATCHED",
+        "url": "https://example.com/"
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "network_resolution_set_status": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-04-I",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "LOCAL_ONLY",
+        "content_lifecycle": "ADMITTED_TYPED_DATA",
+        "evidence_state": {
+          "kind": "content_state",
+          "value": "ADMITTED_TYPED_DATA"
+        },
+        "lifecycle_fingerprint": "26cadf25ef8548e534f69a38e7e59d574a17904bde3ce22d0d4e0606ff1ec7fb",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "attachment_fetch",
+        "purpose": "attachment_import",
+        "reason_class": "NONE"
+      },
+      "expected": {
+        "action_result": "LOCAL_ONLY",
+        "content_lifecycle": "ADMITTED_TYPED_DATA",
+        "evidence_state": {
+          "kind": "content_state",
+          "value": "ADMITTED_TYPED_DATA"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "attachment_fetch",
+        "purpose": "attachment_import",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "origin_binding",
+          "destination_binding",
+          "admission_predicate",
+          "typed_data_schema",
+          "lifecycle_fingerprint"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "kind": "attachment",
+        "valid": true
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "network_resolution_set_status": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-04-J",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "LOCAL_ONLY",
+        "content_lifecycle": "QUARANTINED",
+        "evidence_state": {
+          "kind": "content_state",
+          "value": "QUARANTINED"
+        },
+        "lifecycle_fingerprint": "e8894e7c8e4c5b0424c0616ea39fb40cc03c68709aedc08ed1cebd7eb0ebfe3f",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "attachment_fetch",
+        "purpose": "attachment_import",
+        "reason_class": "UNTRUSTED_EXTERNAL_CONTROL_TEXT"
+      },
+      "expected": {
+        "action_result": "LOCAL_ONLY",
+        "content_lifecycle": "QUARANTINED",
+        "diagnostic_trigger_variant": "UNTRUSTED_EXTERNAL_CONTROL_TEXT",
+        "evidence_state": {
+          "kind": "content_state",
+          "value": "QUARANTINED"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "attachment_fetch",
+        "purpose": "attachment_import",
+        "reason_class": "UNTRUSTED_EXTERNAL_CONTROL_TEXT",
+        "required_bindings": [
+          "origin_binding",
+          "destination_binding",
+          "admission_predicate",
+          "lifecycle_fingerprint"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "kind": "attachment",
+        "valid": false
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "network_resolution_set_status": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-04-K",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "race_status",
+          "value": "EPOCHS_UNCHANGED"
+        },
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE"
+      },
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "race_status",
+          "value": "EPOCHS_UNCHANGED"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "integrated_envelope",
+          "authorization_lineage",
+          "trust_decision",
+          "capability_decision",
+          "network_binding",
+          "invalidation_epoch",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "changed": false,
+        "kind": "race"
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-05-P",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "DENY",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "race_status",
+          "value": "POLICY_EPOCH_CHANGED"
+        },
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "POLICY_EPOCH_CHANGED"
+      },
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "race_status",
+          "value": "POLICY_EPOCH_CHANGED"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "POLICY_EPOCH_CHANGED",
+        "required_bindings": [
+          "integrated_envelope",
+          "trust_decision",
+          "capability_decision",
+          "network_binding",
+          "invalidation_epoch",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "changed": true,
+        "kind": "race"
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-05-A",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "cache_status",
+          "value": "CURRENT_AND_EXACT"
+        },
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE"
+      },
+      "expected": {
+        "action_result": "ALLOW",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "cache_status",
+          "value": "CURRENT_AND_EXACT"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "cached_decision",
+          "material_manifest",
+          "policy_version",
+          "freshness_profile",
+          "authority_manifest",
+          "invalidation_epoch",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "exact": true,
+        "kind": "cache"
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-05-B",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "REQUIRE_REVALIDATION",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "evidence_state": {
+          "kind": "cache_status",
+          "value": "FINGERPRINT_MISMATCH"
+        },
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "MATERIAL_FINGERPRINT_MISMATCH"
+      },
+      "expected": {
+        "action_result": "REQUIRE_REVALIDATION",
+        "content_lifecycle": "NOT_APPLICABLE",
+        "diagnostic_trigger_variant": "MATERIAL_FINGERPRINT_MISMATCH",
+        "evidence_state": {
+          "kind": "cache_status",
+          "value": "FINGERPRINT_MISMATCH"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "reason_class": "MATERIAL_FINGERPRINT_MISMATCH",
+        "required_bindings": [
+          "cached_decision",
+          "material_manifest_fingerprint",
+          "policy_version",
+          "authority_manifest",
+          "invalidation_epoch",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "exact": false,
+        "kind": "cache"
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-05-C",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "DENY",
+        "content_lifecycle": "ABORTED",
+        "evidence_state": {
+          "kind": "teardown_status",
+          "value": "PROVEN_COMPLETE"
+        },
+        "lifecycle_fingerprint": "63224de157e2ced6d3059db3eaba9c0af29f09477c96f72ed93db24ec6b22dd3",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "NONE"
+      },
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "ABORTED",
+        "evidence_state": {
+          "kind": "teardown_status",
+          "value": "PROVEN_COMPLETE"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "connection_binding",
+          "fetched_content_lifecycle",
+          "teardown_evidence",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "complete": true,
+        "kind": "teardown"
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "network_resolution_set_status": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-04-L",
+      "status": "ORACLE_MATCH"
+    },
+    {
+      "actual": {
+        "action_result": "DENY",
+        "content_lifecycle": "ABORTED",
+        "evidence_state": {
+          "kind": "teardown_status",
+          "value": "UNPROVEN"
+        },
+        "lifecycle_fingerprint": "63224de157e2ced6d3059db3eaba9c0af29f09477c96f72ed93db24ec6b22dd3",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "TEARDOWN_UNPROVEN"
+      },
+      "expected": {
+        "action_result": "DENY",
+        "content_lifecycle": "ABORTED",
+        "evidence_state": {
+          "kind": "teardown_status",
+          "value": "UNPROVEN"
+        },
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC",
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "reason_class": "TEARDOWN_UNPROVEN",
+        "required_bindings": [
+          "connection_binding",
+          "fetched_content_lifecycle",
+          "teardown_evidence",
+          "invalidation_epoch",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED"
+      },
+      "fixture_signal": {
+        "complete": false,
+        "kind": "teardown"
+      },
+      "matches": {
+        "action_result": true,
+        "content_lifecycle": true,
+        "evidence_state": true,
+        "network_resolution_set_status": true,
+        "operation": true,
+        "purpose": true,
+        "reason_class": true
+      },
+      "scenario_id": "D2-04-M",
+      "status": "ORACLE_MATCH"
+    }
+  ],
+  "d2_acceptance": "NOT_CLAIMED",
+  "documentation_runtime_status_preserved": true,
+  "external_connector_access": "NOT_PERFORMED",
+  "external_network_access": "NOT_PERFORMED",
+  "external_provider_access": "NOT_PERFORMED",
+  "fixture_signal_count": 34,
+  "r_fc_pass": "NONE",
+  "report_fingerprint": "adf290d9378ba670829fc021e170ad093c418620b85c59207fdb15408dee287b",
+  "runtime_execution": "LOCAL_SYNTHETIC_ONLY",
+  "scenario_count": 34,
+  "status": "D2_RUNTIME_CANDIDATE"
+}

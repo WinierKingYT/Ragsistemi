@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pmiri://schema/gate-d-r2/expected-outcome/0.3",
+  "title": "PMIRI Gate D Round 2 Scenario Expected Outcome",
+  "type": "object",
+  "additionalProperties": false,
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "trust_state": {"type": "string", "enum": ["TRUSTED_FOR_BOUND_PURPOSE", "CONDITIONALLY_TRUSTED", "UNTRUSTED", "UNKNOWN", "EXPIRED", "REVOKED", "CONTRADICTED", "INVALID"]},
+    "capability_state": {"type": "string", "enum": ["FRESH", "STALE", "MISSING", "REVOKED", "CONTRADICTED", "INVALID", "OUT_OF_SCOPE"]},
+    "obligation_impact": {"type": "string", "enum": ["PRESERVED", "PRESERVED_WITH_CONSTRAINT", "WEAKENED", "UNSATISFIABLE", "INVALIDATED", "NOT_APPLICABLE"]},
+    "evidence_state": {
+      "oneOf": [
+        {"type": "object", "additionalProperties": false, "required": ["kind", "value"], "properties": {"kind": {"const": "trust_state"}, "value": {"$ref": "pmiri://schema/gate-d-r2/expected-outcome/0.3#/$defs/trust_state"}}},
+        {"type": "object", "additionalProperties": false, "required": ["kind", "value"], "properties": {"kind": {"const": "capability_state"}, "value": {"$ref": "pmiri://schema/gate-d-r2/expected-outcome/0.3#/$defs/capability_state"}}},
+        {"type": "object", "additionalProperties": false, "required": ["kind", "value"], "properties": {"kind": {"const": "policy_status"}, "value": {"enum": ["COVERED_BY_PRECEDENCE", "POLICY_UNKNOWN", "POLICY_STALE", "POLICY_CONTRADICTION"]}}},
+        {"type": "object", "additionalProperties": false, "required": ["kind", "value"], "properties": {"kind": {"const": "obligation_impact"}, "value": {"$ref": "pmiri://schema/gate-d-r2/expected-outcome/0.3#/$defs/obligation_impact"}}},
+        {"type": "object", "additionalProperties": false, "required": ["kind", "value"], "properties": {"kind": {"const": "citation_status"}, "value": {"const": "INVALID"}}},
+        {"type": "object", "additionalProperties": false, "required": ["kind", "value"], "properties": {"kind": {"const": "retrieval_status"}, "value": {"enum": ["NO_RETRIEVAL", "HIDDEN_RETRIEVAL_ATTEMPT"]}}},
+        {"type": "object", "additionalProperties": false, "required": ["kind", "value"], "properties": {"kind": {"const": "credential_status"}, "value": {"enum": ["EXACTLY_SCOPED", "INVALID_SCOPE"]}}},
+        {"type": "object", "additionalProperties": false, "required": ["kind", "value"], "properties": {"kind": {"const": "network_status"}, "value": {"enum": ["ALLOWLISTED_STABLE", "UNSUPPORTED_SCHEME", "ALL_ADDRESSES_ALLOWLISTED_PUBLIC", "PRIVATE_ADDRESS", "RESOLUTION_STABLE", "DNS_REBINDING", "REDIRECTS_REVALIDATED", "REDIRECT_UNAUTHORIZED", "WITHIN_RESOURCE_LIMITS", "RESOURCE_LIMIT_EXCEEDED"]}}},
+        {"type": "object", "additionalProperties": false, "required": ["kind", "value"], "properties": {"kind": {"const": "network_resolution_set_status"}, "value": {"enum": ["ALL_ALLOWLISTED_PUBLIC", "DENIED_MIXED"]}}},
+        {"type": "object", "additionalProperties": false, "required": ["kind", "value"], "properties": {"kind": {"const": "content_state"}, "value": {"enum": ["ADMITTED_TYPED_DATA", "QUARANTINED"]}}},
+        {"type": "object", "additionalProperties": false, "required": ["kind", "value"], "properties": {"kind": {"const": "race_status"}, "value": {"enum": ["EPOCHS_UNCHANGED", "POLICY_EPOCH_CHANGED"]}}},
+        {"type": "object", "additionalProperties": false, "required": ["kind", "value"], "properties": {"kind": {"const": "cache_status"}, "value": {"enum": ["CURRENT_AND_EXACT", "FINGERPRINT_MISMATCH"]}}},
+        {"type": "object", "additionalProperties": false, "required": ["kind", "value"], "properties": {"kind": {"const": "teardown_status"}, "value": {"enum": ["PROVEN_COMPLETE", "UNPROVEN"]}}}
+      ]
+    }
+  },
+  "required": ["operation", "purpose", "action_result", "evidence_state", "content_lifecycle", "reason_class", "required_bindings", "runtime_status", "expected_schema_ref"],
+  "properties": {
+    "operation": {"enum": ["provider_call", "connector_fetch", "attachment_fetch", "external_fetch"]},
+    "purpose": {"enum": ["retrieval", "context_delivery", "external_fetch", "attachment_import", "provider_call"]},
+    "action_result": {"enum": ["ALLOW", "ALLOW_WITH_CONSTRAINTS", "DENY", "REQUIRE_REVIEW", "REQUIRE_REVALIDATION", "LOCAL_ONLY"]},
+    "evidence_state": {"$ref": "pmiri://schema/gate-d-r2/expected-outcome/0.3#/$defs/evidence_state"},
+    "content_lifecycle": {"enum": ["NOT_APPLICABLE", "QUARANTINED", "ADMITTED_TYPED_DATA", "REJECTED", "DISCARDED", "ABORTED"]},
+    "reason_class": {"enum": ["NONE", "AUTHORITY_MISSING", "AUTHORITY_CONFLICT", "EXACT_BINDING_MISSING", "SCOPE_MISMATCH", "POLICY_UNKNOWN", "POLICY_STALE", "POLICY_CONTRADICTION", "STALE_EVIDENCE", "REVOKED_EVIDENCE", "CLASSIFICATION_MISMATCH", "MATERIAL_FINGERPRINT_MISMATCH", "CAPABILITY_MISSING", "CAPABILITY_OUT_OF_SCOPE", "DESTINATION_NOT_ALLOWLISTED", "CREDENTIAL_SCOPE_INVALID", "CREDENTIAL_VISIBILITY_RISK", "URL_INVALID", "UNSUPPORTED_SCHEME", "PRIVATE_ADDRESS", "DNS_REBINDING", "REDIRECT_UNAUTHORIZED", "TLS_IDENTITY_MISMATCH", "RESOURCE_LIMIT_EXCEEDED", "CONTENT_TYPE_DISALLOWED", "SEMANTIC_OBLIGATION_UNSATISFIABLE", "CITATION_INVALID", "HIDDEN_RETRIEVAL_ATTEMPT", "POLICY_EPOCH_CHANGED", "TEARDOWN_UNPROVEN", "UNTRUSTED_EXTERNAL_CONTROL_TEXT", "INTERNAL_CONTRACT_INVALID", "REVIEW_REQUIRED"]},
+    "required_bindings": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["admission_predicate", "authority_manifest", "authorization_lineage", "cached_decision", "capability_decision", "capability_observation_set", "citation_map", "connection_binding", "connection_epoch", "credential_boundary", "credential_epoch", "denied_resolution_set", "destination_binding", "egress_artifact", "fetched_content_lifecycle", "freshness_profile", "integrated_envelope", "invalidation_epoch", "lifecycle_fingerprint", "limits_profile", "material_manifest", "material_manifest_fingerprint", "network_binding", "origin_binding", "policy_observation_set", "policy_version", "purpose_binding", "resolved_address_set", "revalidation_events", "selected_resolution", "semantic_obligations", "source_evidence_set", "teardown_evidence", "tls_identity", "transformation_set", "trust_assertion_set", "trust_decision", "typed_constraints", "typed_data_schema", "url_normalization", "validity"]}},
+    "runtime_status": {"const": "BLOCKED"},
+    "diagnostic_trigger_variant": {"type": "string", "minLength": 1},
+    "network_resolution_set_status": {"enum": ["ALL_ALLOWLISTED_PUBLIC", "DENIED_MIXED"]},
+    "expected_schema_ref": {"const": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json"}
+  }
+}

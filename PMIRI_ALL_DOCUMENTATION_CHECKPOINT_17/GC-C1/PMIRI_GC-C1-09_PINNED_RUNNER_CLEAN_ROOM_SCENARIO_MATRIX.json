@@ -1,0 +1,25 @@
+{
+  "spec_format": "PMIRI_GC_C1_PINNED_RUNNER_CLEAN_ROOM_REMEDIATION",
+  "spec_version": "0.1",
+  "status": "DESIGN_ONLY",
+  "tests_executed": false,
+  "execution_authorization": "NOT_GRANTED",
+  "allowed_outcomes": ["READY_FOR_REPLAY", "BLOCKED", "VALIDATION_ERROR", "ISOLATION_VIOLATION"],
+  "control_rule": "PF-00 baseline plus one fault per scenario; any hard failure blocks replay.",
+  "scenarios": [
+    {"scenario_id":"PR-00","fault":"none","target_checks":[],"expected_outcome":"READY_FOR_REPLAY","required_observable":"all pinned inputs and isolation attestations verify"},
+    {"scenario_id":"PR-01","fault":"runner source artifact missing","target_checks":["PF-02"],"expected_outcome":"BLOCKED","required_observable":"source fingerprint is absent and replay does not start"},
+    {"scenario_id":"PR-02","fault":"runner source fingerprint changed","target_checks":["PF-02"],"expected_outcome":"VALIDATION_ERROR","required_observable":"observed and declared source fingerprints differ"},
+    {"scenario_id":"PR-03","fault":"runner manifest fingerprint missing","target_checks":["PF-03"],"expected_outcome":"BLOCKED","required_observable":"manifest cannot authorize execution without a declared digest"},
+    {"scenario_id":"PR-04","fault":"network egress available","target_checks":["PF-09"],"expected_outcome":"ISOLATION_VIOLATION","required_observable":"egress attempt is denied and retained as a failure"},
+    {"scenario_id":"PR-05","fault":"ambient credential visible","target_checks":["PF-09"],"expected_outcome":"ISOLATION_VIOLATION","required_observable":"credential exposure blocks the case"},
+    {"scenario_id":"PR-06","fault":"filesystem path outside allowlist readable","target_checks":["PF-10"],"expected_outcome":"ISOLATION_VIOLATION","required_observable":"undeclared read is denied and recorded"},
+    {"scenario_id":"PR-07","fault":"shared/pre-populated case root","target_checks":["PF-08","PF-10","PF-13"],"expected_outcome":"BLOCKED","required_observable":"case root is rejected before action trace"},
+    {"scenario_id":"PR-08","fault":"resource limit absent or exceeded","target_checks":["PF-11"],"expected_outcome":"BLOCKED","required_observable":"limit failure stops the case and triggers teardown"},
+    {"scenario_id":"PR-09","fault":"clock/locale/seed nondeterministic","target_checks":["PF-12"],"expected_outcome":"BLOCKED","required_observable":"determinism attestation is not accepted"},
+    {"scenario_id":"PR-10","fault":"artifact sealing unavailable","target_checks":["PF-13"],"expected_outcome":"BLOCKED","required_observable":"unsealed output cannot become replay evidence"},
+    {"scenario_id":"PR-11","fault":"privacy redaction unavailable","target_checks":["PF-14"],"expected_outcome":"BLOCKED","required_observable":"raw trace emission is prevented"},
+    {"scenario_id":"PR-12","fault":"operator and reviewer identity equal","target_checks":["PF-16"],"expected_outcome":"BLOCKED","required_observable":"review separation failure is preserved"},
+    {"scenario_id":"PR-13","fault":"teardown/residue inspection unavailable","target_checks":["PF-08","PF-11"],"expected_outcome":"BLOCKED","required_observable":"case cannot be accepted without teardown evidence"}
+  ]
+}

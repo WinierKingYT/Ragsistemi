@@ -1,0 +1,290 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:pmiri:gc-c1:evidence-record:0.1",
+  "title": "PMIRI GC-C1 Evidence Record",
+  "description": "Machine-readable evidence record for Gate C closure-hardening replays. This schema records evidence; it does not authorize implementation or define Gate-D policy.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "evidence_id",
+    "check_id",
+    "matrix_version",
+    "authority_refs",
+    "fixture",
+    "action_trace",
+    "oracle",
+    "actual",
+    "lineage",
+    "replay",
+    "review",
+    "captured_at",
+    "status"
+  ],
+  "properties": {
+    "evidence_id": {
+      "type": "string",
+      "pattern": "^GC-C1-EV-[A-Z0-9-]+$"
+    },
+    "check_id": {
+      "type": "string",
+      "enum": [
+        "R-FC-01",
+        "R-FC-02",
+        "R-FC-03",
+        "R-FC-04",
+        "R-FC-05",
+        "R-FC-06",
+        "R-FC-07",
+        "R-FC-08",
+        "R-FC-09",
+        "R-FC-10",
+        "R-FC-11",
+        "R-FC-12",
+        "R-FC-13",
+        "R-FC-14",
+        "R-FC-15",
+        "R-FC-16",
+        "R-FC-17"
+      ]
+    },
+    "matrix_version": {
+      "type": "string",
+      "const": "0.1"
+    },
+    "authority_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/ref"
+      }
+    },
+    "fixture": {
+      "$ref": "#/$defs/fixture"
+    },
+    "action_trace": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/action"
+      }
+    },
+    "oracle": {
+      "$ref": "#/$defs/oracle"
+    },
+    "actual": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "disposition",
+        "output_artifact_ref",
+        "output_fingerprint"
+      ],
+      "properties": {
+        "disposition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "output_artifact_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "output_fingerprint": {
+          "$ref": "#/$defs/sha256"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "lineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authorization_lineage_ref",
+        "evidence_refs",
+        "citation_refs"
+      ],
+      "properties": {
+        "authorization_lineage_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ref"
+          }
+        },
+        "citation_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ref"
+          }
+        },
+        "boundary_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ref"
+          }
+        }
+      }
+    },
+    "replay": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runner_id",
+        "runner_version",
+        "command_or_workflow_ref",
+        "environment_fingerprint"
+      ],
+      "properties": {
+        "runner_id": {
+          "$ref": "#/$defs/ref"
+        },
+        "runner_version": {
+          "$ref": "#/$defs/ref"
+        },
+        "command_or_workflow_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "environment_fingerprint": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "primary_reviewer",
+        "independent_reviewer",
+        "review_result",
+        "review_evidence_ref"
+      ],
+      "properties": {
+        "primary_reviewer": {
+          "$ref": "#/$defs/ref"
+        },
+        "independent_reviewer": {
+          "$ref": "#/$defs/ref"
+        },
+        "review_result": {
+          "type": "string",
+          "enum": [
+            "accepted",
+            "rejected",
+            "blocked"
+          ]
+        },
+        "review_evidence_ref": {
+          "$ref": "#/$defs/ref"
+        }
+      }
+    },
+    "captured_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "UNVERIFIED",
+        "READY_FOR_REPLAY",
+        "PASS",
+        "FAIL",
+        "BLOCKED"
+      ]
+    }
+  },
+  "$defs": {
+    "ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "fixture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fixture_id",
+        "input_fingerprint",
+        "privacy_class"
+      ],
+      "properties": {
+        "fixture_id": {
+          "$ref": "#/$defs/ref"
+        },
+        "input_fingerprint": {
+          "$ref": "#/$defs/sha256"
+        },
+        "privacy_class": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "step",
+        "operation",
+        "input_ref",
+        "state_change_or_fault"
+      ],
+      "properties": {
+        "step": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "operation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "input_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "state_change_or_fault": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "oracle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expected_dispositions",
+        "forbidden_dispositions",
+        "invariants"
+      ],
+      "properties": {
+        "expected_dispositions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "forbidden_dispositions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "invariants": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

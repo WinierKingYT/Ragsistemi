@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pmiri://schema/gate-d-r2/capability-observation/0.3",
+  "title": "PMIRI Gate D Round 2 Capability Observation",
+  "$defs": {
+    "attachment_input_value": {"type": "object", "additionalProperties": false, "required": ["value_type", "supported", "accepted_content_types", "max_attachment_bytes"], "properties": {"value_type": {"const": "attachment_input"}, "supported": {"type": "boolean"}, "accepted_content_types": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}, "max_attachment_bytes": {"type": "integer", "minimum": 0}}},
+    "structured_output_value": {"type": "object", "additionalProperties": false, "required": ["value_type", "supported", "schema_profile_ref"], "properties": {"value_type": {"const": "structured_output"}, "supported": {"type": "boolean"}, "schema_profile_ref": {"type": "string", "minLength": 1}}},
+    "provider_model_feature_value": {"type": "object", "additionalProperties": false, "required": ["value_type", "feature_name", "supported", "feature_profile_ref"], "properties": {"value_type": {"const": "provider_model_feature"}, "feature_name": {"type": "string", "minLength": 1}, "supported": {"type": "boolean"}, "feature_profile_ref": {"type": "string", "minLength": 1}}},
+    "retention_deletion_value": {"type": "object", "additionalProperties": false, "required": ["value_type", "retention_mode", "deletion_mode"], "properties": {"value_type": {"const": "retention_deletion"}, "retention_mode": {"enum": ["NONE", "LIMITED", "INDEFINITE", "UNKNOWN"]}, "deletion_mode": {"enum": ["SUPPORTED", "NOT_SUPPORTED", "CONDITIONAL", "UNKNOWN"]}}},
+    "training_use_value": {"type": "object", "additionalProperties": false, "required": ["value_type", "training_use"], "properties": {"value_type": {"const": "training_use"}, "training_use": {"enum": ["PROHIBITED", "ALLOWED", "CONDITIONAL", "UNKNOWN"]}}},
+    "subprocessors_value": {"type": "object", "additionalProperties": false, "required": ["value_type", "subprocessors_fingerprint", "subprocessor_count"], "properties": {"value_type": {"const": "subprocessors"}, "subprocessors_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"}, "subprocessor_count": {"type": "integer", "minimum": 0}}},
+    "processing_region_value": {"type": "object", "additionalProperties": false, "required": ["value_type", "region", "region_scope"], "properties": {"value_type": {"const": "processing_region"}, "region": {"type": "string", "minLength": 1}, "region_scope": {"enum": ["SINGLE_REGION", "MULTI_REGION", "UNKNOWN"]}}},
+    "credential_operation_scope_value": {"type": "object", "additionalProperties": false, "required": ["value_type", "allowed_operations", "audience"], "properties": {"value_type": {"const": "credential_operation_scope"}, "allowed_operations": {"type": "array", "minItems": 1, "items": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/operation"}, "uniqueItems": true}, "audience": {"type": "string", "minLength": 1}}},
+    "redirect_fetch_behavior_value": {"type": "object", "additionalProperties": false, "required": ["value_type", "redirects_allowed", "max_redirect_hops", "revalidate_each_hop"], "properties": {"value_type": {"const": "redirect_fetch_behavior"}, "redirects_allowed": {"type": "boolean"}, "max_redirect_hops": {"type": "integer", "minimum": 0}, "revalidate_each_hop": {"const": true}}},
+    "destination_identity_value": {"type": "object", "additionalProperties": false, "required": ["value_type", "identity_ref", "normalized_authority", "scheme"], "properties": {"value_type": {"const": "destination_identity"}, "identity_ref": {"type": "string", "minLength": 1}, "normalized_authority": {"type": "string", "minLength": 1}, "scheme": {"const": "HTTPS"}}},
+    "resource_limits_value": {"type": "object", "additionalProperties": false, "required": ["value_type", "limits_profile_ref"], "properties": {"value_type": {"const": "resource_limits"}, "limits_profile_ref": {"type": "string", "minLength": 1}}}
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["record_type", "schema_version", "capability_contract_version", "capability_observation_id", "subject_binding", "capability_key", "observed_value", "scope", "source_authority", "evidence_refs", "observed_at", "valid_from", "valid_until", "invalidation_epoch", "status", "observation_fingerprint"],
+  "properties": {
+    "record_type": {"const": "PMIRI_D2_CAPABILITY_OBSERVATION"},
+    "schema_version": {"const": "0.3"},
+    "capability_contract_version": {"const": "0.1"},
+    "capability_observation_id": {"type": "string", "minLength": 1},
+    "subject_binding": {"type": "string", "minLength": 1},
+    "capability_key": {"enum": ["attachment_input", "structured_output", "provider_model_feature", "retention_deletion", "training_use", "subprocessors", "processing_region", "credential_operation_scope", "redirect_fetch_behavior", "destination_identity", "resource_limits"]},
+    "observed_value": {"oneOf": [{"$ref": "pmiri://schema/gate-d-r2/capability-observation/0.3#/$defs/attachment_input_value"}, {"$ref": "pmiri://schema/gate-d-r2/capability-observation/0.3#/$defs/structured_output_value"}, {"$ref": "pmiri://schema/gate-d-r2/capability-observation/0.3#/$defs/provider_model_feature_value"}, {"$ref": "pmiri://schema/gate-d-r2/capability-observation/0.3#/$defs/retention_deletion_value"}, {"$ref": "pmiri://schema/gate-d-r2/capability-observation/0.3#/$defs/training_use_value"}, {"$ref": "pmiri://schema/gate-d-r2/capability-observation/0.3#/$defs/subprocessors_value"}, {"$ref": "pmiri://schema/gate-d-r2/capability-observation/0.3#/$defs/processing_region_value"}, {"$ref": "pmiri://schema/gate-d-r2/capability-observation/0.3#/$defs/credential_operation_scope_value"}, {"$ref": "pmiri://schema/gate-d-r2/capability-observation/0.3#/$defs/redirect_fetch_behavior_value"}, {"$ref": "pmiri://schema/gate-d-r2/capability-observation/0.3#/$defs/destination_identity_value"}, {"$ref": "pmiri://schema/gate-d-r2/capability-observation/0.3#/$defs/resource_limits_value"}]},
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["purpose", "material_classes", "region", "feature_profile"],
+      "properties": {
+        "purpose": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/purpose"},
+        "material_classes": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "region": {"type": "string", "minLength": 1},
+        "feature_profile": {"type": "string", "minLength": 1}
+      }
+    },
+    "source_authority": {"type": "string", "minLength": 1},
+    "evidence_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "observed_at": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/timestamp"},
+    "valid_from": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/timestamp"},
+    "valid_until": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/timestamp"},
+    "invalidation_epoch": {"type": "integer", "minimum": 0},
+    "status": {"enum": ["ACTIVE", "EXPIRED", "REVOKED", "SUPERSEDED", "CONTRADICTED", "INVALID"]},
+    "observation_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"}
+  },
+  "allOf": [
+    {"if": {"properties": {"capability_key": {"const": "attachment_input"}}}, "then": {"properties": {"observed_value": {"properties": {"value_type": {"const": "attachment_input"}}}}}},
+    {"if": {"properties": {"capability_key": {"const": "structured_output"}}}, "then": {"properties": {"observed_value": {"properties": {"value_type": {"const": "structured_output"}}}}}},
+    {"if": {"properties": {"capability_key": {"const": "provider_model_feature"}}}, "then": {"properties": {"observed_value": {"properties": {"value_type": {"const": "provider_model_feature"}}}}}},
+    {"if": {"properties": {"capability_key": {"const": "retention_deletion"}}}, "then": {"properties": {"observed_value": {"properties": {"value_type": {"const": "retention_deletion"}}}}}},
+    {"if": {"properties": {"capability_key": {"const": "training_use"}}}, "then": {"properties": {"observed_value": {"properties": {"value_type": {"const": "training_use"}}}}}},
+    {"if": {"properties": {"capability_key": {"const": "subprocessors"}}}, "then": {"properties": {"observed_value": {"properties": {"value_type": {"const": "subprocessors"}}}}}},
+    {"if": {"properties": {"capability_key": {"const": "processing_region"}}}, "then": {"properties": {"observed_value": {"properties": {"value_type": {"const": "processing_region"}}}}}},
+    {"if": {"properties": {"capability_key": {"const": "credential_operation_scope"}}}, "then": {"properties": {"observed_value": {"properties": {"value_type": {"const": "credential_operation_scope"}}}}}},
+    {"if": {"properties": {"capability_key": {"const": "redirect_fetch_behavior"}}}, "then": {"properties": {"observed_value": {"properties": {"value_type": {"const": "redirect_fetch_behavior"}}}}}},
+    {"if": {"properties": {"capability_key": {"const": "destination_identity"}}}, "then": {"properties": {"observed_value": {"properties": {"value_type": {"const": "destination_identity"}}}}}},
+    {"if": {"properties": {"capability_key": {"const": "resource_limits"}}}, "then": {"properties": {"observed_value": {"properties": {"value_type": {"const": "resource_limits"}}}}}}
+  ]
+}

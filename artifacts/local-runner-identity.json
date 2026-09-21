@@ -1,0 +1,9 @@
+{
+  "runner_id": "pmiri-gc-c1-replay",
+  "runner_version": "0.1.0",
+  "latest_alias_allowed": false,
+  "self_upgrade_allowed": false,
+  "dependency_download_allowed": false,
+  "identity_source": "PMIRI_ALL_DOCUMENTATION_CHECKPOINT_17/GC-C1/PMIRI_GC-C1_REPLAY_RUNNER_0.1.0/runner-manifest.json",
+  "status": "DECLARED_NOT_INDEPENDENT_ATTESTATION"
+}

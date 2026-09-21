@@ -1,0 +1,26 @@
+{
+  "profile_version": "0.1",
+  "profile_id": "workspace-local-candidate",
+  "storage": {
+    "backend": "sqlite",
+    "root": ".pmiri-sqlite",
+    "content_encryption": "UNCONFIGURED",
+    "metadata_protection": "UNCONFIGURED",
+    "key_escrow": "UNCONFIGURED"
+  },
+  "control_plane": {
+    "backend": "sqlite-local",
+    "path": ".pmiri-control/control.db"
+  },
+  "network": {
+    "mode": "DENY_BY_DEFAULT",
+    "external_execution": "DISABLED"
+  },
+  "api": {
+    "transport": "HTTP_LOOPBACK",
+    "bind_host": "127.0.0.1",
+    "port": 8765,
+    "max_request_bytes": 1048576,
+    "audit_path": "artifacts/read-audit.jsonl"
+  }
+}

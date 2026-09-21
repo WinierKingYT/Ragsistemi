@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:pmiri:gc-c1:artifact-manifest:0.1",
+  "title": "PMIRI GC-C1 Sealed Artifact Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "bundle_id",
+    "contract_version",
+    "status",
+    "created_at",
+    "sealed_at",
+    "sealing_procedure_version",
+    "entries",
+    "required_roles",
+    "manifest_payload_sha256",
+    "bundle_sha256",
+    "completeness",
+    "seal",
+    "invalidation_history"
+  ],
+  "properties": {
+    "bundle_id": { "type": "string", "minLength": 1 },
+    "contract_version": { "type": "string", "const": "0.1" },
+    "status": {
+      "type": "string",
+      "enum": ["DESIGN_ONLY", "UNSEALED", "SEALED", "INTEGRITY_FAILURE", "INCOMPLETE", "INVALIDATED"]
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "sealed_at": { "type": ["string", "null"], "format": "date-time" },
+    "sealing_procedure_version": { "type": "string", "minLength": 1 },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/entry" }
+    },
+    "required_roles": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/role" },
+      "allOf": [
+        { "contains": { "const": "runner_source" } },
+        { "contains": { "const": "runner_manifest" } },
+        { "contains": { "const": "authority_bundle" } },
+        { "contains": { "const": "evidence_schema" } },
+        { "contains": { "const": "fixture_catalog" } },
+        { "contains": { "const": "preflight_matrix" } },
+        { "contains": { "const": "preflight_spec" } },
+        { "contains": { "const": "preflight_contract" } },
+        { "contains": { "const": "preflight_record_schema" } },
+        { "contains": { "const": "selected_fixture" } },
+        { "contains": { "const": "selected_case" } },
+        { "contains": { "const": "preflight_record" } },
+        { "contains": { "const": "environment_evidence" } },
+        { "contains": { "const": "privacy_record" } },
+        { "contains": { "const": "review_attestation" } },
+        { "contains": { "const": "seal_attestation" } }
+      ]
+    },
+    "manifest_payload_sha256": { "$ref": "#/$defs/sha256" },
+    "bundle_sha256": { "$ref": "#/$defs/sha256" },
+    "completeness": {
+      "type": "string",
+      "enum": ["COMPLETE", "INCOMPLETE", "UNVERIFIED"]
+    },
+    "seal": { "$ref": "#/$defs/seal" },
+    "invalidation_history": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/invalidation" }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "role": {
+      "type": "string",
+      "enum": [
+        "runner_source",
+        "runner_manifest",
+        "authority_bundle",
+        "evidence_schema",
+        "fixture_catalog",
+        "preflight_matrix",
+        "preflight_spec",
+        "preflight_contract",
+        "preflight_record_schema",
+        "selected_fixture",
+        "selected_case",
+        "preflight_record",
+        "evidence_record",
+        "environment_evidence",
+        "privacy_record",
+        "review_attestation",
+        "seal_attestation",
+        "not_applicable"
+      ]
+    },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["entry_id", "role", "presence"],
+      "properties": {
+        "entry_id": { "type": "string", "minLength": 1 },
+        "role": { "$ref": "#/$defs/role" },
+        "path": {
+          "type": "string",
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)(?!.*//).+$"
+        },
+        "byte_length": { "type": "integer", "minimum": 0 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "presence": { "type": "string", "enum": ["PRESENT", "NOT_APPLICABLE"] },
+        "not_applicable_reason": { "type": "string", "minLength": 1 }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "presence": { "const": "NOT_APPLICABLE" } } },
+          "then": {
+            "required": ["not_applicable_reason"],
+            "not": { "anyOf": [{ "required": ["path"] }, { "required": ["byte_length"] }, { "required": ["sha256"] }] }
+          }
+        },
+        {
+          "if": { "properties": { "presence": { "const": "PRESENT" } } },
+          "then": {
+            "required": ["path", "byte_length", "sha256"],
+            "not": { "required": ["not_applicable_reason"] }
+          }
+        }
+      ]
+    },
+    "seal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method", "result", "attestation_ref", "review_manifest_sha256"],
+      "properties": {
+        "method": { "type": "string", "const": "SHA256_CANONICAL_MANIFEST_V0.1" },
+        "result": { "type": "string", "enum": ["SEALED", "REQUIRES_RESEAL", "REJECTED", "UNVERIFIED"] },
+        "attestation_ref": { "type": "string", "minLength": 1 },
+        "review_manifest_sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "invalidation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["event_id", "reason", "observed_at", "superseded_by"],
+      "properties": {
+        "event_id": { "type": "string", "minLength": 1 },
+        "reason": { "type": "string", "minLength": 1 },
+        "observed_at": { "type": "string", "format": "date-time" },
+        "superseded_by": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

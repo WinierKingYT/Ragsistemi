@@ -1,0 +1,1205 @@
+{
+  "artifact_kind": "PMIRI-GC-C1-R-FC-BLOCKED-CANDIDATE-REPORT",
+  "authority_execution_authorized": false,
+  "authority_fingerprint": "9a5628f336cc6332128ad434ac0bad478933d5e76baa53f2982fbc1b2ef49b8b",
+  "blocked_case_count": 17,
+  "cases": [
+    {
+      "block_reason": "clean_room_attestation_and_independent_review_absent",
+      "check_id": "R-FC-01",
+      "evidence": {
+        "action_trace": [
+          {
+            "input_ref": "fixture://R-FC-01",
+            "operation": "controlled_replay_gate",
+            "state_change_or_fault": "clean_room_attestation_and_independent_review_absent",
+            "step": 1
+          }
+        ],
+        "actual": {
+          "disposition": "BLOCKED",
+          "notes": "clean_room_attestation_and_independent_review_absent",
+          "output_artifact_ref": "artifact://gc-c1/r-fc-01",
+          "output_fingerprint": "d701329db534ef6fe670f3af8919d0ffe1ea46091ce08f01d3c5f7d5175d157a"
+        },
+        "authority_refs": [
+          "authority://gc-c1-evidence-matrix",
+          "sha256://9a5628f336cc6332128ad434ac0bad478933d5e76baa53f2982fbc1b2ef49b8b"
+        ],
+        "captured_at": "2026-09-12T08:37:41Z",
+        "check_id": "R-FC-01",
+        "evidence_id": "GC-C1-EV-67E5266EB8F40BE7",
+        "fixture": {
+          "fixture_id": "fixture://R-FC-01",
+          "input_fingerprint": "0d4f84ad376b87abe9f029150e9a4c777f4ab0633c70e59610d2c0ae5def12cf",
+          "privacy_class": "SYNTHETIC"
+        },
+        "lineage": {
+          "authorization_lineage_ref": "lineage://r-fc-01",
+          "boundary_refs": [
+            "boundary://gc-c1-clean-room"
+          ],
+          "citation_refs": [],
+          "evidence_refs": [
+            "evidence://not-executed/r-fc-01"
+          ]
+        },
+        "matrix_version": "0.1",
+        "oracle": {
+          "expected_dispositions": [
+            "REPLAY_REQUIRED"
+          ],
+          "forbidden_dispositions": [
+            "PASS"
+          ],
+          "invariants": [
+            "disposition remains explicit and independently reviewable"
+          ]
+        },
+        "replay": {
+          "command_or_workflow_ref": "workflow://r-fc-not-executed",
+          "environment_fingerprint": "2c1166d59e91d70fd720296594047f4ed13be3e848144d71a36f908aed8004b4",
+          "runner_id": "runner://pmiri-gc-c1-replay",
+          "runner_version": "runner-version://0.1.0"
+        },
+        "review": {
+          "independent_reviewer": "reviewer://not-supplied",
+          "primary_reviewer": "reviewer://not-supplied",
+          "review_evidence_ref": "review://not-supplied",
+          "review_result": "blocked"
+        },
+        "status": "BLOCKED"
+      },
+      "executed": false,
+      "schema_errors": [],
+      "status": "BLOCKED"
+    },
+    {
+      "block_reason": "clean_room_attestation_and_independent_review_absent",
+      "check_id": "R-FC-02",
+      "evidence": {
+        "action_trace": [
+          {
+            "input_ref": "fixture://R-FC-02",
+            "operation": "controlled_replay_gate",
+            "state_change_or_fault": "clean_room_attestation_and_independent_review_absent",
+            "step": 1
+          }
+        ],
+        "actual": {
+          "disposition": "BLOCKED",
+          "notes": "clean_room_attestation_and_independent_review_absent",
+          "output_artifact_ref": "artifact://gc-c1/r-fc-02",
+          "output_fingerprint": "d701329db534ef6fe670f3af8919d0ffe1ea46091ce08f01d3c5f7d5175d157a"
+        },
+        "authority_refs": [
+          "authority://gc-c1-evidence-matrix",
+          "sha256://9a5628f336cc6332128ad434ac0bad478933d5e76baa53f2982fbc1b2ef49b8b"
+        ],
+        "captured_at": "2026-09-12T08:37:41Z",
+        "check_id": "R-FC-02",
+        "evidence_id": "GC-C1-EV-AB3AACDA5178AE8B",
+        "fixture": {
+          "fixture_id": "fixture://R-FC-02",
+          "input_fingerprint": "46fee23b9dbae8edd4d95eac6c5e0dd80e14da3ebf2a38547e99d0291df8a994",
+          "privacy_class": "SYNTHETIC"
+        },
+        "lineage": {
+          "authorization_lineage_ref": "lineage://r-fc-02",
+          "boundary_refs": [
+            "boundary://gc-c1-clean-room"
+          ],
+          "citation_refs": [],
+          "evidence_refs": [
+            "evidence://not-executed/r-fc-02"
+          ]
+        },
+        "matrix_version": "0.1",
+        "oracle": {
+          "expected_dispositions": [
+            "REPLAY_REQUIRED"
+          ],
+          "forbidden_dispositions": [
+            "PASS"
+          ],
+          "invariants": [
+            "disposition remains explicit and independently reviewable"
+          ]
+        },
+        "replay": {
+          "command_or_workflow_ref": "workflow://r-fc-not-executed",
+          "environment_fingerprint": "2c1166d59e91d70fd720296594047f4ed13be3e848144d71a36f908aed8004b4",
+          "runner_id": "runner://pmiri-gc-c1-replay",
+          "runner_version": "runner-version://0.1.0"
+        },
+        "review": {
+          "independent_reviewer": "reviewer://not-supplied",
+          "primary_reviewer": "reviewer://not-supplied",
+          "review_evidence_ref": "review://not-supplied",
+          "review_result": "blocked"
+        },
+        "status": "BLOCKED"
+      },
+      "executed": false,
+      "schema_errors": [],
+      "status": "BLOCKED"
+    },
+    {
+      "block_reason": "clean_room_attestation_and_independent_review_absent",
+      "check_id": "R-FC-03",
+      "evidence": {
+        "action_trace": [
+          {
+            "input_ref": "fixture://R-FC-03",
+            "operation": "controlled_replay_gate",
+            "state_change_or_fault": "clean_room_attestation_and_independent_review_absent",
+            "step": 1
+          }
+        ],
+        "actual": {
+          "disposition": "BLOCKED",
+          "notes": "clean_room_attestation_and_independent_review_absent",
+          "output_artifact_ref": "artifact://gc-c1/r-fc-03",
+          "output_fingerprint": "d701329db534ef6fe670f3af8919d0ffe1ea46091ce08f01d3c5f7d5175d157a"
+        },
+        "authority_refs": [
+          "authority://gc-c1-evidence-matrix",
+          "sha256://9a5628f336cc6332128ad434ac0bad478933d5e76baa53f2982fbc1b2ef49b8b"
+        ],
+        "captured_at": "2026-09-12T08:37:41Z",
+        "check_id": "R-FC-03",
+        "evidence_id": "GC-C1-EV-D685AEDA20F4111B",
+        "fixture": {
+          "fixture_id": "fixture://R-FC-03",
+          "input_fingerprint": "01e2df685c3f724646ccad2c3846425411023be9d8fe164b92c863af3ee88e1b",
+          "privacy_class": "SYNTHETIC"
+        },
+        "lineage": {
+          "authorization_lineage_ref": "lineage://r-fc-03",
+          "boundary_refs": [
+            "boundary://gc-c1-clean-room"
+          ],
+          "citation_refs": [],
+          "evidence_refs": [
+            "evidence://not-executed/r-fc-03"
+          ]
+        },
+        "matrix_version": "0.1",
+        "oracle": {
+          "expected_dispositions": [
+            "REPLAY_REQUIRED"
+          ],
+          "forbidden_dispositions": [
+            "PASS"
+          ],
+          "invariants": [
+            "disposition remains explicit and independently reviewable"
+          ]
+        },
+        "replay": {
+          "command_or_workflow_ref": "workflow://r-fc-not-executed",
+          "environment_fingerprint": "2c1166d59e91d70fd720296594047f4ed13be3e848144d71a36f908aed8004b4",
+          "runner_id": "runner://pmiri-gc-c1-replay",
+          "runner_version": "runner-version://0.1.0"
+        },
+        "review": {
+          "independent_reviewer": "reviewer://not-supplied",
+          "primary_reviewer": "reviewer://not-supplied",
+          "review_evidence_ref": "review://not-supplied",
+          "review_result": "blocked"
+        },
+        "status": "BLOCKED"
+      },
+      "executed": false,
+      "schema_errors": [],
+      "status": "BLOCKED"
+    },
+    {
+      "block_reason": "clean_room_attestation_and_independent_review_absent",
+      "check_id": "R-FC-04",
+      "evidence": {
+        "action_trace": [
+          {
+            "input_ref": "fixture://R-FC-04",
+            "operation": "controlled_replay_gate",
+            "state_change_or_fault": "clean_room_attestation_and_independent_review_absent",
+            "step": 1
+          }
+        ],
+        "actual": {
+          "disposition": "BLOCKED",
+          "notes": "clean_room_attestation_and_independent_review_absent",
+          "output_artifact_ref": "artifact://gc-c1/r-fc-04",
+          "output_fingerprint": "d701329db534ef6fe670f3af8919d0ffe1ea46091ce08f01d3c5f7d5175d157a"
+        },
+        "authority_refs": [
+          "authority://gc-c1-evidence-matrix",
+          "sha256://9a5628f336cc6332128ad434ac0bad478933d5e76baa53f2982fbc1b2ef49b8b"
+        ],
+        "captured_at": "2026-09-12T08:37:41Z",
+        "check_id": "R-FC-04",
+        "evidence_id": "GC-C1-EV-D4CA2AD0B0D3E9A4",
+        "fixture": {
+          "fixture_id": "fixture://R-FC-04",
+          "input_fingerprint": "0f1862956b030fae66f6dd7f89ebbb510d6a064616d2d19332ecee46380210ce",
+          "privacy_class": "SYNTHETIC"
+        },
+        "lineage": {
+          "authorization_lineage_ref": "lineage://r-fc-04",
+          "boundary_refs": [
+            "boundary://gc-c1-clean-room"
+          ],
+          "citation_refs": [],
+          "evidence_refs": [
+            "evidence://not-executed/r-fc-04"
+          ]
+        },
+        "matrix_version": "0.1",
+        "oracle": {
+          "expected_dispositions": [
+            "REPLAY_REQUIRED"
+          ],
+          "forbidden_dispositions": [
+            "PASS"
+          ],
+          "invariants": [
+            "disposition remains explicit and independently reviewable"
+          ]
+        },
+        "replay": {
+          "command_or_workflow_ref": "workflow://r-fc-not-executed",
+          "environment_fingerprint": "2c1166d59e91d70fd720296594047f4ed13be3e848144d71a36f908aed8004b4",
+          "runner_id": "runner://pmiri-gc-c1-replay",
+          "runner_version": "runner-version://0.1.0"
+        },
+        "review": {
+          "independent_reviewer": "reviewer://not-supplied",
+          "primary_reviewer": "reviewer://not-supplied",
+          "review_evidence_ref": "review://not-supplied",
+          "review_result": "blocked"
+        },
+        "status": "BLOCKED"
+      },
+      "executed": false,
+      "schema_errors": [],
+      "status": "BLOCKED"
+    },
+    {
+      "block_reason": "clean_room_attestation_and_independent_review_absent",
+      "check_id": "R-FC-05",
+      "evidence": {
+        "action_trace": [
+          {
+            "input_ref": "fixture://R-FC-05",
+            "operation": "controlled_replay_gate",
+            "state_change_or_fault": "clean_room_attestation_and_independent_review_absent",
+            "step": 1
+          }
+        ],
+        "actual": {
+          "disposition": "BLOCKED",
+          "notes": "clean_room_attestation_and_independent_review_absent",
+          "output_artifact_ref": "artifact://gc-c1/r-fc-05",
+          "output_fingerprint": "d701329db534ef6fe670f3af8919d0ffe1ea46091ce08f01d3c5f7d5175d157a"
+        },
+        "authority_refs": [
+          "authority://gc-c1-evidence-matrix",
+          "sha256://9a5628f336cc6332128ad434ac0bad478933d5e76baa53f2982fbc1b2ef49b8b"
+        ],
+        "captured_at": "2026-09-12T08:37:41Z",
+        "check_id": "R-FC-05",
+        "evidence_id": "GC-C1-EV-FABE1F78F9A09991",
+        "fixture": {
+          "fixture_id": "fixture://R-FC-05",
+          "input_fingerprint": "f4b3d14908cf28e99bdc83ba9f185b5c49718cbad72b09b300563ad5a15c9fe2",
+          "privacy_class": "SYNTHETIC"
+        },
+        "lineage": {
+          "authorization_lineage_ref": "lineage://r-fc-05",
+          "boundary_refs": [
+            "boundary://gc-c1-clean-room"
+          ],
+          "citation_refs": [],
+          "evidence_refs": [
+            "evidence://not-executed/r-fc-05"
+          ]
+        },
+        "matrix_version": "0.1",
+        "oracle": {
+          "expected_dispositions": [
+            "REPLAY_REQUIRED"
+          ],
+          "forbidden_dispositions": [
+            "PASS"
+          ],
+          "invariants": [
+            "disposition remains explicit and independently reviewable"
+          ]
+        },
+        "replay": {
+          "command_or_workflow_ref": "workflow://r-fc-not-executed",
+          "environment_fingerprint": "2c1166d59e91d70fd720296594047f4ed13be3e848144d71a36f908aed8004b4",
+          "runner_id": "runner://pmiri-gc-c1-replay",
+          "runner_version": "runner-version://0.1.0"
+        },
+        "review": {
+          "independent_reviewer": "reviewer://not-supplied",
+          "primary_reviewer": "reviewer://not-supplied",
+          "review_evidence_ref": "review://not-supplied",
+          "review_result": "blocked"
+        },
+        "status": "BLOCKED"
+      },
+      "executed": false,
+      "schema_errors": [],
+      "status": "BLOCKED"
+    },
+    {
+      "block_reason": "clean_room_attestation_and_independent_review_absent",
+      "check_id": "R-FC-06",
+      "evidence": {
+        "action_trace": [
+          {
+            "input_ref": "fixture://R-FC-06",
+            "operation": "controlled_replay_gate",
+            "state_change_or_fault": "clean_room_attestation_and_independent_review_absent",
+            "step": 1
+          }
+        ],
+        "actual": {
+          "disposition": "BLOCKED",
+          "notes": "clean_room_attestation_and_independent_review_absent",
+          "output_artifact_ref": "artifact://gc-c1/r-fc-06",
+          "output_fingerprint": "d701329db534ef6fe670f3af8919d0ffe1ea46091ce08f01d3c5f7d5175d157a"
+        },
+        "authority_refs": [
+          "authority://gc-c1-evidence-matrix",
+          "sha256://9a5628f336cc6332128ad434ac0bad478933d5e76baa53f2982fbc1b2ef49b8b"
+        ],
+        "captured_at": "2026-09-12T08:37:41Z",
+        "check_id": "R-FC-06",
+        "evidence_id": "GC-C1-EV-6E2ABAE228E4513B",
+        "fixture": {
+          "fixture_id": "fixture://R-FC-06",
+          "input_fingerprint": "44004280a081f9f04abb86dc21ce1b47025235318f03e0e7c45b0273c2f625ba",
+          "privacy_class": "SYNTHETIC"
+        },
+        "lineage": {
+          "authorization_lineage_ref": "lineage://r-fc-06",
+          "boundary_refs": [
+            "boundary://gc-c1-clean-room"
+          ],
+          "citation_refs": [],
+          "evidence_refs": [
+            "evidence://not-executed/r-fc-06"
+          ]
+        },
+        "matrix_version": "0.1",
+        "oracle": {
+          "expected_dispositions": [
+            "REPLAY_REQUIRED"
+          ],
+          "forbidden_dispositions": [
+            "PASS"
+          ],
+          "invariants": [
+            "disposition remains explicit and independently reviewable"
+          ]
+        },
+        "replay": {
+          "command_or_workflow_ref": "workflow://r-fc-not-executed",
+          "environment_fingerprint": "2c1166d59e91d70fd720296594047f4ed13be3e848144d71a36f908aed8004b4",
+          "runner_id": "runner://pmiri-gc-c1-replay",
+          "runner_version": "runner-version://0.1.0"
+        },
+        "review": {
+          "independent_reviewer": "reviewer://not-supplied",
+          "primary_reviewer": "reviewer://not-supplied",
+          "review_evidence_ref": "review://not-supplied",
+          "review_result": "blocked"
+        },
+        "status": "BLOCKED"
+      },
+      "executed": false,
+      "schema_errors": [],
+      "status": "BLOCKED"
+    },
+    {
+      "block_reason": "clean_room_attestation_and_independent_review_absent",
+      "check_id": "R-FC-07",
+      "evidence": {
+        "action_trace": [
+          {
+            "input_ref": "fixture://R-FC-07",
+            "operation": "controlled_replay_gate",
+            "state_change_or_fault": "clean_room_attestation_and_independent_review_absent",
+            "step": 1
+          }
+        ],
+        "actual": {
+          "disposition": "BLOCKED",
+          "notes": "clean_room_attestation_and_independent_review_absent",
+          "output_artifact_ref": "artifact://gc-c1/r-fc-07",
+          "output_fingerprint": "d701329db534ef6fe670f3af8919d0ffe1ea46091ce08f01d3c5f7d5175d157a"
+        },
+        "authority_refs": [
+          "authority://gc-c1-evidence-matrix",
+          "sha256://9a5628f336cc6332128ad434ac0bad478933d5e76baa53f2982fbc1b2ef49b8b"
+        ],
+        "captured_at": "2026-09-12T08:37:41Z",
+        "check_id": "R-FC-07",
+        "evidence_id": "GC-C1-EV-DEA1C95C42D09AD9",
+        "fixture": {
+          "fixture_id": "fixture://R-FC-07",
+          "input_fingerprint": "cf0d38433a1b2af4c6f258b7ab6de2df67be1bda727642b68db012210ac3498f",
+          "privacy_class": "SYNTHETIC"
+        },
+        "lineage": {
+          "authorization_lineage_ref": "lineage://r-fc-07",
+          "boundary_refs": [
+            "boundary://gc-c1-clean-room"
+          ],
+          "citation_refs": [],
+          "evidence_refs": [
+            "evidence://not-executed/r-fc-07"
+          ]
+        },
+        "matrix_version": "0.1",
+        "oracle": {
+          "expected_dispositions": [
+            "REPLAY_REQUIRED"
+          ],
+          "forbidden_dispositions": [
+            "PASS"
+          ],
+          "invariants": [
+            "disposition remains explicit and independently reviewable"
+          ]
+        },
+        "replay": {
+          "command_or_workflow_ref": "workflow://r-fc-not-executed",
+          "environment_fingerprint": "2c1166d59e91d70fd720296594047f4ed13be3e848144d71a36f908aed8004b4",
+          "runner_id": "runner://pmiri-gc-c1-replay",
+          "runner_version": "runner-version://0.1.0"
+        },
+        "review": {
+          "independent_reviewer": "reviewer://not-supplied",
+          "primary_reviewer": "reviewer://not-supplied",
+          "review_evidence_ref": "review://not-supplied",
+          "review_result": "blocked"
+        },
+        "status": "BLOCKED"
+      },
+      "executed": false,
+      "schema_errors": [],
+      "status": "BLOCKED"
+    },
+    {
+      "block_reason": "clean_room_attestation_and_independent_review_absent",
+      "check_id": "R-FC-08",
+      "evidence": {
+        "action_trace": [
+          {
+            "input_ref": "fixture://R-FC-08",
+            "operation": "controlled_replay_gate",
+            "state_change_or_fault": "clean_room_attestation_and_independent_review_absent",
+            "step": 1
+          }
+        ],
+        "actual": {
+          "disposition": "BLOCKED",
+          "notes": "clean_room_attestation_and_independent_review_absent",
+          "output_artifact_ref": "artifact://gc-c1/r-fc-08",
+          "output_fingerprint": "d701329db534ef6fe670f3af8919d0ffe1ea46091ce08f01d3c5f7d5175d157a"
+        },
+        "authority_refs": [
+          "authority://gc-c1-evidence-matrix",
+          "sha256://9a5628f336cc6332128ad434ac0bad478933d5e76baa53f2982fbc1b2ef49b8b"
+        ],
+        "captured_at": "2026-09-12T08:37:41Z",
+        "check_id": "R-FC-08",
+        "evidence_id": "GC-C1-EV-C8CDB9B3F34C6D51",
+        "fixture": {
+          "fixture_id": "fixture://R-FC-08",
+          "input_fingerprint": "8b38046444f9f1492100211aa05855649b45b5f4fd6a4397cc2feda93731581a",
+          "privacy_class": "SYNTHETIC"
+        },
+        "lineage": {
+          "authorization_lineage_ref": "lineage://r-fc-08",
+          "boundary_refs": [
+            "boundary://gc-c1-clean-room"
+          ],
+          "citation_refs": [],
+          "evidence_refs": [
+            "evidence://not-executed/r-fc-08"
+          ]
+        },
+        "matrix_version": "0.1",
+        "oracle": {
+          "expected_dispositions": [
+            "REPLAY_REQUIRED"
+          ],
+          "forbidden_dispositions": [
+            "PASS"
+          ],
+          "invariants": [
+            "disposition remains explicit and independently reviewable"
+          ]
+        },
+        "replay": {
+          "command_or_workflow_ref": "workflow://r-fc-not-executed",
+          "environment_fingerprint": "2c1166d59e91d70fd720296594047f4ed13be3e848144d71a36f908aed8004b4",
+          "runner_id": "runner://pmiri-gc-c1-replay",
+          "runner_version": "runner-version://0.1.0"
+        },
+        "review": {
+          "independent_reviewer": "reviewer://not-supplied",
+          "primary_reviewer": "reviewer://not-supplied",
+          "review_evidence_ref": "review://not-supplied",
+          "review_result": "blocked"
+        },
+        "status": "BLOCKED"
+      },
+      "executed": false,
+      "schema_errors": [],
+      "status": "BLOCKED"
+    },
+    {
+      "block_reason": "clean_room_attestation_and_independent_review_absent",
+      "check_id": "R-FC-09",
+      "evidence": {
+        "action_trace": [
+          {
+            "input_ref": "fixture://R-FC-09",
+            "operation": "controlled_replay_gate",
+            "state_change_or_fault": "clean_room_attestation_and_independent_review_absent",
+            "step": 1
+          }
+        ],
+        "actual": {
+          "disposition": "BLOCKED",
+          "notes": "clean_room_attestation_and_independent_review_absent",
+          "output_artifact_ref": "artifact://gc-c1/r-fc-09",
+          "output_fingerprint": "d701329db534ef6fe670f3af8919d0ffe1ea46091ce08f01d3c5f7d5175d157a"
+        },
+        "authority_refs": [
+          "authority://gc-c1-evidence-matrix",
+          "sha256://9a5628f336cc6332128ad434ac0bad478933d5e76baa53f2982fbc1b2ef49b8b"
+        ],
+        "captured_at": "2026-09-12T08:37:41Z",
+        "check_id": "R-FC-09",
+        "evidence_id": "GC-C1-EV-8E7D63F5EE73BC19",
+        "fixture": {
+          "fixture_id": "fixture://R-FC-09",
+          "input_fingerprint": "5723221d2fe5b04018169c266df8b840bc707455394a883acdf8effbda6c23b4",
+          "privacy_class": "SYNTHETIC"
+        },
+        "lineage": {
+          "authorization_lineage_ref": "lineage://r-fc-09",
+          "boundary_refs": [
+            "boundary://gc-c1-clean-room"
+          ],
+          "citation_refs": [],
+          "evidence_refs": [
+            "evidence://not-executed/r-fc-09"
+          ]
+        },
+        "matrix_version": "0.1",
+        "oracle": {
+          "expected_dispositions": [
+            "REPLAY_REQUIRED"
+          ],
+          "forbidden_dispositions": [
+            "PASS"
+          ],
+          "invariants": [
+            "disposition remains explicit and independently reviewable"
+          ]
+        },
+        "replay": {
+          "command_or_workflow_ref": "workflow://r-fc-not-executed",
+          "environment_fingerprint": "2c1166d59e91d70fd720296594047f4ed13be3e848144d71a36f908aed8004b4",
+          "runner_id": "runner://pmiri-gc-c1-replay",
+          "runner_version": "runner-version://0.1.0"
+        },
+        "review": {
+          "independent_reviewer": "reviewer://not-supplied",
+          "primary_reviewer": "reviewer://not-supplied",
+          "review_evidence_ref": "review://not-supplied",
+          "review_result": "blocked"
+        },
+        "status": "BLOCKED"
+      },
+      "executed": false,
+      "schema_errors": [],
+      "status": "BLOCKED"
+    },
+    {
+      "block_reason": "clean_room_attestation_and_independent_review_absent",
+      "check_id": "R-FC-10",
+      "evidence": {
+        "action_trace": [
+          {
+            "input_ref": "fixture://R-FC-10",
+            "operation": "controlled_replay_gate",
+            "state_change_or_fault": "clean_room_attestation_and_independent_review_absent",
+            "step": 1
+          }
+        ],
+        "actual": {
+          "disposition": "BLOCKED",
+          "notes": "clean_room_attestation_and_independent_review_absent",
+          "output_artifact_ref": "artifact://gc-c1/r-fc-10",
+          "output_fingerprint": "d701329db534ef6fe670f3af8919d0ffe1ea46091ce08f01d3c5f7d5175d157a"
+        },
+        "authority_refs": [
+          "authority://gc-c1-evidence-matrix",
+          "sha256://9a5628f336cc6332128ad434ac0bad478933d5e76baa53f2982fbc1b2ef49b8b"
+        ],
+        "captured_at": "2026-09-12T08:37:41Z",
+        "check_id": "R-FC-10",
+        "evidence_id": "GC-C1-EV-A03C93B8105E120F",
+        "fixture": {
+          "fixture_id": "fixture://R-FC-10",
+          "input_fingerprint": "7e60821c1d0c93411398a84dda1d270c81d055ee6992b32efd4808440daf879c",
+          "privacy_class": "SYNTHETIC"
+        },
+        "lineage": {
+          "authorization_lineage_ref": "lineage://r-fc-10",
+          "boundary_refs": [
+            "boundary://gc-c1-clean-room"
+          ],
+          "citation_refs": [],
+          "evidence_refs": [
+            "evidence://not-executed/r-fc-10"
+          ]
+        },
+        "matrix_version": "0.1",
+        "oracle": {
+          "expected_dispositions": [
+            "REPLAY_REQUIRED"
+          ],
+          "forbidden_dispositions": [
+            "PASS"
+          ],
+          "invariants": [
+            "disposition remains explicit and independently reviewable"
+          ]
+        },
+        "replay": {
+          "command_or_workflow_ref": "workflow://r-fc-not-executed",
+          "environment_fingerprint": "2c1166d59e91d70fd720296594047f4ed13be3e848144d71a36f908aed8004b4",
+          "runner_id": "runner://pmiri-gc-c1-replay",
+          "runner_version": "runner-version://0.1.0"
+        },
+        "review": {
+          "independent_reviewer": "reviewer://not-supplied",
+          "primary_reviewer": "reviewer://not-supplied",
+          "review_evidence_ref": "review://not-supplied",
+          "review_result": "blocked"
+        },
+        "status": "BLOCKED"
+      },
+      "executed": false,
+      "schema_errors": [],
+      "status": "BLOCKED"
+    },
+    {
+      "block_reason": "clean_room_attestation_and_independent_review_absent",
+      "check_id": "R-FC-11",
+      "evidence": {
+        "action_trace": [
+          {
+            "input_ref": "fixture://R-FC-11",
+            "operation": "controlled_replay_gate",
+            "state_change_or_fault": "clean_room_attestation_and_independent_review_absent",
+            "step": 1
+          }
+        ],
+        "actual": {
+          "disposition": "BLOCKED",
+          "notes": "clean_room_attestation_and_independent_review_absent",
+          "output_artifact_ref": "artifact://gc-c1/r-fc-11",
+          "output_fingerprint": "d701329db534ef6fe670f3af8919d0ffe1ea46091ce08f01d3c5f7d5175d157a"
+        },
+        "authority_refs": [
+          "authority://gc-c1-evidence-matrix",
+          "sha256://9a5628f336cc6332128ad434ac0bad478933d5e76baa53f2982fbc1b2ef49b8b"
+        ],
+        "captured_at": "2026-09-12T08:37:41Z",
+        "check_id": "R-FC-11",
+        "evidence_id": "GC-C1-EV-2D63F9DB86F63D0A",
+        "fixture": {
+          "fixture_id": "fixture://R-FC-11",
+          "input_fingerprint": "dd82b512f0816482b16ec95ac1ace7310533e3bc4a46d18b703eb0978d4cd47b",
+          "privacy_class": "SYNTHETIC"
+        },
+        "lineage": {
+          "authorization_lineage_ref": "lineage://r-fc-11",
+          "boundary_refs": [
+            "boundary://gc-c1-clean-room"
+          ],
+          "citation_refs": [],
+          "evidence_refs": [
+            "evidence://not-executed/r-fc-11"
+          ]
+        },
+        "matrix_version": "0.1",
+        "oracle": {
+          "expected_dispositions": [
+            "REPLAY_REQUIRED"
+          ],
+          "forbidden_dispositions": [
+            "PASS"
+          ],
+          "invariants": [
+            "disposition remains explicit and independently reviewable"
+          ]
+        },
+        "replay": {
+          "command_or_workflow_ref": "workflow://r-fc-not-executed",
+          "environment_fingerprint": "2c1166d59e91d70fd720296594047f4ed13be3e848144d71a36f908aed8004b4",
+          "runner_id": "runner://pmiri-gc-c1-replay",
+          "runner_version": "runner-version://0.1.0"
+        },
+        "review": {
+          "independent_reviewer": "reviewer://not-supplied",
+          "primary_reviewer": "reviewer://not-supplied",
+          "review_evidence_ref": "review://not-supplied",
+          "review_result": "blocked"
+        },
+        "status": "BLOCKED"
+      },
+      "executed": false,
+      "schema_errors": [],
+      "status": "BLOCKED"
+    },
+    {
+      "block_reason": "clean_room_attestation_and_independent_review_absent",
+      "check_id": "R-FC-12",
+      "evidence": {
+        "action_trace": [
+          {
+            "input_ref": "fixture://R-FC-12",
+            "operation": "controlled_replay_gate",
+            "state_change_or_fault": "clean_room_attestation_and_independent_review_absent",
+            "step": 1
+          }
+        ],
+        "actual": {
+          "disposition": "BLOCKED",
+          "notes": "clean_room_attestation_and_independent_review_absent",
+          "output_artifact_ref": "artifact://gc-c1/r-fc-12",
+          "output_fingerprint": "d701329db534ef6fe670f3af8919d0ffe1ea46091ce08f01d3c5f7d5175d157a"
+        },
+        "authority_refs": [
+          "authority://gc-c1-evidence-matrix",
+          "sha256://9a5628f336cc6332128ad434ac0bad478933d5e76baa53f2982fbc1b2ef49b8b"
+        ],
+        "captured_at": "2026-09-12T08:37:41Z",
+        "check_id": "R-FC-12",
+        "evidence_id": "GC-C1-EV-1D3B9847B40016BE",
+        "fixture": {
+          "fixture_id": "fixture://R-FC-12",
+          "input_fingerprint": "08a2019615bbdf21d40111e67697c5c2b6f032f371ab7d56f8b0a3576cbaf98a",
+          "privacy_class": "SYNTHETIC"
+        },
+        "lineage": {
+          "authorization_lineage_ref": "lineage://r-fc-12",
+          "boundary_refs": [
+            "boundary://gc-c1-clean-room"
+          ],
+          "citation_refs": [],
+          "evidence_refs": [
+            "evidence://not-executed/r-fc-12"
+          ]
+        },
+        "matrix_version": "0.1",
+        "oracle": {
+          "expected_dispositions": [
+            "REPLAY_REQUIRED"
+          ],
+          "forbidden_dispositions": [
+            "PASS"
+          ],
+          "invariants": [
+            "disposition remains explicit and independently reviewable"
+          ]
+        },
+        "replay": {
+          "command_or_workflow_ref": "workflow://r-fc-not-executed",
+          "environment_fingerprint": "2c1166d59e91d70fd720296594047f4ed13be3e848144d71a36f908aed8004b4",
+          "runner_id": "runner://pmiri-gc-c1-replay",
+          "runner_version": "runner-version://0.1.0"
+        },
+        "review": {
+          "independent_reviewer": "reviewer://not-supplied",
+          "primary_reviewer": "reviewer://not-supplied",
+          "review_evidence_ref": "review://not-supplied",
+          "review_result": "blocked"
+        },
+        "status": "BLOCKED"
+      },
+      "executed": false,
+      "schema_errors": [],
+      "status": "BLOCKED"
+    },
+    {
+      "block_reason": "clean_room_attestation_and_independent_review_absent",
+      "check_id": "R-FC-13",
+      "evidence": {
+        "action_trace": [
+          {
+            "input_ref": "fixture://R-FC-13",
+            "operation": "controlled_replay_gate",
+            "state_change_or_fault": "clean_room_attestation_and_independent_review_absent",
+            "step": 1
+          }
+        ],
+        "actual": {
+          "disposition": "BLOCKED",
+          "notes": "clean_room_attestation_and_independent_review_absent",
+          "output_artifact_ref": "artifact://gc-c1/r-fc-13",
+          "output_fingerprint": "d701329db534ef6fe670f3af8919d0ffe1ea46091ce08f01d3c5f7d5175d157a"
+        },
+        "authority_refs": [
+          "authority://gc-c1-evidence-matrix",
+          "sha256://9a5628f336cc6332128ad434ac0bad478933d5e76baa53f2982fbc1b2ef49b8b"
+        ],
+        "captured_at": "2026-09-12T08:37:41Z",
+        "check_id": "R-FC-13",
+        "evidence_id": "GC-C1-EV-A9B3DE8C75BE89EF",
+        "fixture": {
+          "fixture_id": "fixture://R-FC-13",
+          "input_fingerprint": "d745e8d823853d63a326e65ab35e85d20253485bfc5e6733bec02e13c47d7f2e",
+          "privacy_class": "SYNTHETIC"
+        },
+        "lineage": {
+          "authorization_lineage_ref": "lineage://r-fc-13",
+          "boundary_refs": [
+            "boundary://gc-c1-clean-room"
+          ],
+          "citation_refs": [],
+          "evidence_refs": [
+            "evidence://not-executed/r-fc-13"
+          ]
+        },
+        "matrix_version": "0.1",
+        "oracle": {
+          "expected_dispositions": [
+            "REPLAY_REQUIRED"
+          ],
+          "forbidden_dispositions": [
+            "PASS"
+          ],
+          "invariants": [
+            "disposition remains explicit and independently reviewable"
+          ]
+        },
+        "replay": {
+          "command_or_workflow_ref": "workflow://r-fc-not-executed",
+          "environment_fingerprint": "2c1166d59e91d70fd720296594047f4ed13be3e848144d71a36f908aed8004b4",
+          "runner_id": "runner://pmiri-gc-c1-replay",
+          "runner_version": "runner-version://0.1.0"
+        },
+        "review": {
+          "independent_reviewer": "reviewer://not-supplied",
+          "primary_reviewer": "reviewer://not-supplied",
+          "review_evidence_ref": "review://not-supplied",
+          "review_result": "blocked"
+        },
+        "status": "BLOCKED"
+      },
+      "executed": false,
+      "schema_errors": [],
+      "status": "BLOCKED"
+    },
+    {
+      "block_reason": "clean_room_attestation_and_independent_review_absent",
+      "check_id": "R-FC-14",
+      "evidence": {
+        "action_trace": [
+          {
+            "input_ref": "fixture://R-FC-14",
+            "operation": "controlled_replay_gate",
+            "state_change_or_fault": "clean_room_attestation_and_independent_review_absent",
+            "step": 1
+          }
+        ],
+        "actual": {
+          "disposition": "BLOCKED",
+          "notes": "clean_room_attestation_and_independent_review_absent",
+          "output_artifact_ref": "artifact://gc-c1/r-fc-14",
+          "output_fingerprint": "d701329db534ef6fe670f3af8919d0ffe1ea46091ce08f01d3c5f7d5175d157a"
+        },
+        "authority_refs": [
+          "authority://gc-c1-evidence-matrix",
+          "sha256://9a5628f336cc6332128ad434ac0bad478933d5e76baa53f2982fbc1b2ef49b8b"
+        ],
+        "captured_at": "2026-09-12T08:37:41Z",
+        "check_id": "R-FC-14",
+        "evidence_id": "GC-C1-EV-A503D02F4E08BD11",
+        "fixture": {
+          "fixture_id": "fixture://R-FC-14",
+          "input_fingerprint": "e579e1320a88314581a4f6dec8f6ec7af11268c5d36999503af4ad729f130cfa",
+          "privacy_class": "SYNTHETIC"
+        },
+        "lineage": {
+          "authorization_lineage_ref": "lineage://r-fc-14",
+          "boundary_refs": [
+            "boundary://gc-c1-clean-room"
+          ],
+          "citation_refs": [],
+          "evidence_refs": [
+            "evidence://not-executed/r-fc-14"
+          ]
+        },
+        "matrix_version": "0.1",
+        "oracle": {
+          "expected_dispositions": [
+            "REPLAY_REQUIRED"
+          ],
+          "forbidden_dispositions": [
+            "PASS"
+          ],
+          "invariants": [
+            "disposition remains explicit and independently reviewable"
+          ]
+        },
+        "replay": {
+          "command_or_workflow_ref": "workflow://r-fc-not-executed",
+          "environment_fingerprint": "2c1166d59e91d70fd720296594047f4ed13be3e848144d71a36f908aed8004b4",
+          "runner_id": "runner://pmiri-gc-c1-replay",
+          "runner_version": "runner-version://0.1.0"
+        },
+        "review": {
+          "independent_reviewer": "reviewer://not-supplied",
+          "primary_reviewer": "reviewer://not-supplied",
+          "review_evidence_ref": "review://not-supplied",
+          "review_result": "blocked"
+        },
+        "status": "BLOCKED"
+      },
+      "executed": false,
+      "schema_errors": [],
+      "status": "BLOCKED"
+    },
+    {
+      "block_reason": "clean_room_attestation_and_independent_review_absent",
+      "check_id": "R-FC-15",
+      "evidence": {
+        "action_trace": [
+          {
+            "input_ref": "fixture://R-FC-15",
+            "operation": "controlled_replay_gate",
+            "state_change_or_fault": "clean_room_attestation_and_independent_review_absent",
+            "step": 1
+          }
+        ],
+        "actual": {
+          "disposition": "BLOCKED",
+          "notes": "clean_room_attestation_and_independent_review_absent",
+          "output_artifact_ref": "artifact://gc-c1/r-fc-15",
+          "output_fingerprint": "d701329db534ef6fe670f3af8919d0ffe1ea46091ce08f01d3c5f7d5175d157a"
+        },
+        "authority_refs": [
+          "authority://gc-c1-evidence-matrix",
+          "sha256://9a5628f336cc6332128ad434ac0bad478933d5e76baa53f2982fbc1b2ef49b8b"
+        ],
+        "captured_at": "2026-09-12T08:37:41Z",
+        "check_id": "R-FC-15",
+        "evidence_id": "GC-C1-EV-5485B9F9244CDEC2",
+        "fixture": {
+          "fixture_id": "fixture://R-FC-15",
+          "input_fingerprint": "2b60282abbe955b41b1b30b9a58bc8e543b4f7574880a5ee01a537acc2aff314",
+          "privacy_class": "SYNTHETIC"
+        },
+        "lineage": {
+          "authorization_lineage_ref": "lineage://r-fc-15",
+          "boundary_refs": [
+            "boundary://gc-c1-clean-room"
+          ],
+          "citation_refs": [],
+          "evidence_refs": [
+            "evidence://not-executed/r-fc-15"
+          ]
+        },
+        "matrix_version": "0.1",
+        "oracle": {
+          "expected_dispositions": [
+            "REPLAY_REQUIRED"
+          ],
+          "forbidden_dispositions": [
+            "PASS"
+          ],
+          "invariants": [
+            "disposition remains explicit and independently reviewable"
+          ]
+        },
+        "replay": {
+          "command_or_workflow_ref": "workflow://r-fc-not-executed",
+          "environment_fingerprint": "2c1166d59e91d70fd720296594047f4ed13be3e848144d71a36f908aed8004b4",
+          "runner_id": "runner://pmiri-gc-c1-replay",
+          "runner_version": "runner-version://0.1.0"
+        },
+        "review": {
+          "independent_reviewer": "reviewer://not-supplied",
+          "primary_reviewer": "reviewer://not-supplied",
+          "review_evidence_ref": "review://not-supplied",
+          "review_result": "blocked"
+        },
+        "status": "BLOCKED"
+      },
+      "executed": false,
+      "schema_errors": [],
+      "status": "BLOCKED"
+    },
+    {
+      "block_reason": "clean_room_attestation_and_independent_review_absent",
+      "check_id": "R-FC-16",
+      "evidence": {
+        "action_trace": [
+          {
+            "input_ref": "fixture://R-FC-16",
+            "operation": "controlled_replay_gate",
+            "state_change_or_fault": "clean_room_attestation_and_independent_review_absent",
+            "step": 1
+          }
+        ],
+        "actual": {
+          "disposition": "BLOCKED",
+          "notes": "clean_room_attestation_and_independent_review_absent",
+          "output_artifact_ref": "artifact://gc-c1/r-fc-16",
+          "output_fingerprint": "d701329db534ef6fe670f3af8919d0ffe1ea46091ce08f01d3c5f7d5175d157a"
+        },
+        "authority_refs": [
+          "authority://gc-c1-evidence-matrix",
+          "sha256://9a5628f336cc6332128ad434ac0bad478933d5e76baa53f2982fbc1b2ef49b8b"
+        ],
+        "captured_at": "2026-09-12T08:37:41Z",
+        "check_id": "R-FC-16",
+        "evidence_id": "GC-C1-EV-46392F02E09A0B90",
+        "fixture": {
+          "fixture_id": "fixture://R-FC-16",
+          "input_fingerprint": "cb4edc01e26cb068dd0cd2f8f5d17317aa3176bce09f9aa42d4ff4ad0f6f4906",
+          "privacy_class": "SYNTHETIC"
+        },
+        "lineage": {
+          "authorization_lineage_ref": "lineage://r-fc-16",
+          "boundary_refs": [
+            "boundary://gc-c1-clean-room"
+          ],
+          "citation_refs": [],
+          "evidence_refs": [
+            "evidence://not-executed/r-fc-16"
+          ]
+        },
+        "matrix_version": "0.1",
+        "oracle": {
+          "expected_dispositions": [
+            "REPLAY_REQUIRED"
+          ],
+          "forbidden_dispositions": [
+            "PASS"
+          ],
+          "invariants": [
+            "disposition remains explicit and independently reviewable"
+          ]
+        },
+        "replay": {
+          "command_or_workflow_ref": "workflow://r-fc-not-executed",
+          "environment_fingerprint": "2c1166d59e91d70fd720296594047f4ed13be3e848144d71a36f908aed8004b4",
+          "runner_id": "runner://pmiri-gc-c1-replay",
+          "runner_version": "runner-version://0.1.0"
+        },
+        "review": {
+          "independent_reviewer": "reviewer://not-supplied",
+          "primary_reviewer": "reviewer://not-supplied",
+          "review_evidence_ref": "review://not-supplied",
+          "review_result": "blocked"
+        },
+        "status": "BLOCKED"
+      },
+      "executed": false,
+      "schema_errors": [],
+      "status": "BLOCKED"
+    },
+    {
+      "block_reason": "clean_room_attestation_and_independent_review_absent",
+      "check_id": "R-FC-17",
+      "evidence": {
+        "action_trace": [
+          {
+            "input_ref": "fixture://R-FC-17",
+            "operation": "controlled_replay_gate",
+            "state_change_or_fault": "clean_room_attestation_and_independent_review_absent",
+            "step": 1
+          }
+        ],
+        "actual": {
+          "disposition": "BLOCKED",
+          "notes": "clean_room_attestation_and_independent_review_absent",
+          "output_artifact_ref": "artifact://gc-c1/r-fc-17",
+          "output_fingerprint": "d701329db534ef6fe670f3af8919d0ffe1ea46091ce08f01d3c5f7d5175d157a"
+        },
+        "authority_refs": [
+          "authority://gc-c1-evidence-matrix",
+          "sha256://9a5628f336cc6332128ad434ac0bad478933d5e76baa53f2982fbc1b2ef49b8b"
+        ],
+        "captured_at": "2026-09-12T08:37:41Z",
+        "check_id": "R-FC-17",
+        "evidence_id": "GC-C1-EV-727EEF33CBA22CC2",
+        "fixture": {
+          "fixture_id": "fixture://R-FC-17",
+          "input_fingerprint": "560aad7428f0e8c48680efdacdb44c21fe6eca79bfbd3bd51b382aed543fb296",
+          "privacy_class": "SYNTHETIC"
+        },
+        "lineage": {
+          "authorization_lineage_ref": "lineage://r-fc-17",
+          "boundary_refs": [
+            "boundary://gc-c1-clean-room"
+          ],
+          "citation_refs": [],
+          "evidence_refs": [
+            "evidence://not-executed/r-fc-17"
+          ]
+        },
+        "matrix_version": "0.1",
+        "oracle": {
+          "expected_dispositions": [
+            "REPLAY_REQUIRED"
+          ],
+          "forbidden_dispositions": [
+            "PASS"
+          ],
+          "invariants": [
+            "disposition remains explicit and independently reviewable"
+          ]
+        },
+        "replay": {
+          "command_or_workflow_ref": "workflow://r-fc-not-executed",
+          "environment_fingerprint": "2c1166d59e91d70fd720296594047f4ed13be3e848144d71a36f908aed8004b4",
+          "runner_id": "runner://pmiri-gc-c1-replay",
+          "runner_version": "runner-version://0.1.0"
+        },
+        "review": {
+          "independent_reviewer": "reviewer://not-supplied",
+          "primary_reviewer": "reviewer://not-supplied",
+          "review_evidence_ref": "review://not-supplied",
+          "review_result": "blocked"
+        },
+        "status": "BLOCKED"
+      },
+      "executed": false,
+      "schema_errors": [],
+      "status": "BLOCKED"
+    }
+  ],
+  "clean_room_attestation": "NOT_SUPPLIED",
+  "executed_case_count": 0,
+  "independent_review": "NOT_SUPPLIED",
+  "r_fc_pass": "NONE",
+  "report_fingerprint": "f6706aa96e886e6bfff6eed470f53fb456b3979734709c9da83cf5ca0fe8d031",
+  "runtime_execution": "NOT_PERFORMED",
+  "status": "R_FC_REPLAY_BLOCKED"
+}

@@ -1,0 +1,14 @@
+{
+  "observation_id": "PMIRI-GC-C1-05A-ENV-001",
+  "status": "UNVERIFIED",
+  "execution_mode": "CONTROLLED_PREFLIGHT_PREPARATION",
+  "network": "UNVERIFIED",
+  "credentials": "UNVERIFIED",
+  "filesystem": "UNVERIFIED",
+  "determinism": "UNVERIFIED",
+  "resource_limits": "UNVERIFIED",
+  "teardown": "UNVERIFIED",
+  "reason": "No clean-room runner environment was available in the current workspace; no network, credential, filesystem, resource or teardown capability was asserted.",
+  "r_fc_execution": false,
+  "captured_at": "2026-09-11T14:11:00Z"
+}

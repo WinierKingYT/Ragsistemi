@@ -1,0 +1,32 @@
+{
+  "registry_format": "PMIRI_D2_SCHEMA_RESOURCE_REGISTRY",
+  "registry_version": "0.1",
+  "resolution_mode": "ABSOLUTE_PMIRI_ID_REGISTRY",
+  "base_uri_rule": "Every D2 $ref is an absolute PMIRI URI; the registry maps the complete URI before the fragment to exactly one bundled schema file.",
+  "relative_reference_prohibited": true,
+  "resources": [
+    {"uri": "pmiri://schema/gate-d-r2/connector-credential-boundary/0.2", "file": "PMIRI_GD-R2-01_CONNECTOR_CREDENTIAL_BOUNDARY.schema.json"},
+    {"uri": "pmiri://schema/gate-d-r2/trust-assertion/0.2", "file": "PMIRI_GD-R2-01_TRUST_ASSERTION.schema.json"},
+    {"uri": "pmiri://schema/gate-d-r2/trust-decision/0.3", "file": "PMIRI_GD-R2-01_TRUST_DECISION.schema.json"},
+    {"uri": "pmiri://schema/gate-d-r2/capability-decision/0.2", "file": "PMIRI_GD-R2-02_CAPABILITY_DECISION.schema.json"},
+    {"uri": "pmiri://schema/gate-d-r2/capability-observation/0.3", "file": "PMIRI_GD-R2-02_CAPABILITY_OBSERVATION.schema.json"},
+    {"uri": "pmiri://schema/gate-d-r2/egress-constrained-context-artifact/0.2", "file": "PMIRI_GD-R2-03_EGRESS_CONSTRAINED_CONTEXT_ARTIFACT.schema.json"},
+    {"uri": "pmiri://schema/gate-d-r2/redaction-transformation/0.2", "file": "PMIRI_GD-R2-03_REDACTION_TRANSFORMATION.schema.json"},
+    {"uri": "pmiri://schema/gate-d-r2/typed-constraint/0.2", "file": "PMIRI_GD-R2-03_TYPED_CONSTRAINT.schema.json"},
+    {"uri": "pmiri://schema/gate-d-r2/connection-binding/0.3", "file": "PMIRI_GD-R2-04_CONNECTION_BINDING.schema.json"},
+    {"uri": "pmiri://schema/gate-d-r2/fetched-content-lifecycle/0.3", "file": "PMIRI_GD-R2-04_FETCHED_CONTENT_LIFECYCLE.schema.json"},
+    {"uri": "pmiri://schema/gate-d-r2/outbound-network-decision/0.3", "file": "PMIRI_GD-R2-04_OUTBOUND_NETWORK_DECISION.schema.json"},
+    {"uri": "pmiri://schema/gate-d-r2/resource-limits-profile/0.2", "file": "PMIRI_GD-R2-04_RESOURCE_LIMITS_PROFILE.schema.json"},
+    {"uri": "pmiri://schema/gate-d-r2/integrated-decision-envelope/0.3", "file": "PMIRI_GD-R2-05_INTEGRATED_DECISION_ENVELOPE.schema.json"},
+    {"uri": "pmiri://schema/gate-d-r2/expected-outcome/0.3", "file": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json"},
+    {"uri": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2", "file": "PMIRI_GD-R2-06_DECISION_VOCABULARY.schema.json"},
+    {"uri": "pmiri://schema/gate-d-r2/provider-policy-observation/0.3", "file": "PMIRI_GD-R2-07_PROVIDER_POLICY_OBSERVATION.schema.json"}
+  ],
+  "verification_requirements": [
+    "all schema $id values occur exactly once",
+    "every absolute $ref base URI occurs exactly once in resources",
+    "every registry file exists and its $id equals the registry URI",
+    "every absolute $ref fragment resolves as a JSON Pointer",
+    "URI registry validation is structural only; it does not prove runtime enforcement"
+  ]
+}

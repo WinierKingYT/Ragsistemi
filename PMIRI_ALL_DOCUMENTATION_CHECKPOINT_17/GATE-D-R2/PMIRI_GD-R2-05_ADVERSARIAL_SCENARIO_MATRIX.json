@@ -1,0 +1,1377 @@
+{
+  "matrix_format": "PMIRI-GATE-D-R2-ADVERSARIAL-MATRIX",
+  "matrix_version": "0.2",
+  "status": "DESIGN_ONLY",
+  "implementation_authorization": "NOT_GRANTED",
+  "scope": [
+    "D2-01 provider and connector trust",
+    "D2-02 capability freshness and invalidation",
+    "D2-03 redaction and constrained egress",
+    "D2-04 external fetch, SSRF and network boundary",
+    "D2-05 cross-cutting integrated decision and emission-fence race"
+  ],
+  "deferred_to_d3": [
+    "encryption and key domains",
+    "forensic retention"
+  ],
+  "scenario_execution_status": "DOCUMENTARY_ONLY",
+  "blocked_reason_default": "Runtime fixtures intentionally blocked pending implementation authorization; expected outputs are contract-level only.",
+  "schema_catalog": [
+    "PMIRI_GD-R2-01_TRUST_ASSERTION.schema.json",
+    "PMIRI_GD-R2-01_TRUST_DECISION.schema.json",
+    "PMIRI_GD-R2-01_CONNECTOR_CREDENTIAL_BOUNDARY.schema.json",
+    "PMIRI_GD-R2-02_CAPABILITY_OBSERVATION.schema.json",
+    "PMIRI_GD-R2-02_CAPABILITY_DECISION.schema.json",
+    "PMIRI_GD-R2-03_REDACTION_TRANSFORMATION.schema.json",
+    "PMIRI_GD-R2-03_TYPED_CONSTRAINT.schema.json",
+    "PMIRI_GD-R2-03_EGRESS_CONSTRAINED_CONTEXT_ARTIFACT.schema.json",
+    "PMIRI_GD-R2-03_OBLIGATION_TRANSFORMATION_DECISION_MATRIX.json",
+    "PMIRI_GD-R2-04_CONNECTION_BINDING.schema.json",
+    "PMIRI_GD-R2-04_OUTBOUND_NETWORK_DECISION.schema.json",
+    "PMIRI_GD-R2-04_RESOURCE_LIMITS_PROFILE.schema.json",
+    "PMIRI_GD-R2-04_FETCHED_CONTENT_LIFECYCLE.schema.json",
+    "PMIRI_GD-R2-05_INTEGRATED_DECISION_ENVELOPE.schema.json",
+    "PMIRI_GD-R2-06_DECISION_VOCABULARY.schema.json",
+    "PMIRI_GD-R2-07_PROVIDER_POLICY_OBSERVATION.schema.json",
+    "PMIRI_GD-R2-07_PROVIDER_POLICY_AUTHORITY_MATRIX.json"
+  ],
+  "coverage_requirements": [
+    {
+      "class": "provider/model/feature substitution",
+      "positive_id": "D2-01-P",
+      "adversarial_id": "D2-01-A",
+      "schema_refs": [
+        "PMIRI_GD-R2-01_TRUST_ASSERTION.schema.json",
+        "PMIRI_GD-R2-01_TRUST_DECISION.schema.json"
+      ]
+    },
+    {
+      "class": "stale or revoked capability",
+      "positive_id": "D2-02-P",
+      "adversarial_id": "D2-02-A",
+      "schema_refs": [
+        "PMIRI_GD-R2-02_CAPABILITY_OBSERVATION.schema.json",
+        "PMIRI_GD-R2-02_CAPABILITY_DECISION.schema.json"
+      ]
+    },
+    {
+      "class": "unknown retention/training/subprocessor policy",
+      "positive_id": "D2-07-P",
+      "adversarial_id": "D2-07-A",
+      "schema_refs": [
+        "PMIRI_GD-R2-07_PROVIDER_POLICY_OBSERVATION.schema.json",
+        "PMIRI_GD-R2-07_PROVIDER_POLICY_AUTHORITY_MATRIX.json"
+      ]
+    },
+    {
+      "class": "destination classification mismatch",
+      "positive_id": "D2-01-B",
+      "adversarial_id": "D2-01-C",
+      "schema_refs": [
+        "PMIRI_GD-R2-01_TRUST_DECISION.schema.json",
+        "PMIRI_GD-R2-05_INTEGRATED_DECISION_ENVELOPE.schema.json"
+      ]
+    },
+    {
+      "class": "redaction removes conflict or qualifier",
+      "positive_id": "D2-03-P",
+      "adversarial_id": "D2-03-A",
+      "schema_refs": [
+        "PMIRI_GD-R2-03_REDACTION_TRANSFORMATION.schema.json",
+        "PMIRI_GD-R2-03_TYPED_CONSTRAINT.schema.json",
+        "PMIRI_GD-R2-03_OBLIGATION_TRANSFORMATION_DECISION_MATRIX.json"
+      ]
+    },
+    {
+      "class": "citation map invalidation",
+      "positive_id": "D2-03-B",
+      "adversarial_id": "D2-03-C",
+      "schema_refs": [
+        "PMIRI_GD-R2-03_EGRESS_CONSTRAINED_CONTEXT_ARTIFACT.schema.json",
+        "PMIRI_GD-R2-03_REDACTION_TRANSFORMATION.schema.json"
+      ]
+    },
+    {
+      "class": "constrained compiler hidden retrieval",
+      "positive_id": "D2-03-D",
+      "adversarial_id": "D2-03-E",
+      "schema_refs": [
+        "PMIRI_GD-R2-03_EGRESS_CONSTRAINED_CONTEXT_ARTIFACT.schema.json",
+        "PMIRI_GD-R2-05_INTEGRATED_DECISION_ENVELOPE.schema.json"
+      ]
+    },
+    {
+      "class": "connector credential over-scope",
+      "positive_id": "D2-01-D",
+      "adversarial_id": "D2-01-E",
+      "schema_refs": [
+        "PMIRI_GD-R2-01_CONNECTOR_CREDENTIAL_BOUNDARY.schema.json"
+      ]
+    },
+    {
+      "class": "http downgrade or unsupported URL scheme",
+      "positive_id": "D2-04-P",
+      "adversarial_id": "D2-04-A",
+      "schema_refs": [
+        "PMIRI_GD-R2-04_CONNECTION_BINDING.schema.json",
+        "PMIRI_GD-R2-04_OUTBOUND_NETWORK_DECISION.schema.json"
+      ]
+    },
+    {
+      "class": "localhost/private/metadata address",
+      "positive_id": "D2-04-B",
+      "adversarial_id": "D2-04-C",
+      "schema_refs": [
+        "PMIRI_GD-R2-04_CONNECTION_BINDING.schema.json",
+        "PMIRI_GD-R2-04_OUTBOUND_NETWORK_DECISION.schema.json"
+      ]
+    },
+    {
+      "class": "DNS rebinding",
+      "positive_id": "D2-04-D",
+      "adversarial_id": "D2-04-E",
+      "schema_refs": [
+        "PMIRI_GD-R2-04_CONNECTION_BINDING.schema.json"
+      ]
+    },
+    {
+      "class": "redirect to unapproved or private target",
+      "positive_id": "D2-04-F",
+      "adversarial_id": "D2-04-G",
+      "schema_refs": [
+        "PMIRI_GD-R2-04_CONNECTION_BINDING.schema.json",
+        "PMIRI_GD-R2-04_OUTBOUND_NETWORK_DECISION.schema.json"
+      ]
+    },
+    {
+      "class": "oversized/compressed/mislabelled response",
+      "positive_id": "D2-04-H",
+      "adversarial_id": "D2-04-I",
+      "schema_refs": [
+        "PMIRI_GD-R2-04_RESOURCE_LIMITS_PROFILE.schema.json",
+        "PMIRI_GD-R2-04_OUTBOUND_NETWORK_DECISION.schema.json"
+      ]
+    },
+    {
+      "class": "attachment instruction-like content",
+      "positive_id": "D2-04-J",
+      "adversarial_id": "D2-04-K",
+      "schema_refs": [
+        "PMIRI_GD-R2-04_FETCHED_CONTENT_LIFECYCLE.schema.json"
+      ]
+    },
+    {
+      "class": "network policy change between decision and emission",
+      "positive_id": "D2-05-P",
+      "adversarial_id": "D2-05-A",
+      "schema_refs": [
+        "PMIRI_GD-R2-05_INTEGRATED_DECISION_ENVELOPE.schema.json"
+      ]
+    },
+    {
+      "class": "stale decision-cache replay",
+      "positive_id": "D2-05-B",
+      "adversarial_id": "D2-05-C",
+      "schema_refs": [
+        "PMIRI_GD-R2-02_CAPABILITY_DECISION.schema.json",
+        "PMIRI_GD-R2-05_INTEGRATED_DECISION_ENVELOPE.schema.json"
+      ]
+    },
+    {
+      "class": "teardown or cancellation failure",
+      "positive_id": "D2-04-L",
+      "adversarial_id": "D2-04-M",
+      "schema_refs": [
+        "PMIRI_GD-R2-04_OUTBOUND_NETWORK_DECISION.schema.json"
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "D2-01-P",
+      "area": "trust",
+      "type": "positive",
+      "case": "Exact provider/model/feature/purpose is covered by active trust assertions.",
+      "expected": {
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "action_result": "ALLOW",
+        "evidence_state": {
+          "kind": "trust_state",
+          "value": "TRUSTED_FOR_BOUND_PURPOSE"
+        },
+        "content_lifecycle": "NOT_APPLICABLE",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "trust_assertion_set",
+          "destination_binding",
+          "purpose_binding",
+          "freshness_profile",
+          "authority_manifest",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-01_TRUST_ASSERTION.schema.json",
+        "PMIRI_GD-R2-01_TRUST_DECISION.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "All required trust dimensions and fingerprints are bound."
+    },
+    {
+      "id": "D2-01-A",
+      "area": "trust",
+      "type": "adversarial",
+      "case": "A trusted provider is substituted with an unregistered model or feature.",
+      "expected": {
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "action_result": "DENY",
+        "evidence_state": {
+          "kind": "trust_state",
+          "value": "UNKNOWN"
+        },
+        "content_lifecycle": "NOT_APPLICABLE",
+        "reason_class": "AUTHORITY_MISSING",
+        "required_bindings": [
+          "trust_assertion_set",
+          "destination_binding",
+          "purpose_binding",
+          "freshness_profile",
+          "authority_manifest",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "diagnostic_trigger_variant": "UNREGISTERED_SUBJECT",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-01_TRUST_ASSERTION.schema.json",
+        "PMIRI_GD-R2-01_TRUST_DECISION.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "Parent trust does not authorize the child subject."
+    },
+    {
+      "id": "D2-02-P",
+      "area": "capability",
+      "type": "positive",
+      "case": "All required capability observations are fresh and in scope.",
+      "expected": {
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "action_result": "ALLOW",
+        "evidence_state": {
+          "kind": "capability_state",
+          "value": "FRESH"
+        },
+        "content_lifecycle": "NOT_APPLICABLE",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "capability_observation_set",
+          "material_manifest",
+          "freshness_profile",
+          "authority_manifest",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-02_CAPABILITY_OBSERVATION.schema.json",
+        "PMIRI_GD-R2-02_CAPABILITY_DECISION.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "Purpose, material class, policy version and validity are bound."
+    },
+    {
+      "id": "D2-02-A",
+      "area": "capability",
+      "type": "adversarial",
+      "case": "A cached capability decision is reused after revocation or invalidation epoch change.",
+      "expected": {
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "action_result": "REQUIRE_REVALIDATION",
+        "evidence_state": {
+          "kind": "capability_state",
+          "value": "STALE"
+        },
+        "content_lifecycle": "NOT_APPLICABLE",
+        "reason_class": "STALE_EVIDENCE",
+        "required_bindings": [
+          "capability_decision",
+          "capability_observation_set",
+          "invalidation_epoch",
+          "freshness_profile",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "diagnostic_trigger_variant": "REVOCATION_EPOCH_CHANGE",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-02_CAPABILITY_OBSERVATION.schema.json",
+        "PMIRI_GD-R2-02_CAPABILITY_DECISION.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "Cache replay cannot authorize external disclosure."
+    },
+    {
+      "id": "D2-07-P",
+      "area": "provider_policy",
+      "type": "positive",
+      "case": "Required retention, training, subprocessors, region and destination dimensions are fresh and covered by minimum authority.",
+      "expected": {
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "action_result": "ALLOW",
+        "evidence_state": {
+          "kind": "policy_status",
+          "value": "COVERED_BY_PRECEDENCE"
+        },
+        "content_lifecycle": "NOT_APPLICABLE",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "policy_observation_set",
+          "freshness_profile",
+          "invalidation_epoch",
+          "authority_manifest",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-07_PROVIDER_POLICY_OBSERVATION.schema.json",
+        "PMIRI_GD-R2-07_PROVIDER_POLICY_AUTHORITY_MATRIX.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "Each dimension has source authority, policy version, validity and fingerprint."
+    },
+    {
+      "id": "D2-07-A",
+      "area": "provider_policy",
+      "type": "adversarial",
+      "case": "Retention, training or subprocessor policy is missing, stale or same-authority contradictory.",
+      "expected": {
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "action_result": "DENY",
+        "evidence_state": {
+          "kind": "policy_status",
+          "value": "POLICY_UNKNOWN"
+        },
+        "content_lifecycle": "NOT_APPLICABLE",
+        "reason_class": "POLICY_UNKNOWN",
+        "required_bindings": [
+          "policy_observation_set",
+          "freshness_profile",
+          "invalidation_epoch",
+          "authority_manifest",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "diagnostic_trigger_variant": "MISSING_REQUIRED_DIMENSION",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-07_PROVIDER_POLICY_OBSERVATION.schema.json",
+        "PMIRI_GD-R2-07_PROVIDER_POLICY_AUTHORITY_MATRIX.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "Lower authority and caller claims cannot authorize external disclosure."
+    },
+    {
+      "id": "D2-01-B",
+      "area": "classification",
+      "type": "positive",
+      "case": "Destination security binding is compatible with material classification and purpose.",
+      "expected": {
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "action_result": "ALLOW",
+        "evidence_state": {
+          "kind": "trust_state",
+          "value": "TRUSTED_FOR_BOUND_PURPOSE"
+        },
+        "content_lifecycle": "NOT_APPLICABLE",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "destination_binding",
+          "material_manifest",
+          "trust_decision",
+          "capability_decision",
+          "freshness_profile",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-01_TRUST_DECISION.schema.json",
+        "PMIRI_GD-R2-05_INTEGRATED_DECISION_ENVELOPE.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "D1 classification and destination fingerprints are included."
+    },
+    {
+      "id": "D2-01-C",
+      "area": "classification",
+      "type": "adversarial",
+      "case": "Destination policy cannot receive the derived sensitivity or material class.",
+      "expected": {
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "action_result": "DENY",
+        "evidence_state": {
+          "kind": "trust_state",
+          "value": "INVALID"
+        },
+        "content_lifecycle": "NOT_APPLICABLE",
+        "reason_class": "CLASSIFICATION_MISMATCH",
+        "required_bindings": [
+          "destination_binding",
+          "material_manifest",
+          "trust_decision",
+          "capability_decision",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "diagnostic_trigger_variant": "DESTINATION_CLASS_MISMATCH",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-01_TRUST_DECISION.schema.json",
+        "PMIRI_GD-R2-05_INTEGRATED_DECISION_ENVELOPE.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "A positive provider trust assertion cannot widen D1 classification."
+    },
+    {
+      "id": "D2-03-P",
+      "area": "redaction",
+      "type": "positive",
+      "case": "A destination policy removes declared metadata without affecting semantic obligations.",
+      "expected": {
+        "operation": "provider_call",
+        "purpose": "context_delivery",
+        "action_result": "ALLOW_WITH_CONSTRAINTS",
+        "evidence_state": {
+          "kind": "obligation_impact",
+          "value": "PRESERVED_WITH_CONSTRAINT"
+        },
+        "content_lifecycle": "NOT_APPLICABLE",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "authorization_lineage",
+          "source_evidence_set",
+          "semantic_obligations",
+          "transformation_set",
+          "typed_constraints",
+          "egress_artifact",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-03_REDACTION_TRANSFORMATION.schema.json",
+        "PMIRI_GD-R2-03_TYPED_CONSTRAINT.schema.json",
+        "PMIRI_GD-R2-03_OBLIGATION_TRANSFORMATION_DECISION_MATRIX.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "Constrained artifact, typed constraint and transformation manifest are fingerprinted."
+    },
+    {
+      "id": "D2-03-A",
+      "area": "redaction",
+      "type": "adversarial",
+      "case": "Redaction removes one side of a conflict or the only qualifier.",
+      "expected": {
+        "operation": "provider_call",
+        "purpose": "context_delivery",
+        "action_result": "DENY",
+        "evidence_state": {
+          "kind": "obligation_impact",
+          "value": "UNSATISFIABLE"
+        },
+        "content_lifecycle": "NOT_APPLICABLE",
+        "reason_class": "SEMANTIC_OBLIGATION_UNSATISFIABLE",
+        "required_bindings": [
+          "authorization_lineage",
+          "semantic_obligations",
+          "transformation_set",
+          "typed_constraints",
+          "egress_artifact",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "diagnostic_trigger_variant": "UNSATISFIABLE_OBLIGATION",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-03_REDACTION_TRANSFORMATION.schema.json",
+        "PMIRI_GD-R2-03_TYPED_CONSTRAINT.schema.json",
+        "PMIRI_GD-R2-03_OBLIGATION_TRANSFORMATION_DECISION_MATRIX.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "Silent complete-answer emission is impossible."
+    },
+    {
+      "id": "D2-03-B",
+      "area": "citation",
+      "type": "positive",
+      "case": "Transformation remaps every retained citation to an included span and exposes the constraint.",
+      "expected": {
+        "operation": "provider_call",
+        "purpose": "context_delivery",
+        "action_result": "ALLOW_WITH_CONSTRAINTS",
+        "evidence_state": {
+          "kind": "obligation_impact",
+          "value": "PRESERVED_WITH_CONSTRAINT"
+        },
+        "content_lifecycle": "NOT_APPLICABLE",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "authorization_lineage",
+          "source_evidence_set",
+          "semantic_obligations",
+          "transformation_set",
+          "citation_map",
+          "typed_constraints",
+          "egress_artifact",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-03_EGRESS_CONSTRAINED_CONTEXT_ARTIFACT.schema.json",
+        "PMIRI_GD-R2-03_REDACTION_TRANSFORMATION.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "Updated citation map and output fingerprint are bound."
+    },
+    {
+      "id": "D2-03-C",
+      "area": "citation",
+      "type": "adversarial",
+      "case": "Reordering, truncation or transformation leaves stale citation offsets or cites excluded evidence.",
+      "expected": {
+        "operation": "provider_call",
+        "purpose": "context_delivery",
+        "action_result": "DENY",
+        "evidence_state": {
+          "kind": "citation_status",
+          "value": "INVALID"
+        },
+        "content_lifecycle": "NOT_APPLICABLE",
+        "reason_class": "CITATION_INVALID",
+        "required_bindings": [
+          "source_evidence_set",
+          "citation_map",
+          "egress_artifact",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "diagnostic_trigger_variant": "STALE_CITATION_OFFSET",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-03_EGRESS_CONSTRAINED_CONTEXT_ARTIFACT.schema.json",
+        "PMIRI_GD-R2-03_REDACTION_TRANSFORMATION.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "No stale or excluded citation can survive constrained compilation."
+    },
+    {
+      "id": "D2-03-D",
+      "area": "hidden_retrieval",
+      "type": "positive",
+      "case": "Constrained compilation uses only admitted material and records no retrieval operation.",
+      "expected": {
+        "operation": "provider_call",
+        "purpose": "context_delivery",
+        "action_result": "ALLOW",
+        "evidence_state": {
+          "kind": "retrieval_status",
+          "value": "NO_RETRIEVAL"
+        },
+        "content_lifecycle": "NOT_APPLICABLE",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "source_evidence_set",
+          "authorization_lineage",
+          "egress_artifact",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-03_EGRESS_CONSTRAINED_CONTEXT_ARTIFACT.schema.json",
+        "PMIRI_GD-R2-05_INTEGRATED_DECISION_ENVELOPE.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "Source, included/excluded refs and transformation refs are complete."
+    },
+    {
+      "id": "D2-03-E",
+      "area": "hidden_retrieval",
+      "type": "adversarial",
+      "case": "Compiler attempts retrieval, cache continuation or provider-wrapper recovery for omitted evidence.",
+      "expected": {
+        "operation": "provider_call",
+        "purpose": "context_delivery",
+        "action_result": "DENY",
+        "evidence_state": {
+          "kind": "retrieval_status",
+          "value": "HIDDEN_RETRIEVAL_ATTEMPT"
+        },
+        "content_lifecycle": "NOT_APPLICABLE",
+        "reason_class": "HIDDEN_RETRIEVAL_ATTEMPT",
+        "required_bindings": [
+          "source_evidence_set",
+          "authorization_lineage",
+          "egress_artifact",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-03_EGRESS_CONSTRAINED_CONTEXT_ARTIFACT.schema.json",
+        "PMIRI_GD-R2-05_INTEGRATED_DECISION_ENVELOPE.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "Excluded material cannot be resurrected by a locator or continuation handle."
+    },
+    {
+      "id": "D2-01-D",
+      "area": "credentials",
+      "type": "positive",
+      "case": "Credential is bound to one connector process, exact destination, operation set and current credential epoch.",
+      "expected": {
+        "operation": "connector_fetch",
+        "purpose": "external_fetch",
+        "action_result": "ALLOW",
+        "evidence_state": {
+          "kind": "credential_status",
+          "value": "EXACTLY_SCOPED"
+        },
+        "content_lifecycle": "QUARANTINED",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "credential_boundary",
+          "destination_binding",
+          "credential_epoch",
+          "freshness_profile",
+          "authority_manifest",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-01_CONNECTOR_CREDENTIAL_BOUNDARY.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "Injection channel and all visibility prohibitions are recorded without the secret value."
+    },
+    {
+      "id": "D2-01-E",
+      "area": "credentials",
+      "type": "adversarial",
+      "case": "Credential scope includes an unrequested operation, audience or destination, or its value reaches logs/content.",
+      "expected": {
+        "operation": "connector_fetch",
+        "purpose": "external_fetch",
+        "action_result": "DENY",
+        "evidence_state": {
+          "kind": "credential_status",
+          "value": "INVALID_SCOPE"
+        },
+        "content_lifecycle": "ABORTED",
+        "reason_class": "CREDENTIAL_SCOPE_INVALID",
+        "required_bindings": [
+          "credential_boundary",
+          "destination_binding",
+          "credential_epoch",
+          "fetched_content_lifecycle",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-01_CONNECTOR_CREDENTIAL_BOUNDARY.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "Over-scope, visibility and epoch mismatch cannot be treated as connector trust."
+    },
+    {
+      "id": "D2-04-P",
+      "area": "network",
+      "type": "positive",
+      "case": "An HTTPS target resolves to an allowlisted public address and remains stable through the request.",
+      "expected": {
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "action_result": "ALLOW",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "ALLOWLISTED_STABLE"
+        },
+        "content_lifecycle": "NOT_APPLICABLE",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "connection_binding",
+          "selected_resolution",
+          "tls_identity",
+          "limits_profile",
+          "freshness_profile",
+          "authority_manifest",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-04_CONNECTION_BINDING.schema.json",
+        "PMIRI_GD-R2-04_OUTBOUND_NETWORK_DECISION.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "Actual connection target, proxy path and TLS identity match the validated binding."
+    },
+    {
+      "id": "D2-04-A",
+      "area": "network",
+      "type": "adversarial",
+      "case": "URL uses HTTP downgrade, unsupported scheme, userinfo or parser-confusion form.",
+      "expected": {
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "action_result": "DENY",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "UNSUPPORTED_SCHEME"
+        },
+        "content_lifecycle": "ABORTED",
+        "reason_class": "UNSUPPORTED_SCHEME",
+        "required_bindings": [
+          "connection_binding",
+          "url_normalization",
+          "fetched_content_lifecycle",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "diagnostic_trigger_variant": "UNSUPPORTED_SCHEME",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-04_OUTBOUND_NETWORK_DECISION.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "No DNS or connection occurs before normalized URL policy passes."
+    },
+    {
+      "id": "D2-04-B",
+      "area": "network",
+      "type": "positive",
+      "case": "All resolved IPv4/IPv6 addresses are allowlisted public targets and selected target is one validated address.",
+      "expected": {
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "action_result": "ALLOW",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "ALL_ADDRESSES_ALLOWLISTED_PUBLIC"
+        },
+        "content_lifecycle": "NOT_APPLICABLE",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "connection_binding",
+          "resolved_address_set",
+          "selected_resolution",
+          "tls_identity",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-04_CONNECTION_BINDING.schema.json",
+        "PMIRI_GD-R2-04_OUTBOUND_NETWORK_DECISION.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "Every returned address and the selected target have policy status and allowlist refs."
+    },
+    {
+      "id": "D2-04-C",
+      "area": "network",
+      "type": "adversarial",
+      "case": "A hostname resolves or redirects to localhost, private, metadata, reserved or unallowlisted address.",
+      "expected": {
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "action_result": "DENY",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "PRIVATE_ADDRESS"
+        },
+        "content_lifecycle": "ABORTED",
+        "reason_class": "PRIVATE_ADDRESS",
+      "required_bindings": [
+        "connection_binding",
+        "resolved_address_set",
+        "denied_resolution_set",
+        "fetched_content_lifecycle",
+        "validity"
+      ],
+        "runtime_status": "BLOCKED",
+        "diagnostic_trigger_variant": "PRIVATE_ADDRESS",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "DENIED_MIXED"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-04_CONNECTION_BINDING.schema.json",
+        "PMIRI_GD-R2-04_OUTBOUND_NETWORK_DECISION.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "One denied address among multiple answers is sufficient to fail closed."
+    },
+    {
+      "id": "D2-04-D",
+      "area": "network",
+      "type": "positive",
+      "case": "Resolver returns the same policy-approved address across initial resolution and connection reuse.",
+      "expected": {
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "action_result": "ALLOW",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "RESOLUTION_STABLE"
+        },
+        "content_lifecycle": "NOT_APPLICABLE",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "connection_binding",
+          "revalidation_events",
+          "connection_epoch",
+          "tls_identity",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-04_CONNECTION_BINDING.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "INITIAL_RESOLUTION and CONNECTION_REUSE revalidation events match the connection epoch."
+    },
+    {
+      "id": "D2-04-E",
+      "area": "network",
+      "type": "adversarial",
+      "case": "DNS result changes from an approved public address to a denied address between validation and connection.",
+      "expected": {
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "action_result": "DENY",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "DNS_REBINDING"
+        },
+        "content_lifecycle": "ABORTED",
+        "reason_class": "DNS_REBINDING",
+        "required_bindings": [
+          "connection_binding",
+          "revalidation_events",
+          "fetched_content_lifecycle",
+          "invalidation_epoch",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "DENIED_MIXED"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-04_CONNECTION_BINDING.schema.json",
+        "PMIRI_GD-R2-04_OUTBOUND_NETWORK_DECISION.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "The actual socket target cannot differ from the bound approved resolution."
+    },
+    {
+      "id": "D2-04-F",
+      "area": "network",
+      "type": "positive",
+      "case": "Each HTTPS redirect hop remains allowlisted, revalidated and purpose-compatible.",
+      "expected": {
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "action_result": "ALLOW",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "REDIRECTS_REVALIDATED"
+        },
+        "content_lifecycle": "QUARANTINED",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "connection_binding",
+          "revalidation_events",
+          "selected_resolution",
+          "tls_identity",
+          "fetched_content_lifecycle",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-04_CONNECTION_BINDING.schema.json",
+        "PMIRI_GD-R2-04_OUTBOUND_NETWORK_DECISION.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "Each hop produces a binding/revalidation event and stays within the redirect profile."
+    },
+    {
+      "id": "D2-04-G",
+      "area": "network",
+      "type": "adversarial",
+      "case": "Redirect changes authority to an unapproved, private or HTTP target without a new valid decision.",
+      "expected": {
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "action_result": "DENY",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "REDIRECT_UNAUTHORIZED"
+        },
+        "content_lifecycle": "ABORTED",
+        "reason_class": "REDIRECT_UNAUTHORIZED",
+        "required_bindings": [
+          "connection_binding",
+          "revalidation_events",
+          "fetched_content_lifecycle",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-04_CONNECTION_BINDING.schema.json",
+        "PMIRI_GD-R2-04_OUTBOUND_NETWORK_DECISION.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "No redirect hop can inherit the prior destination binding silently."
+    },
+    {
+      "id": "D2-04-H",
+      "area": "network",
+      "type": "positive",
+      "case": "Response stays within byte, decompression, ratio, header, time and content-type limits.",
+      "expected": {
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "action_result": "ALLOW",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "WITHIN_RESOURCE_LIMITS"
+        },
+        "content_lifecycle": "QUARANTINED",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "connection_binding",
+          "limits_profile",
+          "fetched_content_lifecycle",
+          "freshness_profile",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-04_RESOURCE_LIMITS_PROFILE.schema.json",
+        "PMIRI_GD-R2-04_OUTBOUND_NETWORK_DECISION.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "The exact versioned limits profile and fingerprint are bound."
+    },
+    {
+      "id": "D2-04-I",
+      "area": "network",
+      "type": "adversarial",
+      "case": "Response exceeds size/decompression/time limits or content type is missing, contradictory or disallowed.",
+      "expected": {
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "action_result": "DENY",
+        "evidence_state": {
+          "kind": "network_status",
+          "value": "RESOURCE_LIMIT_EXCEEDED"
+        },
+        "content_lifecycle": "ABORTED",
+        "reason_class": "RESOURCE_LIMIT_EXCEEDED",
+        "required_bindings": [
+          "connection_binding",
+          "limits_profile",
+          "fetched_content_lifecycle",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "diagnostic_trigger_variant": "RESOURCE_LIMIT_EXCEEDED",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-04_RESOURCE_LIMITS_PROFILE.schema.json",
+        "PMIRI_GD-R2-04_OUTBOUND_NETWORK_DECISION.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "No unbounded bytes or decompressed content enter the system."
+    },
+    {
+      "id": "D2-04-J",
+      "area": "attachment",
+      "type": "positive",
+      "case": "Fetched attachment passes validation and is admitted only as origin-bound typed data under an explicit operation.",
+      "expected": {
+        "operation": "attachment_fetch",
+        "purpose": "attachment_import",
+        "action_result": "LOCAL_ONLY",
+        "evidence_state": {
+          "kind": "content_state",
+          "value": "ADMITTED_TYPED_DATA"
+        },
+        "content_lifecycle": "ADMITTED_TYPED_DATA",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "origin_binding",
+          "destination_binding",
+          "admission_predicate",
+          "typed_data_schema",
+          "lifecycle_fingerprint"
+        ],
+        "runtime_status": "BLOCKED",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-04_FETCHED_CONTENT_LIFECYCLE.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "Admission predicate, parser result, classification and instruction prohibition are recorded."
+    },
+    {
+      "id": "D2-04-K",
+      "area": "attachment",
+      "type": "adversarial",
+      "case": "Fetched attachment contains instruction-like text attempting to become trusted control.",
+      "expected": {
+        "operation": "attachment_fetch",
+        "purpose": "attachment_import",
+        "action_result": "LOCAL_ONLY",
+        "evidence_state": {
+          "kind": "content_state",
+          "value": "QUARANTINED"
+        },
+        "content_lifecycle": "QUARANTINED",
+        "reason_class": "UNTRUSTED_EXTERNAL_CONTROL_TEXT",
+        "required_bindings": [
+          "origin_binding",
+          "destination_binding",
+          "admission_predicate",
+          "lifecycle_fingerprint"
+        ],
+        "runtime_status": "BLOCKED",
+        "diagnostic_trigger_variant": "UNTRUSTED_EXTERNAL_CONTROL_TEXT",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-04_FETCHED_CONTENT_LIFECYCLE.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "External content remains data and cannot alter policy, authorization or retrieval control."
+    },
+    {
+      "id": "D2-05-P",
+      "area": "race",
+      "type": "positive",
+      "case": "Trust, capability and network policy epochs remain unchanged between constrained compilation and emission.",
+      "expected": {
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "action_result": "ALLOW",
+        "evidence_state": {
+          "kind": "race_status",
+          "value": "EPOCHS_UNCHANGED"
+        },
+        "content_lifecycle": "NOT_APPLICABLE",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "integrated_envelope",
+          "authorization_lineage",
+          "trust_decision",
+          "capability_decision",
+          "network_binding",
+          "invalidation_epoch",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-05_INTEGRATED_DECISION_ENVELOPE.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "All bound fingerprints and validity epochs match at the final emission fence."
+    },
+    {
+      "id": "D2-05-A",
+      "area": "race",
+      "type": "adversarial",
+      "case": "Trust, capability or network policy changes after constrained compilation but before emission.",
+      "expected": {
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "action_result": "DENY",
+        "evidence_state": {
+          "kind": "race_status",
+          "value": "POLICY_EPOCH_CHANGED"
+        },
+        "content_lifecycle": "NOT_APPLICABLE",
+        "reason_class": "POLICY_EPOCH_CHANGED",
+        "required_bindings": [
+          "integrated_envelope",
+          "trust_decision",
+          "capability_decision",
+          "network_binding",
+          "invalidation_epoch",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-05_INTEGRATED_DECISION_ENVELOPE.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "Final emission fence observes the changed validity epoch."
+    },
+    {
+      "id": "D2-05-B",
+      "area": "cache",
+      "type": "positive",
+      "case": "Cached decision exactly matches subject, purpose, material, selected observations, policy, freshness profile, epoch and validity.",
+      "expected": {
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "action_result": "ALLOW",
+        "evidence_state": {
+          "kind": "cache_status",
+          "value": "CURRENT_AND_EXACT"
+        },
+        "content_lifecycle": "NOT_APPLICABLE",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "cached_decision",
+          "material_manifest",
+          "policy_version",
+          "freshness_profile",
+          "authority_manifest",
+          "invalidation_epoch",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-02_CAPABILITY_DECISION.schema.json",
+        "PMIRI_GD-R2-05_INTEGRATED_DECISION_ENVELOPE.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "Cache hit is not authorization and all current validity checks pass."
+    },
+    {
+      "id": "D2-05-C",
+      "area": "cache",
+      "type": "adversarial",
+      "case": "Cached decision is replayed after material, policy version, authority manifest or invalidation epoch changes.",
+      "expected": {
+        "operation": "provider_call",
+        "purpose": "provider_call",
+        "action_result": "REQUIRE_REVALIDATION",
+        "evidence_state": {
+          "kind": "cache_status",
+          "value": "FINGERPRINT_MISMATCH"
+        },
+        "content_lifecycle": "NOT_APPLICABLE",
+        "reason_class": "MATERIAL_FINGERPRINT_MISMATCH",
+        "required_bindings": [
+          "cached_decision",
+          "material_manifest_fingerprint",
+          "policy_version",
+          "authority_manifest",
+          "invalidation_epoch",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "diagnostic_trigger_variant": "MATERIAL_FINGERPRINT_MISMATCH",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-02_CAPABILITY_DECISION.schema.json",
+        "PMIRI_GD-R2-05_INTEGRATED_DECISION_ENVELOPE.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "A stale cache entry cannot authorize external disclosure."
+    },
+    {
+      "id": "D2-04-L",
+      "area": "teardown",
+      "type": "positive",
+      "case": "Cancellation completes within the operation boundary and no post-cancel bytes or credentials remain exposed.",
+      "expected": {
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "action_result": "DENY",
+        "evidence_state": {
+          "kind": "teardown_status",
+          "value": "PROVEN_COMPLETE"
+        },
+        "content_lifecycle": "ABORTED",
+        "reason_class": "NONE",
+        "required_bindings": [
+          "connection_binding",
+          "fetched_content_lifecycle",
+          "teardown_evidence",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-04_OUTBOUND_NETWORK_DECISION.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "Teardown evidence is recorded before the operation is considered complete."
+    },
+    {
+      "id": "D2-04-M",
+      "area": "teardown",
+      "type": "adversarial",
+      "case": "Cancellation or teardown cannot be proven, or connection reuse continues after revocation.",
+      "expected": {
+        "operation": "external_fetch",
+        "purpose": "external_fetch",
+        "action_result": "DENY",
+        "evidence_state": {
+          "kind": "teardown_status",
+          "value": "UNPROVEN"
+        },
+        "content_lifecycle": "ABORTED",
+        "reason_class": "TEARDOWN_UNPROVEN",
+        "required_bindings": [
+          "connection_binding",
+          "fetched_content_lifecycle",
+          "teardown_evidence",
+          "invalidation_epoch",
+          "validity"
+        ],
+        "runtime_status": "BLOCKED",
+        "expected_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json",
+        "network_resolution_set_status": "ALL_ALLOWLISTED_PUBLIC"
+      },
+      "schema_refs": [
+        "PMIRI_GD-R2-04_OUTBOUND_NETWORK_DECISION.schema.json",
+        "PMIRI_GD-R2-04_CONNECTION_BINDING.schema.json"
+      ],
+      "fixture_id": null,
+      "blocked_reason": "Runtime fixtures intentionally blocked pending implementation authorization.",
+      "hard_observable": "Unproven teardown cannot be treated as a safe terminal state."
+    }
+  ],
+  "review_requirements": [
+    "Every required class has one positive and one adversarial scenario linked by coverage_requirements.",
+    "Every scenario names exact local schema or matrix references and either a future fixture_id or a documented blocked_reason.",
+    "No scenario may be marked PASS by prose alone.",
+    "The hard review must compare this matrix with accepted D1 and Gate-C contracts.",
+    "D2 acceptance requires an independent review artifact separate from the author/operator."
+  ],
+  "expected_outcome_contract": {
+    "required_fields": [
+      "operation",
+      "purpose",
+      "action_result",
+      "evidence_state",
+      "content_lifecycle",
+      "reason_class",
+      "required_bindings",
+      "runtime_status",
+      "expected_schema_ref"
+    ],
+    "action_result_is_exact": true,
+    "alternatives_prohibited": true,
+    "runtime_status": "BLOCKED",
+    "properties": {
+      "operation": "canonical operation enum",
+      "purpose": "canonical purpose enum",
+      "action_result": "exact canonical action enum",
+      "evidence_state": "closed tagged union",
+      "content_lifecycle": "canonical lifecycle enum",
+      "reason_class": "canonical reason enum",
+      "required_bindings": "closed binding-name enum array",
+      "runtime_status": "const BLOCKED",
+      "diagnostic_trigger_variant": "non-authorizing diagnostic annotation",
+      "network_resolution_set_status": "optional typed network-set status",
+      "expected_schema_ref": "exact schema filename"
+    }
+  },
+  "expected_outcome_schema_ref": "PMIRI_GD-R2-05_EXPECTED_OUTCOME.schema.json"
+}

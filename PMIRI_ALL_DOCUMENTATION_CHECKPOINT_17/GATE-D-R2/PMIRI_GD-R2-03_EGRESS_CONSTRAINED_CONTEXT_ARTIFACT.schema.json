@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pmiri://schema/gate-d-r2/egress-constrained-context-artifact/0.2",
+  "title": "PMIRI Gate D Round 2 Egress Constrained Context Artifact",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["record_type", "schema_version", "artifact_id", "source_compiled_artifact_ref", "authorization_lineage_ref", "authorization_lineage_fingerprint", "source_evidence_set_ref", "source_evidence_set_fingerprint", "context_intent_ref", "context_intent_fingerprint", "inherited_epistemic_ceiling_ref", "inherited_epistemic_ceiling_fingerprint", "semantic_obligations_ref", "semantic_obligations_fingerprint", "operation", "purpose", "destination_security_binding_ref", "trust_decision_ref", "capability_decision_ref", "redaction_profile_ref", "material_manifest_ref", "authority_manifest_fingerprint", "included_evidence_refs", "excluded_evidence_refs", "transformation_refs", "obligation_impacts", "constraint_refs", "citation_map_ref", "output_fingerprint", "validity_ref"],
+  "properties": {
+    "record_type": {"const": "PMIRI_D2_EGRESS_CONSTRAINED_CONTEXT_ARTIFACT"},
+    "schema_version": {"const": "0.2"},
+    "artifact_id": {"type": "string", "minLength": 1},
+    "source_compiled_artifact_ref": {"type": "string", "minLength": 1},
+    "authorization_lineage_ref": {"type": "string", "minLength": 1},
+    "authorization_lineage_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "source_evidence_set_ref": {"type": "string", "minLength": 1},
+    "source_evidence_set_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "context_intent_ref": {"type": "string", "minLength": 1},
+    "context_intent_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "inherited_epistemic_ceiling_ref": {"type": "string", "minLength": 1},
+    "inherited_epistemic_ceiling_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "semantic_obligations_ref": {"type": "string", "minLength": 1},
+    "semantic_obligations_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "operation": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/operation"},
+    "purpose": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/purpose"},
+    "destination_security_binding_ref": {"type": "string", "minLength": 1},
+    "trust_decision_ref": {"type": "string", "minLength": 1},
+    "capability_decision_ref": {"type": "string", "minLength": 1},
+    "redaction_profile_ref": {"type": "string", "minLength": 1},
+    "material_manifest_ref": {"type": "string", "minLength": 1},
+    "authority_manifest_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "included_evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "excluded_evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "transformation_refs": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "obligation_impacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["obligation_id", "impact", "required_action", "constraint_visible", "reason_class", "constraint_refs"],
+        "properties": {
+          "obligation_id": {"type": "string", "minLength": 1},
+          "impact": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/obligation_impact"},
+          "required_action": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/action_result"},
+          "constraint_visible": {"type": "boolean"},
+          "reason_class": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/reason_class"},
+          "constraint_refs": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+        },
+        "allOf": [
+          {
+            "if": {"properties": {"impact": {"const": "PRESERVED"}}},
+            "then": {"properties": {"required_action": {"const": "ALLOW"}, "reason_class": {"const": "NONE"}, "constraint_visible": {"const": true}, "constraint_refs": {"maxItems": 0}}}
+          },
+          {
+            "if": {"properties": {"impact": {"const": "PRESERVED_WITH_CONSTRAINT"}}},
+            "then": {"properties": {"required_action": {"const": "ALLOW_WITH_CONSTRAINTS"}, "constraint_visible": {"const": true}, "constraint_refs": {"minItems": 1}}}
+          },
+          {
+            "if": {"properties": {"impact": {"const": "WEAKENED"}}},
+            "then": {"properties": {"required_action": {"const": "REQUIRE_REVIEW"}, "constraint_visible": {"const": true}, "constraint_refs": {"minItems": 1}}}
+          },
+          {
+            "if": {"properties": {"impact": {"enum": ["UNSATISFIABLE", "INVALIDATED"]}}},
+            "then": {"properties": {"required_action": {"const": "DENY"}, "constraint_visible": {"const": true}, "constraint_refs": {"minItems": 1}}}
+          },
+          {
+            "if": {"properties": {"impact": {"const": "NOT_APPLICABLE"}}},
+            "then": {"properties": {"required_action": {"const": "ALLOW"}, "reason_class": {"not": {"const": "NONE"}}, "constraint_visible": {"const": true}, "constraint_refs": {"maxItems": 0}}}
+          }
+        ]
+      }
+    },
+    "constraint_refs": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "citation_map_ref": {"type": "string", "minLength": 1},
+    "output_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "validity_ref": {"type": "string", "minLength": 1}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"obligation_impacts": {"contains": {"properties": {"impact": {"enum": ["PRESERVED_WITH_CONSTRAINT", "WEAKENED", "UNSATISFIABLE", "INVALIDATED"]}}}}}},
+      "then": {"properties": {"constraint_refs": {"minItems": 1}}}
+    }
+  ]
+}

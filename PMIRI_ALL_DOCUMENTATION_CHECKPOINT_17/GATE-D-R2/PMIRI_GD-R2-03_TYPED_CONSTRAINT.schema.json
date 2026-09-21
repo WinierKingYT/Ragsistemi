@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pmiri://schema/gate-d-r2/typed-constraint/0.2",
+  "title": "PMIRI Gate D Round 2 Typed Egress Constraint",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["record_type", "schema_version", "constraint_id", "obligation_id", "constraint_kind", "visible_constraint_ref", "bound_action_result", "applies_to_artifact_ref", "citation_map_ref", "policy_version", "authority_manifest_fingerprint", "constraint_fingerprint"],
+  "properties": {
+    "record_type": {"const": "PMIRI_D2_TYPED_CONSTRAINT"},
+    "schema_version": {"const": "0.2"},
+    "constraint_id": {"type": "string", "minLength": 1},
+    "obligation_id": {"type": "string", "minLength": 1},
+    "constraint_kind": {"enum": ["QUALIFIER_PRESERVED", "EVIDENCE_SCOPE_REDUCED", "CITATION_LIMITED", "MATERIAL_CLASS_NARROWED", "FEATURE_NARROWED", "OUTPUT_FORMAT_RESTRICTED", "OTHER"]},
+    "visible_constraint_ref": {"type": "string", "minLength": 1},
+    "bound_action_result": {"enum": ["ALLOW_WITH_CONSTRAINTS", "REQUIRE_REVIEW"]},
+    "applies_to_artifact_ref": {"type": "string", "minLength": 1},
+    "citation_map_ref": {"type": "string", "minLength": 1},
+    "policy_version": {"type": "string", "minLength": 1},
+    "authority_manifest_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"},
+    "constraint_fingerprint": {"$ref": "pmiri://schema/gate-d-r2/decision-vocabulary/0.2#/$defs/sha256"}
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "preflight_id": "PMIRI-GC-C1-05A-PREFLIGHT-001",
+  "spec_version": "0.1",
+  "status": "RECORDED",
+  "runner": {
+    "runner_id": "pmiri-gc-c1-replay",
+    "runner_version": "0.1.0",
+    "source_fingerprint": null,
+    "manifest_fingerprint": "6ca5fe4b1f083644ab899374ef7dd32346873e09370a6c9f042c1f7c96e5db67"
+  },
+  "inputs": {
+    "authority_bundle_fingerprint": "57cef8fa3b0d7b9ea3123aad2622f88e4ee99558a47a276e46c371cb6c197e11",
+    "schema_fingerprint": "39f1f9915142bc75e086069a4ffc47e25c67e8318cbdf0d99d0c44c9d3f1bf7c",
+    "catalog_fingerprint": "e01d75f7d41d701de104a84177343f13205d8c0ac11fb9c20b95f98f46032045",
+    "matrix_fingerprint": "02c7661b8a31bf0f2b8a0c80580a1c34d20d7f613377bbe3ffd6aad0d30ca539"
+  },
+  "selected_fixture_id": "GC-C1-FC01",
+  "selected_case_id": "GC-C1-FC01-P",
+  "environment": {
+    "environment_fingerprint": "ccc384d6d5fcbc802604b3cd23d8808f0b93f4088a22b7b95ca69f5ed09f0275",
+    "network": "UNVERIFIED",
+    "credentials": "UNVERIFIED",
+    "filesystem": "UNVERIFIED",
+    "determinism": "UNVERIFIED",
+    "resource_limits": "UNVERIFIED",
+    "teardown": "UNVERIFIED"
+  },
+  "checks": [
+    {"check_id":"PF-01","severity":"HARD_BLOCK","result":"READY","assertion":"runner identity and version match the declared runner","observation":"Declared runner identity and version match the pinned contract.","evidence_refs":["PMIRI_GC-C1-03_REPLAY_RUNNER_MANIFEST.json"],"observed_fingerprints":["6ca5fe4b1f083644ab899374ef7dd32346873e09370a6c9f042c1f7c96e5db67"]},
+    {"check_id":"PF-02","severity":"HARD_BLOCK","result":"BLOCKED","assertion":"runner source/package fingerprint is present and matches","observation":"No runner source artifact or source fingerprint is available in the workspace.","evidence_refs":["PMIRI_GC-C1-03_REPLAY_RUNNER_MANIFEST.json"],"observed_fingerprints":["6ca5fe4b1f083644ab899374ef7dd32346873e09370a6c9f042c1f7c96e5db67"],"failure_reason":"runner_source_fingerprint_missing"},
+    {"check_id":"PF-03","severity":"HARD_BLOCK","result":"BLOCKED","assertion":"runner manifest parses and its declared fingerprint is recorded","observation":"Manifest parses and has an observed digest, but its declared manifest fingerprint is null in DESIGN_ONLY state.","evidence_refs":["PMIRI_GC-C1-03_REPLAY_RUNNER_MANIFEST.json"],"observed_fingerprints":["6ca5fe4b1f083644ab899374ef7dd32346873e09370a6c9f042c1f7c96e5db67"],"failure_reason":"declared_manifest_fingerprint_missing"},
+    {"check_id":"PF-04","severity":"HARD_BLOCK","result":"READY","assertion":"authority bundle and member hashes are available","observation":"Authority bundle manifest parses and the accepted Gate-C source member hashes are recorded.","evidence_refs":["PMIRI_GC-C1-08_AUTHORITY_BUNDLE_MANIFEST.json"],"observed_fingerprints":["57cef8fa3b0d7b9ea3123aad2622f88e4ee99558a47a276e46c371cb6c197e11"]},
+    {"check_id":"PF-05","severity":"HARD_BLOCK","result":"READY","assertion":"evidence record schema parses and is fingerprinted","observation":"Evidence Record schema parses and its observed digest is available.","evidence_refs":["PMIRI_GC-C1-02_EVIDENCE_RECORD.schema.json"],"observed_fingerprints":["39f1f9915142bc75e086069a4ffc47e25c67e8318cbdf0d99d0c44c9d3f1bf7c"]},
+    {"check_id":"PF-06","severity":"HARD_BLOCK","result":"READY","assertion":"fixture catalog parses and selected fixture is present","observation":"Catalog parses; GC-C1-FC01 and its selected positive case are present.","evidence_refs":["PMIRI_GC-C1-02_REPLAY_FIXTURE_CATALOG.json"],"observed_fingerprints":["e01d75f7d41d701de104a84177343f13205d8c0ac11fb9c20b95f98f46032045"]},
+    {"check_id":"PF-07","severity":"HARD_BLOCK","result":"READY","assertion":"selected case maps to R-FC coverage with positive/adversarial cases","observation":"GC-C1-FC01 maps to R-FC-01 and the catalog contains both positive and adversarial cases.","evidence_refs":["PMIRI_GC-C1-02_REPLAY_FIXTURE_CATALOG.json","PMIRI_GC-C1-05_CONTROLLED_PREFLIGHT_SCENARIO_MATRIX.json"],"observed_fingerprints":["e01d75f7d41d701de104a84177343f13205d8c0ac11fb9c20b95f98f46032045","02c7661b8a31bf0f2b8a0c80580a1c34d20d7f613377bbe3ffd6aad0d30ca539"]},
+    {"check_id":"PF-08","severity":"HARD_BLOCK","result":"BLOCKED","assertion":"clean-room capability is verified","observation":"No isolated runner environment or clean-room attestation is available.","evidence_refs":["PMIRI_GC-C1-05A_PREFLIGHT_ENVIRONMENT_OBSERVATION_001.json"],"observed_fingerprints":["ccc384d6d5fcbc802604b3cd23d8808f0b93f4088a22b7b95ca69f5ed09f0275"],"failure_reason":"clean_room_unverified"},
+    {"check_id":"PF-09","severity":"HARD_BLOCK","result":"BLOCKED","assertion":"network and credentials are denied","observation":"Current environment does not provide verifiable denial evidence.","evidence_refs":["PMIRI_GC-C1-05A_PREFLIGHT_ENVIRONMENT_OBSERVATION_001.json"],"observed_fingerprints":["ccc384d6d5fcbc802604b3cd23d8808f0b93f4088a22b7b95ca69f5ed09f0275"],"failure_reason":"network_credential_denial_unverified"},
+    {"check_id":"PF-10","severity":"HARD_BLOCK","result":"BLOCKED","assertion":"filesystem allowlist is verified","observation":"Current shared workspace is not a verified clean-room allowlist.","evidence_refs":["PMIRI_GC-C1-05A_PREFLIGHT_ENVIRONMENT_OBSERVATION_001.json"],"observed_fingerprints":["ccc384d6d5fcbc802604b3cd23d8808f0b93f4088a22b7b95ca69f5ed09f0275"],"failure_reason":"filesystem_allowlist_unverified"},
+    {"check_id":"PF-11","severity":"HARD_BLOCK","result":"BLOCKED","assertion":"resource limits are configured and enforced","observation":"No executable resource-limit attestation is available.","evidence_refs":["PMIRI_GC-C1-05A_PREFLIGHT_ENVIRONMENT_OBSERVATION_001.json"],"observed_fingerprints":["ccc384d6d5fcbc802604b3cd23d8808f0b93f4088a22b7b95ca69f5ed09f0275"],"failure_reason":"resource_limits_unverified"},
+    {"check_id":"PF-12","severity":"HARD_BLOCK","result":"BLOCKED","assertion":"deterministic runtime settings are verified","observation":"Clock, locale, encoding and seed controls are not proven in an isolated runtime.","evidence_refs":["PMIRI_GC-C1-05A_PREFLIGHT_ENVIRONMENT_OBSERVATION_001.json"],"observed_fingerprints":["ccc384d6d5fcbc802604b3cd23d8808f0b93f4088a22b7b95ca69f5ed09f0275"],"failure_reason":"determinism_unverified"},
+    {"check_id":"PF-13","severity":"HARD_BLOCK","result":"BLOCKED","assertion":"case-scoped output can be sealed","observation":"No sealed output manifest or executable sealing path is available.","evidence_refs":["PMIRI_GC-C1-07_ARTIFACT_MANIFEST.schema.json"],"observed_fingerprints":["df56da48762ce25d83d7856d72555955455217ea4c2e020a829d97e4040c18c5"],"failure_reason":"sealed_output_unavailable"},
+    {"check_id":"PF-14","severity":"HARD_BLOCK","result":"BLOCKED","assertion":"privacy classification and redaction controls are verified","observation":"No runtime privacy/redaction attestation is available.","evidence_refs":["PMIRI_GC-C1-05A_PREFLIGHT_ENVIRONMENT_OBSERVATION_001.json"],"observed_fingerprints":["ccc384d6d5fcbc802604b3cd23d8808f0b93f4088a22b7b95ca69f5ed09f0275"],"failure_reason":"privacy_controls_unverified"},
+    {"check_id":"PF-15","severity":"HARD_BLOCK","result":"READY","assertion":"preflight/evidence schemas are structurally ready","observation":"Required JSON schemas parse and the canonical PF record fields are present.","evidence_refs":["PMIRI_GC-C1-06_PREFLIGHT_RECORD.schema.json","PMIRI_GC-C1-02_EVIDENCE_RECORD.schema.json"],"observed_fingerprints":["8e3e0cdb8edb5f8263e4cc426f7ed6fa0696a364184fda07c50dd059dba185b","39f1f9915142bc75e086069a4ffc47e25c67e8318cbdf0d99d0c44c9d3f1bf7c"]},
+    {"check_id":"PF-16","severity":"HARD_BLOCK","result":"BLOCKED","assertion":"operator and independent reviewer identities are distinct and declared","observation":"No authorized operator/reviewer identity pair has been supplied for runtime review.","evidence_refs":["PMIRI_GC-C1-05_CONTROLLED_PREFLIGHT_EXECUTION_PREPARATION_v0.1.md"],"observed_fingerprints":["b4957a440f5d66ca584c31b1befa7e73ac3e83863a995d653927e6b55b5f67a5"],"failure_reason":"independent_reviewer_not_declared"}
+  ],
+  "artifacts": {
+    "output_fingerprint": null,
+    "artifact_manifest_fingerprint": null,
+    "isolation_attestation_ref": null,
+    "privacy_record_ref": null,
+    "seal_status": "UNSEALED"
+  },
+  "overall_result": "BLOCKED",
+  "captured_at": "2026-09-11T14:12:00Z"
+}

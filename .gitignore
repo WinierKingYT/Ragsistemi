@@ -1,0 +1,38 @@
+# Python environments, caches and build products
+__pycache__/
+*.py[cod]
+.venv*/
+venv/
+env/
+.pytest_cache/
+build/
+dist/
+*.egg-info/
+
+# Local PMIRI state and analysis indexes
+.pmiri/
+.pmiri-*/
+.codebase-memory/
+graphify-out/
+*.sqlite
+*.sqlite3
+*.db
+
+# Local audit output; the reviewed, static evidence reports remain versioned
+artifacts/read-audit.jsonl*
+
+# Generated release copies and iterative package builds
+artifacts/handoff*/
+artifacts/package-*
+
+# The official Python installer is staged separately and is not redistributed
+artifacts/python-3.12.10-amd64.exe
+
+# Credentials and private key material
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+*.p12

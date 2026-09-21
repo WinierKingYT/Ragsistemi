@@ -1,0 +1,193 @@
+{
+  "spec_format": "PMIRI-GC-C1-PREFLIGHT-CHECK-SPEC",
+  "spec_version": "0.1",
+  "status": "DESIGN_ONLY",
+  "tests_executed": false,
+  "implementation_authorization": "NOT_GRANTED",
+  "runner": {
+    "runner_id": "pmiri-gc-c1-replay",
+    "runner_version": "0.1.0",
+    "latest_alias_allowed": false,
+    "self_upgrade_allowed": false
+  },
+  "overall_results": [
+    "READY_FOR_REPLAY",
+    "BLOCKED",
+    "VALIDATION_ERROR",
+    "ISOLATION_VIOLATION"
+  ],
+  "hard_failure_rule": "Any failed hard check prevents replay.",
+  "checks": [
+    {
+      "check_id": "PF-01",
+      "name": "RUNNER_IDENTITY",
+      "severity": "HARD_BLOCK",
+      "assertion": "runner_id equals pmiri-gc-c1-replay and version is present",
+      "failure_result": "BLOCKED",
+      "required_evidence_type": "runner identity/version record",
+      "status_before_execution": "UNVERIFIED"
+    },
+    {
+      "check_id": "PF-02",
+      "name": "RUNNER_PACKAGE_INTEGRITY",
+      "severity": "HARD_BLOCK",
+      "assertion": "runner source/package fingerprint matches declared fingerprint; no self-upgrade",
+      "failure_result": "BLOCKED",
+      "required_evidence_type": "runner package fingerprint",
+      "status_before_execution": "UNVERIFIED"
+    },
+    {
+      "check_id": "PF-03",
+      "name": "MANIFEST_INTEGRITY",
+      "severity": "HARD_BLOCK",
+      "assertion": "manifest format/version parses and fingerprint is recorded",
+      "failure_result": "VALIDATION_ERROR",
+      "required_evidence_type": "manifest validation result",
+      "status_before_execution": "UNVERIFIED"
+    },
+    {
+      "check_id": "PF-04",
+      "name": "AUTHORITY_BUNDLE_INTEGRITY",
+      "severity": "HARD_BLOCK",
+      "assertion": "all exact R1/R2/R3 authority refs exist and SHA-256 fingerprints match",
+      "failure_result": "BLOCKED",
+      "required_evidence_type": "authority fingerprint set",
+      "status_before_execution": "UNVERIFIED"
+    },
+    {
+      "check_id": "PF-05",
+      "name": "SCHEMA_INTEGRITY",
+      "severity": "HARD_BLOCK",
+      "assertion": "Evidence Record schema parses and fingerprint matches",
+      "failure_result": "VALIDATION_ERROR",
+      "required_evidence_type": "schema validation result",
+      "status_before_execution": "UNVERIFIED"
+    },
+    {
+      "check_id": "PF-06",
+      "name": "FIXTURE_CATALOG_INTEGRITY",
+      "severity": "HARD_BLOCK",
+      "assertion": "fixture catalog parses and selected fixture fingerprint matches",
+      "failure_result": "VALIDATION_ERROR",
+      "required_evidence_type": "catalog validation result",
+      "status_before_execution": "UNVERIFIED"
+    },
+    {
+      "check_id": "PF-07",
+      "name": "MATRIX_CATALOG_COVERAGE",
+      "severity": "HARD_BLOCK",
+      "assertion": "selected case maps to R-FC-01..R-FC-17 and positive/adversarial coverage exists",
+      "failure_result": "BLOCKED",
+      "required_evidence_type": "coverage lookup result",
+      "status_before_execution": "UNVERIFIED"
+    },
+    {
+      "check_id": "PF-08",
+      "name": "CLEAN_ROOM_CAPABILITY",
+      "severity": "HARD_BLOCK",
+      "assertion": "fresh root, read-only inputs, scoped output, denied home/repository/shared state, teardown available",
+      "failure_result": "ISOLATION_VIOLATION",
+      "required_evidence_type": "isolation attestation",
+      "status_before_execution": "UNVERIFIED"
+    },
+    {
+      "check_id": "PF-09",
+      "name": "NETWORK_CREDENTIAL_DENIAL",
+      "severity": "HARD_BLOCK",
+      "assertion": "network/connectors denied and no ambient credentials visible",
+      "failure_result": "ISOLATION_VIOLATION",
+      "required_evidence_type": "denial probe result",
+      "status_before_execution": "UNVERIFIED"
+    },
+    {
+      "check_id": "PF-10",
+      "name": "FILESYSTEM_ALLOWLIST",
+      "severity": "HARD_BLOCK",
+      "assertion": "only declared inputs readable and only scoped output writable",
+      "failure_result": "ISOLATION_VIOLATION",
+      "required_evidence_type": "filesystem boundary result",
+      "status_before_execution": "UNVERIFIED"
+    },
+    {
+      "check_id": "PF-11",
+      "name": "RESOURCE_LIMITS",
+      "severity": "HARD_BLOCK",
+      "assertion": "CPU, memory, disk, process-count, and wall-time limits declared and enforceable",
+      "failure_result": "BLOCKED",
+      "required_evidence_type": "resource-limit declaration",
+      "status_before_execution": "UNVERIFIED"
+    },
+    {
+      "check_id": "PF-12",
+      "name": "DETERMINISTIC_RUNTIME",
+      "severity": "HARD_BLOCK",
+      "assertion": "UTF-8, line endings, UTC, locale, sorting, clock, seed, and serialization are pinned",
+      "failure_result": "BLOCKED",
+      "required_evidence_type": "determinism fingerprint",
+      "status_before_execution": "UNVERIFIED"
+    },
+    {
+      "check_id": "PF-13",
+      "name": "OUTPUT_PATH_AND_SEALING",
+      "severity": "HARD_BLOCK",
+      "assertion": "case-scoped output is available and artifact fingerprints can be sealed",
+      "failure_result": "BLOCKED",
+      "required_evidence_type": "output/sealing capability result",
+      "status_before_execution": "UNVERIFIED"
+    },
+    {
+      "check_id": "PF-14",
+      "name": "PRIVACY_CONTROLS",
+      "severity": "HARD_BLOCK",
+      "assertion": "synthetic classification, redaction profile, raw-output handling, and stable fingerprints are available",
+      "failure_result": "BLOCKED",
+      "required_evidence_type": "privacy preflight result",
+      "status_before_execution": "UNVERIFIED"
+    },
+    {
+      "check_id": "PF-15",
+      "name": "EVIDENCE_SCHEMA_READINESS",
+      "severity": "HARD_BLOCK",
+      "assertion": "future evidence record can reference fixture, authority, runner, environment, output, lineage, and review",
+      "failure_result": "VALIDATION_ERROR",
+      "required_evidence_type": "evidence-structure validation result",
+      "status_before_execution": "UNVERIFIED"
+    },
+    {
+      "check_id": "PF-16",
+      "name": "REVIEW_SEPARATION",
+      "severity": "HARD_BLOCK",
+      "assertion": "operator and independent reviewer identities are declared and differ",
+      "failure_result": "BLOCKED",
+      "required_evidence_type": "review identity record",
+      "status_before_execution": "UNVERIFIED"
+    }
+  ],
+  "prohibited": [
+    "execute_R_FC_tests",
+    "assign_R_FC_PASS",
+    "use_latest_alias",
+    "self_upgrade",
+    "download_dependencies",
+    "use_network",
+    "use_ambient_credentials",
+    "read_undeclared_files",
+    "write_outside_case_output",
+    "use_shared_session_or_cache",
+    "change_production_code_or_data"
+  ],
+  "preflight_record_required_fields": [
+    "preflight_id",
+    "spec_version",
+    "status",
+    "runner",
+    "inputs",
+    "selected_fixture_id",
+    "selected_case_id",
+    "environment",
+    "checks",
+    "artifacts",
+    "overall_result",
+    "captured_at"
+  ]
+}
