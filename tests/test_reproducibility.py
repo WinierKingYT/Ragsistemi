@@ -27,6 +27,7 @@ class ReproducibilityTests(unittest.TestCase):
             "$sourceRoot = $env:GITHUB_WORKSPACE",
             "-FilePath $env:GITHUB_ENV",
             "PYTHONPATH=$installTarget;$sourceRoot",
+            "PMIRI_INSTALLED_TARGET=$installTarget",
             "Push-Location $env:RUNNER_TEMP",
             "finally { Pop-Location }",
             "sys.path.remove('')",

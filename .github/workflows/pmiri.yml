@@ -59,6 +59,7 @@ jobs:
           python -m pip install --no-deps --no-index --target $installTarget $wheel.FullName
           $env:PYTHONPATH = "$installTarget;$sourceRoot"
           "PYTHONPATH=$installTarget;$sourceRoot" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          "PMIRI_INSTALLED_TARGET=$installTarget" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           Push-Location $env:RUNNER_TEMP
           try { python -c "import pmiri; print(pmiri.__file__)" }
           finally { Pop-Location }

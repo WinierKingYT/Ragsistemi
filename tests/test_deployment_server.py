@@ -120,6 +120,9 @@ class DeploymentServerTests(unittest.TestCase):
             # Locally, this resolves to the source package and keeps the test
             # runnable without a separate installation step.
             package_root = Path(pmiri.__file__).resolve().parent.parent
+            expected_install = os.environ.get("PMIRI_INSTALLED_TARGET")
+            if expected_install:
+                self.assertEqual(package_root, Path(expected_install).resolve())
             environment["PYTHONPATH"] = str(package_root) + os.pathsep + environment.get("PYTHONPATH", "")
             process = subprocess.Popen(
                 [
