@@ -9,6 +9,7 @@ import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
+import pmiri
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 
@@ -177,7 +178,8 @@ class FinalAcceptanceTests(unittest.TestCase):
             evidence_path, key_path = self._signed_evidence(directory, readiness)
             output_path = directory / "final-gate.json"
             environment = os.environ.copy()
-            environment["PYTHONPATH"] = str(PROJECT_ROOT) + os.pathsep + environment.get("PYTHONPATH", "")
+            package_root = Path(pmiri.__file__).resolve().parent.parent
+            environment["PYTHONPATH"] = str(package_root) + os.pathsep + environment.get("PYTHONPATH", "")
             result = subprocess.run(
                 [
                     sys.executable,
@@ -194,7 +196,7 @@ class FinalAcceptanceTests(unittest.TestCase):
                     "--output",
                     str(output_path),
                 ],
-                cwd=PROJECT_ROOT,
+                cwd=directory,
                 env=environment,
                 capture_output=True,
                 text=True,

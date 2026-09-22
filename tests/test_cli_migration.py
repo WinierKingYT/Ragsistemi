@@ -4,9 +4,12 @@ import json
 import os
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
+
+import pmiri
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -15,10 +18,11 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 class CliMigrationWorkflowTests(unittest.TestCase):
     def _run(self, *arguments: str) -> dict:
         environment = os.environ.copy()
-        environment["PYTHONPATH"] = str(PROJECT_ROOT) + os.pathsep + environment.get("PYTHONPATH", "")
+        package_root = Path(pmiri.__file__).resolve().parent.parent
+        environment["PYTHONPATH"] = str(package_root) + os.pathsep + environment.get("PYTHONPATH", "")
         result = subprocess.run(
             [sys.executable, "-m", "pmiri.cli", *arguments],
-            cwd=PROJECT_ROOT,
+            cwd=Path(tempfile.gettempdir()),
             env=environment,
             capture_output=True,
             text=True,
@@ -68,10 +72,11 @@ class CliMigrationWorkflowTests(unittest.TestCase):
             self.assertEqual(restored_query["evidence"], canary_query["evidence"])
 
             environment = os.environ.copy()
-            environment["PYTHONPATH"] = str(PROJECT_ROOT) + os.pathsep + environment.get("PYTHONPATH", "")
+            package_root = Path(pmiri.__file__).resolve().parent.parent
+            environment["PYTHONPATH"] = str(package_root) + os.pathsep + environment.get("PYTHONPATH", "")
             rollback_attempt = subprocess.run(
                 [sys.executable, "-m", "pmiri.cli", "restore-sqlite", str(backup_store), str(restored_store)],
-                cwd=PROJECT_ROOT,
+                cwd=Path(tempfile.gettempdir()),
                 env=environment,
                 capture_output=True,
                 text=True,

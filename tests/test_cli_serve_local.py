@@ -11,6 +11,7 @@ from http.client import HTTPConnection
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
+import pmiri
 from pmiri.audit import JsonlAuditSink
 from pmiri.integrity import sha256_json
 from pmiri.store import SQLiteStore
@@ -28,7 +29,8 @@ class ServeLocalCliTests(unittest.TestCase):
             audit_path = root / "audit.jsonl"
             SQLiteStore(store_root).initialize()
             environment = os.environ.copy()
-            environment["PYTHONPATH"] = str(PROJECT_ROOT) + os.pathsep + environment.get("PYTHONPATH", "")
+            package_root = Path(pmiri.__file__).resolve().parent.parent
+            environment["PYTHONPATH"] = str(package_root) + os.pathsep + environment.get("PYTHONPATH", "")
             process = subprocess.Popen(
                 [
                     sys.executable,
@@ -43,7 +45,7 @@ class ServeLocalCliTests(unittest.TestCase):
                     "--port",
                     "0",
                 ],
-                cwd=PROJECT_ROOT,
+                cwd=root,
                 env=environment,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
@@ -134,10 +136,11 @@ class ServeLocalCliTests(unittest.TestCase):
             profile_path.write_text(json.dumps(profile), encoding="utf-8")
             SQLiteStore(root / "profile-store").initialize()
             environment = os.environ.copy()
-            environment["PYTHONPATH"] = str(PROJECT_ROOT) + os.pathsep + environment.get("PYTHONPATH", "")
+            package_root = Path(pmiri.__file__).resolve().parent.parent
+            environment["PYTHONPATH"] = str(package_root) + os.pathsep + environment.get("PYTHONPATH", "")
             process = subprocess.Popen(
                 [sys.executable, "-m", "pmiri.cli", "serve-local", "--profile", str(profile_path), "--port", "0"],
-                cwd=PROJECT_ROOT,
+                cwd=root,
                 env=environment,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
