@@ -109,6 +109,7 @@ def build_parser() -> argparse.ArgumentParser:
     deployment_serve.add_argument("--adapter-module", required=True, help="trusted module exposing build_authorization_adapters(config)")
     deployment_serve.add_argument("--adapter-dir", help="directory containing the trusted adapter module")
     deployment_serve.add_argument("--adapter-config", help="JSON object of deployment-owned references")
+    deployment_serve.add_argument("--adapter-sha256", help="expected SHA-256 of the loaded adapter module")
     deployment_serve.add_argument("--port", type=int, default=None)
     deployment_serve.add_argument("--max-request-bytes", type=int, default=None)
 
@@ -335,6 +336,7 @@ def main(argv: list[str] | None = None) -> int:
                 adapter_module=args.adapter_module,
                 adapter_dir=args.adapter_dir,
                 adapter_config=args.adapter_config,
+                adapter_sha256=args.adapter_sha256,
                 port=args.port,
                 max_request_bytes=args.max_request_bytes,
             )

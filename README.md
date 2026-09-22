@@ -146,12 +146,20 @@ module, refuses the local SQLite authorization fallback, and remains
 loopback-only. It does not claim VM/OS isolation, distributed failover, KMS,
 gateway or independent acceptance evidence:
 
+Set `$adapterSha256` to the hash of the exact module file that the adapter
+package loads (the example assumes a top-level `.py` module):
+
+```powershell
+$adapterSha256 = (Get-FileHash C:\controlled\pmiri\adapters\company_pmiri_adapters.py -Algorithm SHA256).Hash.ToLowerInvariant()
+```
+
 ```powershell
 & $py -m pmiri.cli serve-deployment `
   --profile deployment-profile.example.json `
   --adapter-module company_pmiri_adapters `
   --adapter-dir C:\controlled\pmiri\adapters `
-  --adapter-config C:\controlled\pmiri\adapter-config.json
+  --adapter-config C:\controlled\pmiri\adapter-config.json `
+  --adapter-sha256 $adapterSha256
 ```
 
 Probe the same host-native assembly without leaving a long-running process:
@@ -161,12 +169,15 @@ Probe the same host-native assembly without leaving a long-running process:
   --profile C:\controlled\pmiri\profile.json `
   --adapter-module company_pmiri_adapters `
   --adapter-dir C:\controlled\pmiri\adapters `
-  --adapter-config C:\controlled\pmiri\adapter-config.json
+  --adapter-config C:\controlled\pmiri\adapter-config.json `
+  --adapter-sha256 $adapterSha256
 ```
 
 The smoke must report `HOST_NATIVE_DEPLOYMENT_SMOKE_PASS`, `401` for the
 unauthenticated read, and `REJECTED_401_REDACTED` in the audit result. It is a
 loopback assembly check only; it does not create external deployment evidence.
+The launcher records the loaded adapter fingerprint and rejects a supplied hash
+that does not match the loaded module.
 
 `gate-d-smoke` exercises the Gate-D decision and final-emission fence using
 static DNS/TLS observations and an in-memory provider double. It is useful

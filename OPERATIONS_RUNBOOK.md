@@ -216,12 +216,20 @@ authority.
 The selected deployment route is the package-level host-native launcher with
 an explicit deployment-owned adapter contract:
 
+Calculate the fingerprint from the exact module file loaded by the adapter
+package (the example assumes a top-level `.py` module):
+
+```powershell
+$adapterSha256 = (Get-FileHash C:\controlled\pmiri\adapters\company_pmiri_adapters.py -Algorithm SHA256).Hash.ToLowerInvariant()
+```
+
 ```powershell
 & $py -m pmiri.cli serve-deployment `
   --profile C:\controlled\pmiri\profile.json `
   --adapter-module company_pmiri_adapters `
   --adapter-dir C:\controlled\pmiri\adapters `
-  --adapter-config C:\controlled\pmiri\adapter-config.json
+  --adapter-config C:\controlled\pmiri\adapter-config.json `
+  --adapter-sha256 $adapterSha256
 ```
 
 For a bounded start/probe/teardown check, run the host-native smoke helper:
@@ -231,12 +239,15 @@ For a bounded start/probe/teardown check, run the host-native smoke helper:
   --profile C:\controlled\pmiri\profile.json `
   --adapter-module company_pmiri_adapters `
   --adapter-dir C:\controlled\pmiri\adapters `
-  --adapter-config C:\controlled\pmiri\adapter-config.json
+  --adapter-config C:\controlled\pmiri\adapter-config.json `
+  --adapter-sha256 $adapterSha256
 ```
 
 It verifies loopback health and metrics, the redacted unauthenticated `401`
 response and the corresponding audit record, then tears down the process. It
 does not perform external execution or manufacture deployment evidence.
+The expected hash is deployment-owned and should be bound to the transferred
+adapter package; a mismatch stops assembly before the server binds.
 
 This command is only an adapter-injection and loopback assembly path. It does
 not prove VM/OS isolation, deployed identity, distributed failover, KMS/key

@@ -6,6 +6,7 @@ import subprocess
 import sys
 import textwrap
 import unittest
+from hashlib import sha256
 from http.client import HTTPConnection
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -75,10 +76,45 @@ class DeploymentServerTests(unittest.TestCase):
             try:
                 self.assertEqual(startup["status"], "SERVING_LOOPBACK_ONLY")
                 self.assertEqual(startup["adapter_module"], "injected_adapter")
+                expected_fingerprint = sha256((root / "injected_adapter.py").read_bytes()).hexdigest()
+                self.assertEqual(startup["adapter_fingerprint"], expected_fingerprint)
                 self.assertEqual(server.server_address[0], "127.0.0.1")
                 self.assertFalse(control_path.exists())
             finally:
                 server.server_close()
+
+    def test_adapter_fingerprint_mismatch_blocks_before_server_assembly(self):
+        with TemporaryDirectory() as temp:
+            root = Path(temp)
+            SQLiteStore(root / "store").initialize()
+            profile = json.loads((PROJECT_ROOT / "deployment-profile.example.json").read_text(encoding="utf-8"))
+            profile["storage"]["root"] = str(root / "store")
+            profile_path = root / "profile.json"
+            profile_path.write_text(json.dumps(profile), encoding="utf-8")
+            adapter_path = root / "fingerprint_adapter.py"
+            adapter_path.write_text("VALUE = 1\n", encoding="utf-8")
+            with self.assertRaisesRegex(DeploymentConfigurationError, "fingerprint_mismatch"):
+                build_deployment_server(
+                    profile_path,
+                    adapter_module="fingerprint_adapter",
+                    adapter_dir=root,
+                    adapter_sha256="0" * 64,
+                )
+
+    def test_adapter_outside_supplied_directory_is_rejected(self):
+        with TemporaryDirectory() as temp:
+            root = Path(temp)
+            SQLiteStore(root / "store").initialize()
+            profile = json.loads((PROJECT_ROOT / "deployment-profile.example.json").read_text(encoding="utf-8"))
+            profile["storage"]["root"] = str(root / "store")
+            profile_path = root / "profile.json"
+            profile_path.write_text(json.dumps(profile), encoding="utf-8")
+            with self.assertRaisesRegex(DeploymentConfigurationError, "origin_invalid"):
+                build_deployment_server(
+                    profile_path,
+                    adapter_module="pmiri.server",
+                    adapter_dir=root,
+                )
 
     def test_cli_starts_host_native_deployment_process_on_loopback(self):
         with TemporaryDirectory() as temp:

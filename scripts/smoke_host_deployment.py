@@ -49,6 +49,7 @@ def run_host_deployment_smoke(
     adapter_module: str,
     adapter_dir: str | Path | None = None,
     adapter_config: str | Path | None = None,
+    adapter_sha256: str | None = None,
 ) -> dict[str, Any]:
     """Start, probe and tear down one host-native deployment server."""
 
@@ -60,6 +61,7 @@ def run_host_deployment_smoke(
             adapter_module=adapter_module,
             adapter_dir=adapter_dir,
             adapter_config=adapter_config,
+            adapter_sha256=adapter_sha256,
             port=0,
         )
         thread = threading.Thread(target=server.serve_forever, name="pmiri-host-smoke", daemon=True)
@@ -110,6 +112,7 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--adapter-module", required=True, help="module exposing build_authorization_adapters(config)")
     parser.add_argument("--adapter-dir", help="directory containing the adapter module")
     parser.add_argument("--adapter-config", help="JSON object of deployment-owned references")
+    parser.add_argument("--adapter-sha256", help="expected SHA-256 of the loaded adapter module")
     return parser
 
 
@@ -121,6 +124,7 @@ def main() -> int:
             adapter_module=args.adapter_module,
             adapter_dir=args.adapter_dir,
             adapter_config=args.adapter_config,
+            adapter_sha256=args.adapter_sha256,
         )
         events = JsonlAuditSink(result["audit_path"]).read_verified()
         if not events or events[-1].get("outcome") != "REJECTED" or events[-1].get("status_code") != 401:

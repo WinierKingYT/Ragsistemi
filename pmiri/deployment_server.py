@@ -14,7 +14,7 @@ from pathlib import Path
 from types import ModuleType
 from typing import Any, Mapping
 
-from .canonical import sha256_json
+from .canonical import is_sha256, sha256_bytes, sha256_json
 from .readiness import ReadinessContractError, load_profile
 from .server import (
     LocalServerConfigurationError,
@@ -43,6 +43,7 @@ def load_adapter_module(module_name: str, adapter_dir: str | Path | None = None)
 
     if not isinstance(module_name, str) or not _module_name_is_valid(module_name):
         raise DeploymentConfigurationError("adapter_module_name_invalid")
+    adapter_root = None
     if adapter_dir is not None:
         adapter_root = Path(adapter_dir).resolve()
         if not adapter_root.is_dir():
@@ -50,9 +51,29 @@ def load_adapter_module(module_name: str, adapter_dir: str | Path | None = None)
         if str(adapter_root) not in sys.path:
             sys.path.insert(0, str(adapter_root))
     try:
-        return importlib.import_module(module_name)
+        module = importlib.import_module(module_name)
     except Exception as exc:  # adapter import errors must not start a partial server
         raise DeploymentConfigurationError("adapter_module_import_failed") from exc
+    origin = getattr(module, "__file__", None)
+    if not isinstance(origin, str) or not origin:
+        raise DeploymentConfigurationError("adapter_module_origin_missing")
+    origin_path = Path(origin).resolve()
+    if adapter_root is not None and not origin_path.is_relative_to(adapter_root):
+        raise DeploymentConfigurationError("adapter_module_origin_invalid")
+    return module
+
+
+def adapter_module_fingerprint(module: ModuleType) -> str:
+    """Return the SHA-256 of the loaded adapter module source/artifact."""
+
+    origin = getattr(module, "__file__", None)
+    if not isinstance(origin, str) or not origin:
+        raise DeploymentConfigurationError("adapter_module_origin_missing")
+    origin_path = Path(origin).resolve()
+    try:
+        return sha256_bytes(origin_path.read_bytes())
+    except (OSError, ValueError) as exc:
+        raise DeploymentConfigurationError("adapter_module_fingerprint_unavailable") from exc
 
 
 def load_adapter_config(path: str | Path | None, profile_path: Path) -> Mapping[str, Any]:
@@ -77,6 +98,7 @@ def build_deployment_server(
     adapter_module: str,
     adapter_dir: str | Path | None = None,
     adapter_config: str | Path | None = None,
+    adapter_sha256: str | None = None,
     port: int | None = None,
     max_request_bytes: int | None = None,
 ) -> tuple[Any, dict[str, Any]]:
@@ -110,6 +132,10 @@ def build_deployment_server(
         raise DeploymentConfigurationError("api_request_limit_invalid")
 
     module = load_adapter_module(adapter_module, adapter_dir)
+    module_fingerprint = adapter_module_fingerprint(module)
+    if adapter_sha256 is not None:
+        if not is_sha256(adapter_sha256) or module_fingerprint != adapter_sha256.lower():
+            raise DeploymentConfigurationError("adapter_module_fingerprint_mismatch")
     builder = getattr(module, "build_authorization_adapters", None)
     if not callable(builder):
         raise DeploymentConfigurationError("authorization_adapter_builder_missing")
@@ -153,6 +179,7 @@ def build_deployment_server(
         "profile_id": profile["profile_id"],
         "profile_fingerprint": sha256_json(profile),
         "adapter_module": adapter_module,
+        "adapter_fingerprint": module_fingerprint,
         "storage": str(storage_root),
         "control_plane": str(control_plane_path),
         "audit": str(audit_path),
@@ -162,6 +189,7 @@ def build_deployment_server(
 
 __all__ = [
     "DeploymentConfigurationError",
+    "adapter_module_fingerprint",
     "build_deployment_server",
     "load_adapter_config",
     "load_adapter_module",
