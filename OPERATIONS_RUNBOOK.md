@@ -143,6 +143,18 @@ expected IDs and an independent reviewer must approve the review reference:
 }
 ```
 
+Before touching the deployment signing key, validate the observation manifest
+shape and profile binding:
+
+```powershell
+& $py scripts/build_signed_evidence.py validate external `
+  --profile C:\PMIRI\profile.json `
+  --observations C:\controlled\external-observations.json
+```
+
+The command only returns `OBSERVATION_MANIFEST_VALID` or a validation error; it
+does not sign, write evidence or change readiness.
+
 Keep the deployment-owned Ed25519 private key outside the repository. The
 helper refuses to overwrite an existing output, self-verifies the signed
 artifact, and never copies the private key into it:
@@ -161,6 +173,16 @@ For final acceptance, run the `final` subcommand only after readiness reports
 and rejects an invalid or blocked report. Do not place generated evidence or
 private keys in the source tree unless the deployment retention policy
 explicitly requires it.
+
+The final observation manifest can likewise be checked without a signing key:
+
+```powershell
+& $py scripts/build_signed_evidence.py validate final `
+  --project-root C:\PMIRI\source `
+  --profile C:\PMIRI\profile.json `
+  --readiness-report C:\controlled\deployment-readiness-report.json `
+  --observations C:\controlled\final-observations.json
+```
 
 After both signed bundles are available, the complete read-only closure check
 can be run without rewriting candidate artifacts:

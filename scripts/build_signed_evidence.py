@@ -104,6 +104,98 @@ def _observation_fields(value: Any) -> tuple[list[str], str]:
     return refs, observation
 
 
+def _load_external_inputs(profile_path: str | Path, observations_path: str | Path) -> tuple[dict[str, Any], str, str, str, dict[str, Any]]:
+    profile = _read_json(profile_path, "evidence_profile_invalid")
+    try:
+        validate_profile(profile)
+    except ValueError as exc:
+        raise EvidenceBuildError("evidence_profile_invalid") from exc
+    manifest = _read_json(observations_path, "evidence_observation_manifest_invalid")
+    issuer_id, reviewer_id, review_ref, observations = _validate_common_manifest(
+        manifest,
+        "checks",
+        tuple(check_id for check_id, _ in EXTERNAL_REQUIREMENTS),
+    )
+    for check_id, _ in EXTERNAL_REQUIREMENTS:
+        _observation_fields(observations[check_id])
+    return profile, issuer_id, reviewer_id, review_ref, observations
+
+
+def validate_external_observations(profile_path: str | Path, observations_path: str | Path) -> dict[str, Any]:
+    """Validate EXT-01..EXT-06 observations without loading a signing key."""
+
+    profile, _, reviewer_id, review_ref, _ = _load_external_inputs(profile_path, observations_path)
+    return {
+        "artifact_kind": EVIDENCE_KIND,
+        "profile_id": _required_text(profile.get("profile_id"), "evidence_profile_id_invalid"),
+        "profile_fingerprint": sha256_json(profile),
+        "check_ids": [check_id for check_id, _ in EXTERNAL_REQUIREMENTS],
+        "reviewer_id": reviewer_id,
+        "review_evidence_ref": review_ref,
+    }
+
+
+def _load_final_inputs(
+    project_root: str | Path,
+    profile_path: str | Path,
+    readiness_report_path: str | Path,
+    observations_path: str | Path,
+) -> tuple[Path, dict[str, Any], str, str, str, str, dict[str, Any]]:
+    root = Path(project_root).resolve()
+    profile = _read_json(profile_path, "evidence_profile_invalid")
+    try:
+        validate_profile(profile)
+    except ValueError as exc:
+        raise EvidenceBuildError("evidence_profile_invalid") from exc
+    readiness = _read_json(readiness_report_path, "evidence_readiness_report_invalid")
+    readiness_errors = validate_readiness_report(readiness)
+    if readiness_errors or readiness.get("overall_result") != "DEPLOYMENT_READY":
+        raise EvidenceBuildError("evidence_readiness_report_invalid")
+    try:
+        readiness_root = Path(str(readiness["project_root"])).resolve()
+    except (KeyError, OSError, TypeError, ValueError) as exc:
+        raise EvidenceBuildError("evidence_readiness_report_invalid") from exc
+    if readiness_root != root:
+        raise EvidenceBuildError("evidence_readiness_project_root_mismatch")
+    profile_fingerprint = sha256_json(profile)
+    if readiness.get("profile_id") != profile.get("profile_id") or readiness.get("profile_fingerprint") != profile_fingerprint:
+        raise EvidenceBuildError("evidence_readiness_profile_binding_mismatch")
+    readiness_fingerprint = readiness.get("report_fingerprint")
+    if not is_sha256(readiness_fingerprint):
+        raise EvidenceBuildError("evidence_readiness_fingerprint_invalid")
+    manifest = _read_json(observations_path, "evidence_observation_manifest_invalid")
+    issuer_id, reviewer_id, review_ref, observations = _validate_common_manifest(
+        manifest,
+        "assertions",
+        tuple(check_id for check_id, _, _ in FINAL_ACCEPTANCE_ASSERTIONS),
+    )
+    for check_id, _, _ in FINAL_ACCEPTANCE_ASSERTIONS:
+        _observation_fields(observations[check_id])
+    return root, profile, readiness_fingerprint, issuer_id, reviewer_id, review_ref, observations
+
+
+def validate_final_acceptance_observations(
+    project_root: str | Path,
+    profile_path: str | Path,
+    readiness_report_path: str | Path,
+    observations_path: str | Path,
+) -> dict[str, Any]:
+    """Validate FA-02..FA-06 observations without loading a signing key."""
+
+    _, profile, readiness_fingerprint, _, reviewer_id, review_ref, _ = _load_final_inputs(
+        project_root, profile_path, readiness_report_path, observations_path
+    )
+    return {
+        "artifact_kind": FINAL_EVIDENCE_KIND,
+        "profile_id": _required_text(profile.get("profile_id"), "evidence_profile_id_invalid"),
+        "profile_fingerprint": sha256_json(profile),
+        "readiness_report_fingerprint": readiness_fingerprint,
+        "assertion_ids": [check_id for check_id, _, _ in FINAL_ACCEPTANCE_ASSERTIONS],
+        "reviewer_id": reviewer_id,
+        "review_evidence_ref": review_ref,
+    }
+
+
 def _write_new_json(path: str | Path, record: Mapping[str, Any]) -> None:
     destination = Path(path)
     if destination.exists():
@@ -138,17 +230,7 @@ def build_external_evidence(
     """Sign an EXT-01..EXT-06 bundle from a strict observation manifest."""
 
     root = Path(project_root).resolve()
-    profile = _read_json(profile_path, "evidence_profile_invalid")
-    try:
-        validate_profile(profile)
-    except ValueError as exc:
-        raise EvidenceBuildError("evidence_profile_invalid") from exc
-    manifest = _read_json(observations_path, "evidence_observation_manifest_invalid")
-    issuer_id, reviewer_id, review_ref, observations = _validate_common_manifest(
-        manifest,
-        "checks",
-        tuple(check_id for check_id, _ in EXTERNAL_REQUIREMENTS),
-    )
+    profile, issuer_id, reviewer_id, review_ref, observations = _load_external_inputs(profile_path, observations_path)
     private_key = _load_private_key(private_key_path)
     public_key = private_key.public_key().public_bytes(serialization.Encoding.Raw, serialization.PublicFormat.Raw)
     checks = []
@@ -196,34 +278,10 @@ def build_final_acceptance_evidence(
 ) -> dict[str, Any]:
     """Sign FA-02..FA-06 assertions from a strict acceptance manifest."""
 
-    root = Path(project_root).resolve()
-    profile = _read_json(profile_path, "evidence_profile_invalid")
-    try:
-        validate_profile(profile)
-    except ValueError as exc:
-        raise EvidenceBuildError("evidence_profile_invalid") from exc
-    readiness = _read_json(readiness_report_path, "evidence_readiness_report_invalid")
-    readiness_errors = validate_readiness_report(readiness)
-    if readiness_errors or readiness.get("overall_result") != "DEPLOYMENT_READY":
-        raise EvidenceBuildError("evidence_readiness_report_invalid")
-    try:
-        readiness_root = Path(str(readiness["project_root"])).resolve()
-    except (KeyError, OSError, TypeError, ValueError) as exc:
-        raise EvidenceBuildError("evidence_readiness_report_invalid") from exc
-    if readiness_root != root:
-        raise EvidenceBuildError("evidence_readiness_project_root_mismatch")
-    profile_fingerprint = sha256_json(profile)
-    if readiness.get("profile_id") != profile.get("profile_id") or readiness.get("profile_fingerprint") != profile_fingerprint:
-        raise EvidenceBuildError("evidence_readiness_profile_binding_mismatch")
-    readiness_fingerprint = readiness.get("report_fingerprint")
-    if not is_sha256(readiness_fingerprint):
-        raise EvidenceBuildError("evidence_readiness_fingerprint_invalid")
-    manifest = _read_json(observations_path, "evidence_observation_manifest_invalid")
-    issuer_id, reviewer_id, review_ref, observations = _validate_common_manifest(
-        manifest,
-        "assertions",
-        tuple(check_id for check_id, _, _ in FINAL_ACCEPTANCE_ASSERTIONS),
+    root, profile, readiness_fingerprint, issuer_id, reviewer_id, review_ref, observations = _load_final_inputs(
+        project_root, profile_path, readiness_report_path, observations_path
     )
+    profile_fingerprint = sha256_json(profile)
     private_key = _load_private_key(private_key_path)
     public_key = private_key.public_key().public_bytes(serialization.Encoding.Raw, serialization.PublicFormat.Raw)
     assertions = []
@@ -280,12 +338,29 @@ def build_parser() -> argparse.ArgumentParser:
     final.add_argument("--observations", required=True)
     final.add_argument("--private-key", required=True)
     final.add_argument("--output", required=True)
+    validate = subparsers.add_parser("validate", help="validate supplied observations without signing or writing evidence")
+    validate_subparsers = validate.add_subparsers(dest="validation_command", required=True)
+    validate_external = validate_subparsers.add_parser("external", help="validate EXT-01..EXT-06 observations")
+    validate_external.add_argument("--profile", required=True)
+    validate_external.add_argument("--observations", required=True)
+    validate_final = validate_subparsers.add_parser("final", help="validate FA-02..FA-06 observations")
+    validate_final.add_argument("--project-root", required=True)
+    validate_final.add_argument("--profile", required=True)
+    validate_final.add_argument("--readiness-report", required=True)
+    validate_final.add_argument("--observations", required=True)
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     try:
+        if args.command == "validate":
+            if args.validation_command == "external":
+                result = validate_external_observations(args.profile, args.observations)
+            else:
+                result = validate_final_acceptance_observations(args.project_root, args.profile, args.readiness_report, args.observations)
+            print(json.dumps({"status": "OBSERVATION_MANIFEST_VALID", **result}, ensure_ascii=False))
+            return 0
         if args.command == "external":
             result = build_external_evidence(args.project_root, args.profile, args.observations, args.private_key, args.output)
         else:

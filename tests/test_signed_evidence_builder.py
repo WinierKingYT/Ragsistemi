@@ -83,6 +83,15 @@ class SignedEvidenceBuilderTests(unittest.TestCase):
             self.assertEqual(verified.reviewer_id, "independent-reviewer")
             self.assertNotIn(private_key_path.read_bytes().hex(), output.read_text(encoding="utf-8"))
 
+    def test_external_observation_validation_does_not_require_a_signing_key(self):
+        with TemporaryDirectory() as temp:
+            root = Path(temp)
+            profile, profile_path, _, _, observations_path = self._inputs(root)
+            result = self.builder.validate_external_observations(profile_path, observations_path)
+            self.assertEqual(result["artifact_kind"], self.builder.EVIDENCE_KIND)
+            self.assertEqual(result["profile_id"], profile["profile_id"])
+            self.assertEqual(result["check_ids"], [check_id for check_id, _ in EXTERNAL_REQUIREMENTS])
+
     def test_builder_rejects_missing_observation_and_output_overwrite(self):
         with TemporaryDirectory() as temp:
             root = Path(temp)
