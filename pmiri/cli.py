@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import importlib
 import json
+import sys
 from pathlib import Path
 
 from .network import NetworkBoundary
@@ -27,6 +28,7 @@ from .control_plane import SQLiteAuthenticationRegistry, SQLitePolicyEpoch, SQLi
 from .deployment_smoke import run_local_deployment_smoke, write_deployment_smoke
 from .http_api import DEFAULT_MAX_REQUEST_BYTES
 from .server import LocalServerConfigurationError, build_local_read_server
+from .deployment_server import DeploymentConfigurationError, ReadinessContractError, build_deployment_server
 from .handoff import create_handoff_bundle
 from .review_package import build_review_package, validate_review_package, write_review_package
 from .final_acceptance import build_final_acceptance_report, write_final_acceptance_report
@@ -98,6 +100,17 @@ def build_parser() -> argparse.ArgumentParser:
     serve.add_argument("--audit", default=None)
     serve.add_argument("--port", type=int, default=None)
     serve.add_argument("--max-request-bytes", type=int, default=None)
+
+    deployment_serve = sub.add_parser(
+        "serve-deployment",
+        help="serve authenticated reads with explicitly supplied deployment adapters",
+    )
+    deployment_serve.add_argument("--profile", required=True, help="closed JSON deployment profile")
+    deployment_serve.add_argument("--adapter-module", required=True, help="trusted module exposing build_authorization_adapters(config)")
+    deployment_serve.add_argument("--adapter-dir", help="directory containing the trusted adapter module")
+    deployment_serve.add_argument("--adapter-config", help="JSON object of deployment-owned references")
+    deployment_serve.add_argument("--port", type=int, default=None)
+    deployment_serve.add_argument("--max-request-bytes", type=int, default=None)
 
     handoff = sub.add_parser("handoff", help="materialize and verify a clean-room review handoff bundle")
     handoff.add_argument("root", nargs="?", default=".")
@@ -307,6 +320,28 @@ def main(argv: list[str] | None = None) -> int:
             ),
             flush=True,
         )
+        try:
+            server.serve_forever()
+        except KeyboardInterrupt:
+            return 0
+        finally:
+            server.server_close()
+        return 0
+    if args.command == "serve-deployment":
+        server = None
+        try:
+            server, startup = build_deployment_server(
+                args.profile,
+                adapter_module=args.adapter_module,
+                adapter_dir=args.adapter_dir,
+                adapter_config=args.adapter_config,
+                port=args.port,
+                max_request_bytes=args.max_request_bytes,
+            )
+        except (DeploymentConfigurationError, ReadinessContractError) as exc:
+            print(json.dumps({"status": "DEPLOYMENT_BLOCKED", "error": str(exc)}, ensure_ascii=False), file=sys.stderr)
+            return 2
+        print(json.dumps(startup, ensure_ascii=False), flush=True)
         try:
             server.serve_forever()
         except KeyboardInterrupt:

@@ -213,6 +213,21 @@ assembly validates the required adapter surface and policy epoch and refuses
 invalid injection; this seam does not grant public bind, TLS or network
 authority.
 
+When the VM route is intentionally skipped, use the package-level host-native
+launcher with the same explicit adapter contract:
+
+```powershell
+& $py -m pmiri.cli serve-deployment `
+  --profile C:\controlled\pmiri\profile.json `
+  --adapter-module company_pmiri_adapters `
+  --adapter-dir C:\controlled\pmiri\adapters `
+  --adapter-config C:\controlled\pmiri\adapter-config.json
+```
+
+This command is only an adapter-injection and loopback assembly path. It does
+not prove VM/OS isolation, deployed identity, distributed failover, KMS/key
+escrow, real transport, independent review or final acceptance.
+
 The selected deployment target is a Windows VM. Use the executable deployment
 pack in [`deployment/vm/README.md`](deployment/vm/README.md) and its
 `serve_vm.py` launcher for the application VM. It requires an explicit,

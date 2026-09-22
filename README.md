@@ -147,6 +147,19 @@ refuses the local SQLite authorization fallback. It remains loopback-only and
 does not claim VM isolation, distributed failover, KMS, gateway or independent
 acceptance evidence.
 
+If the VM is intentionally skipped, the same adapter contract is available
+from the installed package through `serve-deployment`. It is host-native but
+still binds only to loopback and makes no production-readiness or external
+evidence claim:
+
+```powershell
+& $py -m pmiri.cli serve-deployment `
+  --profile deployment-profile.example.json `
+  --adapter-module company_pmiri_adapters `
+  --adapter-dir C:\controlled\pmiri\adapters `
+  --adapter-config C:\controlled\pmiri\adapter-config.json
+```
+
 `gate-d-smoke` exercises the Gate-D decision and final-emission fence using
 static DNS/TLS observations and an in-memory provider double. It is useful
 runtime enforcement evidence, but it is not external provider authorization,

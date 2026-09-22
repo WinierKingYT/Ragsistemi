@@ -32,6 +32,7 @@ from .server import (
     ServerAuthorizationAdapters,
     build_local_read_server,
 )
+from .deployment_server import DeploymentConfigurationError, build_deployment_server
 from .handoff import HandoffError, create_handoff_bundle, verify_handoff
 from .review_package import ReviewPackageError, build_review_package, validate_review_package
 
@@ -65,6 +66,8 @@ __all__ = [
     "ReplayGuardAdapter",
     "ServerAuthorizationAdapters",
     "build_local_read_server",
+    "DeploymentConfigurationError",
+    "build_deployment_server",
     "HandoffError",
     "create_handoff_bundle",
     "verify_handoff",
