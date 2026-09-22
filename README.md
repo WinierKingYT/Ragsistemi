@@ -154,6 +154,20 @@ gateway or independent acceptance evidence:
   --adapter-config C:\controlled\pmiri\adapter-config.json
 ```
 
+Probe the same host-native assembly without leaving a long-running process:
+
+```powershell
+& $py scripts/smoke_host_deployment.py `
+  --profile C:\controlled\pmiri\profile.json `
+  --adapter-module company_pmiri_adapters `
+  --adapter-dir C:\controlled\pmiri\adapters `
+  --adapter-config C:\controlled\pmiri\adapter-config.json
+```
+
+The smoke must report `HOST_NATIVE_DEPLOYMENT_SMOKE_PASS`, `401` for the
+unauthenticated read, and `REJECTED_401_REDACTED` in the audit result. It is a
+loopback assembly check only; it does not create external deployment evidence.
+
 `gate-d-smoke` exercises the Gate-D decision and final-emission fence using
 static DNS/TLS observations and an in-memory provider double. It is useful
 runtime enforcement evidence, but it is not external provider authorization,
