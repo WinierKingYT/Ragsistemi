@@ -10,6 +10,7 @@ from http.client import HTTPConnection
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
+import pmiri
 from pmiri.audit import JsonlAuditSink
 from pmiri.deployment_server import DeploymentConfigurationError, build_deployment_server
 from pmiri.store import SQLiteStore
@@ -115,7 +116,11 @@ class DeploymentServerTests(unittest.TestCase):
                 encoding="utf-8",
             )
             environment = os.environ.copy()
-            environment["PYTHONPATH"] = str(PROJECT_ROOT) + os.pathsep + environment.get("PYTHONPATH", "")
+            # Run outside the checkout so CI exercises the installed wheel.
+            # Locally, this resolves to the source package and keeps the test
+            # runnable without a separate installation step.
+            package_root = Path(pmiri.__file__).resolve().parent.parent
+            environment["PYTHONPATH"] = str(package_root) + os.pathsep + environment.get("PYTHONPATH", "")
             process = subprocess.Popen(
                 [
                     sys.executable,
@@ -131,7 +136,7 @@ class DeploymentServerTests(unittest.TestCase):
                     "--port",
                     "0",
                 ],
-                cwd=PROJECT_ROOT,
+                cwd=root,
                 env=environment,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
