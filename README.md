@@ -140,17 +140,11 @@ control-plane and audit paths from the profile file when explicit overrides are
 omitted; relative paths resolve beside that profile. Explicit store and
 `--control-plane` arguments remain supported for controlled overrides.
 
-The selected deployment platform is a Windows VM. The executable deployment
-seam is in [`deployment/vm/README.md`](deployment/vm/README.md):
-`deployment/vm/serve_vm.py` requires a deployment-owned adapter module and
-refuses the local SQLite authorization fallback. It remains loopback-only and
-does not claim VM isolation, distributed failover, KMS, gateway or independent
-acceptance evidence.
-
-If the VM is intentionally skipped, the same adapter contract is available
-from the installed package through `serve-deployment`. It is host-native but
-still binds only to loopback and makes no production-readiness or external
-evidence claim:
+The selected deployment path is host-native adapter injection through the
+installed package. `serve-deployment` requires a deployment-owned adapter
+module, refuses the local SQLite authorization fallback, and remains
+loopback-only. It does not claim VM/OS isolation, distributed failover, KMS,
+gateway or independent acceptance evidence:
 
 ```powershell
 & $py -m pmiri.cli serve-deployment `

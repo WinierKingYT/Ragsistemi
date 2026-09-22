@@ -213,8 +213,8 @@ assembly validates the required adapter surface and policy epoch and refuses
 invalid injection; this seam does not grant public bind, TLS or network
 authority.
 
-When the VM route is intentionally skipped, use the package-level host-native
-launcher with the same explicit adapter contract:
+The selected deployment route is the package-level host-native launcher with
+an explicit deployment-owned adapter contract:
 
 ```powershell
 & $py -m pmiri.cli serve-deployment `
@@ -228,13 +228,11 @@ This command is only an adapter-injection and loopback assembly path. It does
 not prove VM/OS isolation, deployed identity, distributed failover, KMS/key
 escrow, real transport, independent review or final acceptance.
 
-The selected deployment target is a Windows VM. Use the executable deployment
-pack in [`deployment/vm/README.md`](deployment/vm/README.md) and its
-`serve_vm.py` launcher for the application VM. It requires an explicit,
-deployment-owned adapter module, so a VM start cannot silently create or use
-the local SQLite authorization fallback. The launcher still binds only to
-`127.0.0.1`; gateway/TLS exposure, KMS/escrow, control-plane failover and
-independent isolation/review evidence remain deployment-owned prerequisites.
+The Windows VM route is intentionally deferred. Its executable deployment pack
+remains available in [`deployment/vm/README.md`](deployment/vm/README.md) for
+a later isolated deployment, but it is not part of the current acceptance
+path. Gateway/TLS exposure, KMS/escrow, control-plane failover and independent
+review evidence remain deployment-owned prerequisites.
 
 Example controlled start:
 
