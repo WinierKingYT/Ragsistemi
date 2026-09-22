@@ -6,9 +6,11 @@ import subprocess
 import sys
 import textwrap
 import unittest
+from http.client import HTTPConnection
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
+from pmiri.audit import JsonlAuditSink
 from pmiri.deployment_server import DeploymentConfigurationError, build_deployment_server
 from pmiri.store import SQLiteStore
 
@@ -142,9 +144,34 @@ class DeploymentServerTests(unittest.TestCase):
                 startup = json.loads(startup_line)
                 self.assertEqual(startup["status"], "SERVING_LOOPBACK_ONLY")
                 self.assertEqual(startup["host"], "127.0.0.1")
-                self.assertGreater(int(startup["port"]), 0)
+                port = int(startup["port"])
+                self.assertGreater(port, 0)
                 self.assertEqual(startup["adapter_module"], "cli_adapter")
                 self.assertFalse(control_path.exists())
+
+                def request(method: str, path: str, body: dict | None = None, headers: dict[str, str] | None = None):
+                    connection = HTTPConnection("127.0.0.1", port, timeout=3)
+                    try:
+                        encoded = None if body is None else json.dumps(body).encode("utf-8")
+                        connection.request(method, path, body=encoded, headers=headers or {})
+                        response = connection.getresponse()
+                        return response.status, json.loads(response.read().decode("utf-8"))
+                    finally:
+                        connection.close()
+
+                status, health = request("GET", "/healthz")
+                self.assertEqual(status, 200)
+                self.assertEqual(health, {"status": "OK", "transport": "LOOPBACK_ONLY"})
+                status, _ = request("GET", "/metrics")
+                self.assertEqual(status, 200)
+                status, denied = request(
+                    "POST",
+                    "/v1/read/search",
+                    {"request_id": "host-deployment-1", "project_constraint": "project", "query": "release"},
+                    {"Content-Type": "application/json"},
+                )
+                self.assertEqual(status, 401)
+                self.assertEqual(denied, {"error": {"code": "REQUEST_REJECTED"}})
             finally:
                 if process.poll() is None:
                     process.terminate()
@@ -154,6 +181,11 @@ class DeploymentServerTests(unittest.TestCase):
                     process.kill()
                     process.wait(timeout=5)
                 process.communicate(timeout=5)
+
+            events = JsonlAuditSink(audit_path).read_verified()
+            self.assertEqual(len(events), 1)
+            self.assertEqual(events[0]["outcome"], "REJECTED")
+            self.assertEqual(events[0]["status_code"], 401)
 
 
 if __name__ == "__main__":
