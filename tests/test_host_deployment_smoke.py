@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import subprocess
 import sys
 import textwrap
@@ -26,6 +27,65 @@ class HostDeploymentSmokeTests(unittest.TestCase):
         )
         self.assertEqual(completed.returncode, 0, completed.stderr)
         self.assertIn("Smoke the PMIRI host-native deployment assembly", completed.stdout)
+
+    def test_cli_process_runs_host_native_smoke_with_bound_adapter(self):
+        with TemporaryDirectory() as temp:
+            root = Path(temp)
+            store_root = root / "store"
+            audit_path = root / "audit.jsonl"
+            SQLiteStore(store_root).initialize()
+            profile = json.loads((PROJECT_ROOT / "deployment-profile.example.json").read_text(encoding="utf-8"))
+            profile["storage"]["root"] = str(store_root)
+            profile["control_plane"]["path"] = str(root / "deployment-owned.db")
+            profile["api"]["audit_path"] = str(audit_path)
+            profile_path = root / "profile.json"
+            profile_path.write_text(json.dumps(profile), encoding="utf-8")
+            adapter_path = root / "host_adapter.py"
+            adapter_path.write_text(
+                textwrap.dedent(
+                    """
+                    from pmiri.request_auth import FixedWindowRateLimiter, ReplayGuard
+                    from pmiri.server import ServerAuthorizationAdapters
+
+                    class Registry:
+                        def resolve(self, authentication_ref): return None
+                        def register(self, principal): pass
+                        def revoke(self, authentication_ref): pass
+
+                    class Epoch:
+                        def get(self): return 0
+                        def advance(self, new_epoch): pass
+
+                    def build_authorization_adapters(config):
+                        return ServerAuthorizationAdapters(Registry(), ReplayGuard(), FixedWindowRateLimiter(), Epoch())
+                    """
+                ).strip()
+                + "\n",
+                encoding="utf-8",
+            )
+            completed = subprocess.run(
+                [
+                    sys.executable,
+                    str(PROJECT_ROOT / "scripts" / "smoke_host_deployment.py"),
+                    "--profile",
+                    str(profile_path),
+                    "--adapter-module",
+                    "host_adapter",
+                    "--adapter-dir",
+                    str(root),
+                    "--adapter-sha256",
+                    hashlib.sha256(adapter_path.read_bytes()).hexdigest(),
+                ],
+                cwd=PROJECT_ROOT,
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(completed.returncode, 0, completed.stderr)
+            result = json.loads(completed.stdout)
+            self.assertEqual(result["status"], "HOST_NATIVE_DEPLOYMENT_SMOKE_PASS")
+            self.assertEqual(result["unauthenticated_read_status"], 401)
+            self.assertEqual(result["teardown"], "PROCESS_STOPPED_IN_FINALLY")
 
     def test_host_native_smoke_checks_loopback_rejection_and_audit(self):
         with TemporaryDirectory() as temp:
