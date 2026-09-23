@@ -86,7 +86,7 @@ is the operator-facing handoff sequence and evidence inventory.
   the current test paths might not import.
 - A clean isolated exact-lock validation environment is materialized under
   `.venv-pmiri-exact`. Its lock checker passes, and the release-candidate
-  pipeline completes the full suite with `Ran 216 tests ... OK`.
+  pipeline completes the full suite with `Ran 217 tests ... OK`.
 - The default host environment mismatch is explicit: `attrs`, `cffi`,
   `cryptography`, `jsonschema`, `rpds-py`, `setuptools`, `typing-extensions`,
   and `wheel` do not match the locked versions. Candidate release commands

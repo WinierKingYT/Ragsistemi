@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import subprocess
+import sys
 import textwrap
 import unittest
 from pathlib import Path
@@ -14,6 +16,17 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
 class HostDeploymentSmokeTests(unittest.TestCase):
+    def test_direct_script_entrypoint_can_load_source_package(self):
+        completed = subprocess.run(
+            [sys.executable, str(PROJECT_ROOT / "scripts" / "smoke_host_deployment.py"), "--help"],
+            cwd=PROJECT_ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        self.assertIn("Smoke the PMIRI host-native deployment assembly", completed.stdout)
+
     def test_host_native_smoke_checks_loopback_rejection_and_audit(self):
         with TemporaryDirectory() as temp:
             root = Path(temp)

@@ -11,10 +11,17 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 import threading
 from http.client import HTTPConnection
 from pathlib import Path
 from typing import Any
+
+# Keep the documented ``python scripts/smoke_host_deployment.py`` form usable
+# from a source checkout.  Python otherwise places only ``scripts`` on
+# sys.path, so the sibling ``pmiri`` package cannot be imported.
+if __package__ in {None, ""}:
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from pmiri.audit import JsonlAuditSink
 from pmiri.deployment_server import DeploymentConfigurationError, build_deployment_server
