@@ -148,6 +148,17 @@ class SignedEvidenceBuilderTests(unittest.TestCase):
             }
             observations_path = root / "final-observations.json"
             observations_path.write_text(json.dumps(observations), encoding="utf-8")
+            keyless_validation = self.builder.validate_final_acceptance_observations(
+                PROJECT_ROOT,
+                profile_path,
+                readiness_path,
+                observations_path,
+            )
+            self.assertEqual(keyless_validation["artifact_kind"], self.builder.FINAL_EVIDENCE_KIND)
+            self.assertEqual(
+                keyless_validation["assertion_ids"],
+                [check_id for check_id, _, _ in FINAL_ACCEPTANCE_ASSERTIONS],
+            )
             output = root / "final-evidence.json"
             result = self.builder.build_final_acceptance_evidence(
                 PROJECT_ROOT,
