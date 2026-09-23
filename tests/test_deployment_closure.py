@@ -3,6 +3,8 @@ from __future__ import annotations
 import base64
 import importlib.util
 import json
+import subprocess
+import sys
 import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -110,6 +112,27 @@ class DeploymentClosureTests(unittest.TestCase):
         self.assertEqual(result["status"], "DEPLOYMENT_CLOSURE_BLOCKED")
         self.assertEqual(result["readiness"]["result"], "DEPLOYMENT_READY")
         self.assertEqual(result["final_acceptance"]["reason"], "final_evidence_and_public_key_required")
+
+    def test_closure_cli_preserves_external_blockers_and_nonzero_exit(self):
+        completed = subprocess.run(
+            [
+                sys.executable,
+                str(SCRIPT_PATH),
+                "--project-root",
+                str(PROJECT_ROOT),
+                "--profile",
+                str(PROFILE_PATH),
+            ],
+            cwd=PROJECT_ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(completed.returncode, 1, completed.stderr)
+        result = json.loads(completed.stdout)
+        self.assertEqual(result["status"], "DEPLOYMENT_CLOSURE_BLOCKED")
+        self.assertEqual(result["readiness"]["blocked_checks"], [f"EXT-0{index}" for index in range(1, 7)])
+        self.assertEqual(result["final_acceptance"]["reason"], "readiness_not_ready")
 
     def test_closure_verifies_final_evidence_against_current_readiness(self):
         profile = load_profile(PROFILE_PATH)
