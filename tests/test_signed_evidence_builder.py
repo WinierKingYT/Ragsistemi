@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import subprocess
+import sys
 import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -159,6 +161,28 @@ class SignedEvidenceBuilderTests(unittest.TestCase):
                 keyless_validation["assertion_ids"],
                 [check_id for check_id, _, _ in FINAL_ACCEPTANCE_ASSERTIONS],
             )
+            cli_validation = subprocess.run(
+                [
+                    sys.executable,
+                    str(BUILDER_PATH),
+                    "validate",
+                    "final",
+                    "--project-root",
+                    str(PROJECT_ROOT),
+                    "--profile",
+                    str(profile_path),
+                    "--readiness-report",
+                    str(readiness_path),
+                    "--observations",
+                    str(observations_path),
+                ],
+                cwd=PROJECT_ROOT,
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(cli_validation.returncode, 0, cli_validation.stderr)
+            self.assertEqual(json.loads(cli_validation.stdout)["status"], "OBSERVATION_MANIFEST_VALID")
             output = root / "final-evidence.json"
             result = self.builder.build_final_acceptance_evidence(
                 PROJECT_ROOT,
